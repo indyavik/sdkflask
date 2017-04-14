@@ -1,0 +1,1133 @@
+{
+    "meta": {
+        "most_recent_commit": "acc98f895077de92dffc8291a9e8e51ab7f97e5c",
+        "most_recent_commit_date": "2017-04-03T18:50:31Z"
+    },
+    "existing_projects": {
+        "web": {
+            "files": [
+                "arm-web/2015-04-01/swagger/Domains.json",
+                "arm-web/2016-08-01/swagger/WebApps.json",
+                "arm-web/2016-09-01/swagger/AppServiceEnvironments.json",
+                "arm-web/2015-08-01/swagger/AppServiceCertificateOrders.json",
+                "arm-web/2015-04-01/swagger/TopLevelDomains.json",
+                "arm-web/2016-03-01/swagger/DeletedWebApps.json",
+                "arm-web/2016-03-01/swagger/Certificates.json",
+                "arm-web/2016-09-01/swagger/AppServicePlans.json",
+                "arm-web/2016-03-01/swagger/ResourceProvider.json"
+            ],
+            "nuget_days_ago": "31 days, 0:00:00",
+            "change_type": "Swagger Update - Composite Project",
+            "nuget_date": "2017-03-03T06:18:36.4530000",
+            "azure_folder": "arm-web",
+            "oldest_commit": "2017-03-13,21 days ago ",
+            "commit_sha": [
+                [
+                    "c570e3968470a630ed0b1cebb50d0f2cdfd7b193",
+                    "956bc0da56440f488db5a0af2cf90e9573da4484"
+                ],
+                [
+                    "97046c766a81f605e65eb4e99016dbaebdcb4303",
+                    "c570e3968470a630ed0b1cebb50d0f2cdfd7b193",
+                    "956bc0da56440f488db5a0af2cf90e9573da4484",
+                    "764daaf05af4a11380a6b2525a992b1a2f478731"
+                ],
+                [
+                    "97046c766a81f605e65eb4e99016dbaebdcb4303",
+                    "c570e3968470a630ed0b1cebb50d0f2cdfd7b193",
+                    "956bc0da56440f488db5a0af2cf90e9573da4484",
+                    "764daaf05af4a11380a6b2525a992b1a2f478731"
+                ],
+                [
+                    "c570e3968470a630ed0b1cebb50d0f2cdfd7b193",
+                    "956bc0da56440f488db5a0af2cf90e9573da4484",
+                    "764daaf05af4a11380a6b2525a992b1a2f478731"
+                ],
+                [
+                    "c570e3968470a630ed0b1cebb50d0f2cdfd7b193",
+                    "956bc0da56440f488db5a0af2cf90e9573da4484"
+                ],
+                [
+                    "97046c766a81f605e65eb4e99016dbaebdcb4303",
+                    "c570e3968470a630ed0b1cebb50d0f2cdfd7b193",
+                    "f2aa005f29e98c226cbeaf27c82b42491e6a0ab1",
+                    "956bc0da56440f488db5a0af2cf90e9573da4484",
+                    "764daaf05af4a11380a6b2525a992b1a2f478731"
+                ],
+                [
+                    "c570e3968470a630ed0b1cebb50d0f2cdfd7b193",
+                    "956bc0da56440f488db5a0af2cf90e9573da4484"
+                ],
+                [
+                    "97046c766a81f605e65eb4e99016dbaebdcb4303",
+                    "c570e3968470a630ed0b1cebb50d0f2cdfd7b193",
+                    "956bc0da56440f488db5a0af2cf90e9573da4484"
+                ],
+                [
+                    "c570e3968470a630ed0b1cebb50d0f2cdfd7b193",
+                    "956bc0da56440f488db5a0af2cf90e9573da4484",
+                    "764daaf05af4a11380a6b2525a992b1a2f478731"
+                ]
+            ],
+            "swagger_update": [
+                "arm-web/2015-04-01/swagger/Domains.json",
+                "arm-web/2016-08-01/swagger/WebApps.json",
+                "arm-web/2016-09-01/swagger/AppServiceEnvironments.json",
+                "arm-web/2015-08-01/swagger/AppServiceCertificateOrders.json",
+                "arm-web/2015-04-01/swagger/TopLevelDomains.json",
+                "arm-web/2016-03-01/swagger/DeletedWebApps.json",
+                "arm-web/2016-03-01/swagger/Certificates.json",
+                "arm-web/2016-09-01/swagger/AppServicePlans.json",
+                "arm-web/2016-03-01/swagger/ResourceProvider.json"
+            ],
+            "file_dates": [
+                [
+                    "2017-03-21T19:39:49Z",
+                    "2017-03-17T20:31:11Z"
+                ],
+                [
+                    "2017-03-13T19:25:06Z",
+                    "2017-03-21T19:39:49Z",
+                    "2017-03-17T20:31:11Z",
+                    "2017-03-17T02:11:17Z"
+                ],
+                [
+                    "2017-03-13T19:25:06Z",
+                    "2017-03-21T19:39:49Z",
+                    "2017-03-17T20:31:11Z",
+                    "2017-03-17T02:11:17Z"
+                ],
+                [
+                    "2017-03-21T19:39:49Z",
+                    "2017-03-17T20:31:11Z",
+                    "2017-03-17T02:11:17Z"
+                ],
+                [
+                    "2017-03-21T19:39:49Z",
+                    "2017-03-17T20:31:11Z"
+                ],
+                [
+                    "2017-03-13T19:25:06Z",
+                    "2017-03-21T19:39:49Z",
+                    "2017-03-17T21:20:01Z",
+                    "2017-03-17T20:31:11Z",
+                    "2017-03-17T02:11:17Z"
+                ],
+                [
+                    "2017-03-21T19:39:49Z",
+                    "2017-03-17T20:31:11Z"
+                ],
+                [
+                    "2017-03-13T19:25:06Z",
+                    "2017-03-21T19:39:49Z",
+                    "2017-03-17T20:31:11Z"
+                ],
+                [
+                    "2017-03-21T19:39:49Z",
+                    "2017-03-17T20:31:11Z",
+                    "2017-03-17T02:11:17Z"
+                ]
+            ],
+            "nuget_version": "1.6.0-preview",
+            "number_swaggers_updated": 9
+        },
+        "network": {
+            "files": [
+                "arm-network/2016-12-01/swagger/virtualNetworkGateway.json",
+                "arm-network/compositeNetworkClient.json",
+                "arm-network/2017-03-01/swagger/networkWatcher.json",
+                "arm-network/2017-03-01/swagger/applicationGateway.json",
+                "arm-network/2017-03-01/swagger/serviceCommunity.json",
+                "arm-network/2017-03-01/swagger/routeFilter.json",
+                "arm-network/2017-03-01/swagger/vmssNetworkInterface.json",
+                "arm-network/2017-03-01/swagger/loadBalancer.json",
+                "arm-network/2017-03-01/swagger/virtualNetwork.json",
+                "arm-network/2017-03-01/swagger/expressRouteCircuit.json",
+                "arm-network/2017-03-01/swagger/routeTable.json",
+                "arm-network/2017-03-01/swagger/virtualNetworkGateway.json",
+                "arm-network/2017-03-01/swagger/usage.json",
+                "arm-network/2017-03-01/swagger/network.json",
+                "arm-network/2017-03-01/swagger/networkInterface.json",
+                "arm-network/2017-03-01/swagger/publicIpAddress.json",
+                "arm-network/2017-03-01/swagger/networkSecurityGroup.json",
+                "arm-network/2017-03-01/swagger/checkDnsAvailability.json"
+            ],
+            "nuget_days_ago": "5 days, 0:00:00",
+            "change_type": "Swagger Update - Composite Project",
+            "nuget_date": "2017-03-29T21:10:05.2930000",
+            "azure_folder": "arm-network",
+            "oldest_commit": "2017-03-13,21 days ago ",
+            "commit_sha": [
+                [
+                    "539c9ff8644ada0de4e35311b9428735ff8f3e00",
+                    "d74f48e3f68ff393ac53af1f70962e5d2f21f3b1",
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "7c15291058438543f73b965ecab0b904229623d6",
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "539c9ff8644ada0de4e35311b9428735ff8f3e00",
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ],
+                [
+                    "d5d33d90a2d5b9dbd2ed1ba39410e84da76ae0fa"
+                ]
+            ],
+            "swagger_update": [
+                "arm-network/2016-12-01/swagger/virtualNetworkGateway.json",
+                "arm-network/compositeNetworkClient.json",
+                "arm-network/2017-03-01/swagger/networkWatcher.json",
+                "arm-network/2017-03-01/swagger/applicationGateway.json",
+                "arm-network/2017-03-01/swagger/serviceCommunity.json",
+                "arm-network/2017-03-01/swagger/routeFilter.json",
+                "arm-network/2017-03-01/swagger/vmssNetworkInterface.json",
+                "arm-network/2017-03-01/swagger/loadBalancer.json",
+                "arm-network/2017-03-01/swagger/virtualNetwork.json",
+                "arm-network/2017-03-01/swagger/expressRouteCircuit.json",
+                "arm-network/2017-03-01/swagger/routeTable.json",
+                "arm-network/2017-03-01/swagger/virtualNetworkGateway.json",
+                "arm-network/2017-03-01/swagger/usage.json",
+                "arm-network/2017-03-01/swagger/network.json",
+                "arm-network/2017-03-01/swagger/networkInterface.json",
+                "arm-network/2017-03-01/swagger/publicIpAddress.json",
+                "arm-network/2017-03-01/swagger/networkSecurityGroup.json",
+                "arm-network/2017-03-01/swagger/checkDnsAvailability.json"
+            ],
+            "file_dates": [
+                [
+                    "2017-03-27T03:07:04Z",
+                    "2017-03-13T20:47:14Z",
+                    "2017-03-17T02:11:41Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-28T00:12:11Z",
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-27T03:07:04Z",
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ],
+                [
+                    "2017-03-18T00:35:13Z"
+                ]
+            ],
+            "nuget_version": "10.0.0-preview",
+            "number_swaggers_updated": 18
+        },
+        "machinelearning": {
+            "files": [
+                "arm-machinelearning/2017-01-01/swagger/webservices.json"
+            ],
+            "nuget_days_ago": "31 days, 0:00:00",
+            "change_type": "New Folder",
+            "nuget_date": "2017-03-03T05:44:58.0730000",
+            "new_folder": "2017-01-01",
+            "azure_folder": "arm-machinelearning",
+            "oldest_commit": "2017-03-31,3 days ago ",
+            "commit_sha": [
+                [
+                    "17824f2e14ffc916331445a80029da7dbb0bc987"
+                ]
+            ],
+            "file_dates": [
+                [
+                    "2017-03-31T16:49:56Z"
+                ]
+            ],
+            "nuget_version": "0.10.0-preview"
+        },
+        "containerregistry": {
+            "files": [
+                "arm-containerregistry/2017-03-01/swagger/containerregistry.json"
+            ],
+            "nuget_days_ago": "11 days, 0:00:00",
+            "change_type": "New Folder",
+            "nuget_date": "2017-03-23T21:51:15.2400000",
+            "new_folder": "2017-03-01",
+            "azure_folder": "arm-containerregistry",
+            "oldest_commit": "2017-03-16,18 days ago ",
+            "commit_sha": [
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "3b0b26b4b6e3bc5e7cf3610b0866d310abb5b814"
+                ]
+            ],
+            "file_dates": [
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-16T17:27:05Z"
+                ]
+            ],
+            "nuget_version": "1.2.0-preview"
+        },
+        "monitor.data": {
+            "files": [
+                "monitor/2015-04-01/swagger/eventCategories_API.json",
+                "monitor/2014-04-01/swagger/usageMetrics_API.json",
+                "monitor/2015-04-01/swagger/activityLogs_API.json",
+                "monitor/2016-03-01/swagger/metricDefinitions_API.json",
+                "monitor/2016-09-01/swagger/metrics_API.json",
+                "monitor/2015-04-01/swagger/tenantActivityLogs_API.json"
+            ],
+            "nuget_days_ago": "N.A.",
+            "change_type": "Swagger Update - Composite Project",
+            "azure_folder": "monitor",
+            "oldest_commit": "2017-03-16,18 days ago ",
+            "commit_sha": [
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "23e7033be6a379360a343163641ab1292a9fc70f"
+                ],
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "23e7033be6a379360a343163641ab1292a9fc70f"
+                ],
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "23e7033be6a379360a343163641ab1292a9fc70f"
+                ],
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "23e7033be6a379360a343163641ab1292a9fc70f"
+                ],
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "23e7033be6a379360a343163641ab1292a9fc70f"
+                ],
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "23e7033be6a379360a343163641ab1292a9fc70f"
+                ]
+            ],
+            "swagger_update": [
+                "monitor/2015-04-01/swagger/eventCategories_API.json",
+                "monitor/2014-04-01/swagger/usageMetrics_API.json",
+                "monitor/2015-04-01/swagger/activityLogs_API.json",
+                "monitor/2016-03-01/swagger/metricDefinitions_API.json",
+                "monitor/2016-09-01/swagger/metrics_API.json",
+                "monitor/2015-04-01/swagger/tenantActivityLogs_API.json"
+            ],
+            "file_dates": [
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-16T16:53:49Z"
+                ],
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-16T16:53:49Z"
+                ],
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-16T16:53:49Z"
+                ],
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-16T16:53:49Z"
+                ],
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-16T16:53:49Z"
+                ],
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-16T16:53:49Z"
+                ]
+            ],
+            "nuget_version": "N.A.",
+            "number_swaggers_updated": 6
+        },
+        "monitor.mgmt": {
+            "files": [
+                "arm-monitor/2016-03-01/swagger/logProfiles_API.json",
+                "arm-monitor/2015-07-01/swagger/diagnosticsSettings_API.json",
+                "arm-monitor/2015-04-01/swagger/autoscale_API.json",
+                "arm-monitor/2016-03-01/swagger/alertRules_API.json",
+                "arm-monitor/2016-03-01/swagger/alertRulesIncidents_API.json"
+            ],
+            "nuget_days_ago": "N.A.",
+            "change_type": "Swagger Update - Composite Project",
+            "azure_folder": "arm-monitor",
+            "oldest_commit": "2017-03-16,18 days ago ",
+            "commit_sha": [
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "23e7033be6a379360a343163641ab1292a9fc70f"
+                ],
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "23e7033be6a379360a343163641ab1292a9fc70f"
+                ],
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "23e7033be6a379360a343163641ab1292a9fc70f"
+                ],
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "23e7033be6a379360a343163641ab1292a9fc70f"
+                ],
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "23e7033be6a379360a343163641ab1292a9fc70f"
+                ]
+            ],
+            "swagger_update": [
+                "arm-monitor/2016-03-01/swagger/logProfiles_API.json",
+                "arm-monitor/2015-07-01/swagger/diagnosticsSettings_API.json",
+                "arm-monitor/2015-04-01/swagger/autoscale_API.json",
+                "arm-monitor/2016-03-01/swagger/alertRules_API.json",
+                "arm-monitor/2016-03-01/swagger/alertRulesIncidents_API.json"
+            ],
+            "file_dates": [
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-16T16:53:49Z"
+                ],
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-16T16:53:49Z"
+                ],
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-16T16:53:49Z"
+                ],
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-16T16:53:49Z"
+                ],
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-16T16:53:49Z"
+                ]
+            ],
+            "nuget_version": "N.A.",
+            "number_swaggers_updated": 5
+        },
+        "redis": {
+            "files": [
+                "arm-redis/2016-04-01/swagger/redis.json"
+            ],
+            "nuget_days_ago": "31 days, 0:00:00",
+            "change_type": "CompositeStatus",
+            "nuget_date": "2017-03-03T06:14:31.0500000",
+            "azure_folder": "arm-redis",
+            "oldest_commit": "2017-03-14,20 days ago ",
+            "commit_sha": [
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "65fa4a68a0b49c8afae9d39d95be754f8d1290cf"
+                ]
+            ],
+            "file_dates": [
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-14T23:08:24Z"
+                ]
+            ],
+            "change_status": "From Composite to Non Composite",
+            "nuget_version": "4.3.0-preview",
+            "use_swagger": ""
+        },
+        "batch": {
+            "files": [
+                "batch/2017-01-01.4.0/swagger/BatchService.json"
+            ],
+            "nuget_days_ago": "N.A.",
+            "change_type": "Swagger Update",
+            "azure_folder": "batch",
+            "oldest_commit": "2017-03-31,3 days ago ",
+            "commit_sha": [
+                [
+                    "b9eb5a8af37f59d7b05ad6579d5f723a4e08e9a4"
+                ]
+            ],
+            "swagger_behind": 1,
+            "swagger_update": "BatchService.json",
+            "file_dates": [
+                [
+                    "2017-03-31T18:02:43Z"
+                ]
+            ],
+            "nuget_version": "N.A."
+        },
+        "resources.resources": {
+            "files": [
+                "arm-resources/resources/2016-09-01/swagger/resources.json"
+            ],
+            "nuget_days_ago": "31 days, 0:00:00",
+            "change_type": "Swagger Update",
+            "nuget_date": "2017-03-03T06:14:43.9270000",
+            "azure_folder": "arm-resources/resources",
+            "oldest_commit": "2017-03-16,18 days ago ",
+            "commit_sha": [
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "ad92406dca510015dcb2f3496246a9f8bca0c220"
+                ]
+            ],
+            "swagger_behind": 2,
+            "swagger_update": "resources.json",
+            "file_dates": [
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-16T18:27:27Z"
+                ]
+            ],
+            "nuget_version": "1.5.0-preview"
+        },
+        "eventhub": {
+            "files": [
+                "arm-eventhub/2015-08-01/swagger/EventHub.json"
+            ],
+            "nuget_days_ago": "30 days, 0:00:00",
+            "change_type": "Swagger Update",
+            "nuget_date": "2017-03-04T00:05:19.7970000",
+            "azure_folder": "arm-eventhub",
+            "oldest_commit": "2017-03-13,21 days ago ",
+            "commit_sha": [
+                [
+                    "02a778b4004c137545ba1ff2eabca90586e3cd2e",
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01"
+                ]
+            ],
+            "swagger_behind": 2,
+            "swagger_update": "EventHub.json",
+            "file_dates": [
+                [
+                    "2017-03-13T23:39:29Z",
+                    "2017-03-17T02:11:41Z"
+                ]
+            ],
+            "nuget_version": "1.1.0"
+        },
+        "trafficmanager": {
+            "files": [
+                "arm-trafficmanager/2017-03-01/swagger/trafficmanager.json"
+            ],
+            "nuget_days_ago": "12 days, 0:00:00",
+            "change_type": "New Folder",
+            "nuget_date": "2017-03-22T09:16:40.6230000",
+            "new_folder": "2017-03-01",
+            "azure_folder": "arm-trafficmanager",
+            "oldest_commit": "2017-03-14,20 days ago ",
+            "commit_sha": [
+                [
+                    "de329d29da710e81d038075927b7ac7ed2c5bba3",
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "776baa315cfda36195fe4b7f38f56e6fa34f1819"
+                ]
+            ],
+            "file_dates": [
+                [
+                    "2017-03-14T11:55:55Z",
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-14T23:16:55Z"
+                ]
+            ],
+            "nuget_version": "1.1.0 "
+        },
+        "sql": {
+            "files": [
+                "arm-sql/2015-05-01-preview/swagger/failoverGroups.json",
+                "arm-sql/2014-04-01/swagger/firewallRules.json",
+                "arm-sql/2014-04-01/swagger/capabilities.json",
+                "arm-sql/2014-04-01/swagger/importExport.json",
+                "arm-sql/2014-04-01/swagger/sql.core.json",
+                "arm-sql/2015-05-01-preview/swagger/blobAuditingPolicies.json",
+                "arm-sql/compositeSql.json",
+                "arm-sql/2014-04-01/swagger/replicationLinks.json",
+                "arm-sql/2015-05-01-preview/swagger/serverSecurityAlertPolicies.json",
+                "arm-sql/2014-04-01/swagger/databaseSecurityAlertPolicies.json"
+            ],
+            "nuget_days_ago": "11 days, 0:00:00",
+            "change_type": "Swagger Update - Composite Project",
+            "nuget_date": "2017-03-23T19:56:06.5530000",
+            "azure_folder": "arm-sql",
+            "oldest_commit": "2017-03-11,23 days ago ",
+            "commit_sha": [
+                [
+                    "29bd2d0e405ba7704275220baf7d6912dc09263a"
+                ],
+                [
+                    "8d6c3cfab0ceebd4e718d67cf96967ed104ca340",
+                    "ea6f23abf7fa658daf7b2b43557411847107116a",
+                    "ea48f5627d9cd1964b19ce2571ebdc8f22262d93"
+                ],
+                [
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "7d9b6c018d9de2b7de189ea8658963ef8d3bc41b"
+                ],
+                [
+                    "59f13b5240da7091e6d4a55bfdd79191901420ea",
+                    "9a760de9c3eccef7459212c783f75599b37613c5",
+                    "8d6c3cfab0ceebd4e718d67cf96967ed104ca340",
+                    "ea6f23abf7fa658daf7b2b43557411847107116a",
+                    "ea48f5627d9cd1964b19ce2571ebdc8f22262d93"
+                ],
+                [
+                    "0d62469f9de90a07686ae78b609918e4de9de04f",
+                    "ea6f23abf7fa658daf7b2b43557411847107116a",
+                    "ea48f5627d9cd1964b19ce2571ebdc8f22262d93",
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "7d9b6c018d9de2b7de189ea8658963ef8d3bc41b"
+                ],
+                [
+                    "0d62469f9de90a07686ae78b609918e4de9de04f",
+                    "35c08ed0c7ce0ec3ac7d5ec00617f82ac5114a32",
+                    "94e1a24c0952538af8ec908d78b2f3affb97753a",
+                    "3df9729e7cbb720bd8643c114ef2708e437340a6",
+                    "c6b1c4b4bde7221a2cd7feeef875b519c6b244d3",
+                    "8d6c3cfab0ceebd4e718d67cf96967ed104ca340",
+                    "ea6f23abf7fa658daf7b2b43557411847107116a",
+                    "ea48f5627d9cd1964b19ce2571ebdc8f22262d93",
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01"
+                ],
+                [
+                    "29bd2d0e405ba7704275220baf7d6912dc09263a",
+                    "0d62469f9de90a07686ae78b609918e4de9de04f",
+                    "c6b1c4b4bde7221a2cd7feeef875b519c6b244d3",
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "7d9b6c018d9de2b7de189ea8658963ef8d3bc41b"
+                ],
+                [
+                    "29bd2d0e405ba7704275220baf7d6912dc09263a",
+                    "8d6c3cfab0ceebd4e718d67cf96967ed104ca340",
+                    "ea6f23abf7fa658daf7b2b43557411847107116a",
+                    "ea48f5627d9cd1964b19ce2571ebdc8f22262d93"
+                ],
+                [
+                    "c6b1c4b4bde7221a2cd7feeef875b519c6b244d3"
+                ],
+                [
+                    "0d62469f9de90a07686ae78b609918e4de9de04f",
+                    "9ac0a2f3a48d84d2a0d22185e2f5c1897e9776b1",
+                    "35c08ed0c7ce0ec3ac7d5ec00617f82ac5114a32",
+                    "94e1a24c0952538af8ec908d78b2f3affb97753a",
+                    "3df9729e7cbb720bd8643c114ef2708e437340a6",
+                    "8d6c3cfab0ceebd4e718d67cf96967ed104ca340",
+                    "ea6f23abf7fa658daf7b2b43557411847107116a",
+                    "ea48f5627d9cd1964b19ce2571ebdc8f22262d93",
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01"
+                ]
+            ],
+            "swagger_update": [
+                "arm-sql/2015-05-01-preview/swagger/failoverGroups.json",
+                "arm-sql/2014-04-01/swagger/firewallRules.json",
+                "arm-sql/2014-04-01/swagger/capabilities.json",
+                "arm-sql/2014-04-01/swagger/importExport.json",
+                "arm-sql/2014-04-01/swagger/sql.core.json",
+                "arm-sql/2015-05-01-preview/swagger/blobAuditingPolicies.json",
+                "arm-sql/compositeSql.json",
+                "arm-sql/2014-04-01/swagger/replicationLinks.json",
+                "arm-sql/2015-05-01-preview/swagger/serverSecurityAlertPolicies.json",
+                "arm-sql/2014-04-01/swagger/databaseSecurityAlertPolicies.json"
+            ],
+            "file_dates": [
+                [
+                    "2017-03-30T20:20:00Z"
+                ],
+                [
+                    "2017-03-17T23:24:34Z",
+                    "2017-03-17T20:31:23Z",
+                    "2017-03-17T17:05:25Z"
+                ],
+                [
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-17T00:45:09Z"
+                ],
+                [
+                    "2017-03-30T20:20:25Z",
+                    "2017-03-21T01:33:36Z",
+                    "2017-03-17T23:24:34Z",
+                    "2017-03-17T20:31:23Z",
+                    "2017-03-17T17:05:25Z"
+                ],
+                [
+                    "2017-03-14T16:59:05Z",
+                    "2017-03-17T20:31:23Z",
+                    "2017-03-17T17:05:25Z",
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-17T00:45:09Z"
+                ],
+                [
+                    "2017-03-14T16:59:05Z",
+                    "2017-03-12T02:27:57Z",
+                    "2017-03-12T02:13:38Z",
+                    "2017-03-12T02:06:02Z",
+                    "2017-03-11T02:30:39Z",
+                    "2017-03-17T23:24:34Z",
+                    "2017-03-17T20:31:23Z",
+                    "2017-03-17T17:05:25Z",
+                    "2017-03-17T02:11:41Z"
+                ],
+                [
+                    "2017-03-30T20:20:00Z",
+                    "2017-03-14T16:59:05Z",
+                    "2017-03-11T02:30:39Z",
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-17T00:45:09Z"
+                ],
+                [
+                    "2017-03-30T20:20:00Z",
+                    "2017-03-17T23:24:34Z",
+                    "2017-03-17T20:31:23Z",
+                    "2017-03-17T17:05:25Z"
+                ],
+                [
+                    "2017-03-11T02:30:39Z"
+                ],
+                [
+                    "2017-03-14T16:59:05Z",
+                    "2017-03-14T02:34:09Z",
+                    "2017-03-12T02:27:57Z",
+                    "2017-03-12T02:13:38Z",
+                    "2017-03-12T02:06:02Z",
+                    "2017-03-17T23:24:34Z",
+                    "2017-03-17T20:31:23Z",
+                    "2017-03-17T17:05:25Z",
+                    "2017-03-17T02:11:41Z"
+                ]
+            ],
+            "nuget_version": "1.2.0-preview",
+            "number_swaggers_updated": 10
+        },
+        "servicebus": {
+            "files": [
+                "arm-servicebus/2015-08-01/swagger/servicebus.json"
+            ],
+            "nuget_days_ago": "31 days, 0:00:00",
+            "change_type": "Swagger Update",
+            "nuget_date": "2017-03-03T06:17:46.7130000",
+            "azure_folder": "arm-servicebus",
+            "oldest_commit": "2017-03-14,20 days ago ",
+            "commit_sha": [
+                [
+                    "dfd0ac4a584e718d2f63d1672434160a6cba517a",
+                    "0a43fa23599e36172b5bfd085f5e4d0637198cb3",
+                    "974114c8654a1e6168df5e2a3f969d77dfccfe01",
+                    "809d3fdd42e9a26619e5b7f531fdbd8442b8e371",
+                    "fa2dd247c8cd6c6babb8f14c4b5441310c973aa2"
+                ]
+            ],
+            "swagger_behind": 5,
+            "swagger_update": "servicebus.json",
+            "file_dates": [
+                [
+                    "2017-03-27T17:56:26Z",
+                    "2017-03-21T18:59:46Z",
+                    "2017-03-17T02:11:41Z",
+                    "2017-03-14T21:16:21Z",
+                    "2017-03-14T17:03:55Z"
+                ]
+            ],
+            "nuget_version": "0.1.0-preview"
+        },
+        "datalake.analytics.catalog": {
+            "files": [
+                "arm-datalake-analytics/catalog/2016-11-01/swagger/catalog.json"
+            ],
+            "nuget_days_ago": "82 days, 0:00:00",
+            "change_type": "Swagger Update",
+            "nuget_date": "2017-01-11T18:21:10.4900000",
+            "azure_folder": "arm-datalake-analytics/catalog",
+            "oldest_commit": "2017-03-29,5 days ago ",
+            "commit_sha": [
+                [
+                    "1257d04ddfe03521d83d73627a1897d570e09037"
+                ]
+            ],
+            "swagger_behind": 1,
+            "swagger_update": "catalog.json",
+            "file_dates": [
+                [
+                    "2017-03-29T21:46:01Z"
+                ]
+            ],
+            "nuget_version": "2.0.0"
+        }
+    },
+    "new_projects": {
+        "arm-automation": {
+            "is_composite": "Yes",
+            "commits": [
+                "ae757f5f2101673feabe4d11be87101453207747"
+            ],
+            "swagger": "arm-automation/compositeAutomation.json",
+            "latest_folder": "2015-10-31",
+            "commit_dates": [
+                "2017-03-13T16:04:45Z"
+            ]
+        },
+        "arm-analysisservices": {
+            "is_composite": "No",
+            "commits": [
+                "978bff3f32440334ea2a7914622a277177aa087c",
+                "9a2ef7dae01bfec68d61cebba2111d77e1dbc0a5",
+                "1eb2008b17a2e4c16966a61ffd82f68532475b6b",
+                "f934dd3d8f4c61a4f7d84b3cb0099624d5e06ea4",
+                "5c856287d8a2e4c1e4ac03256c4cf9a324398b83",
+                "00c9f7d41df7d4613765011f0ad6b5b534763b59",
+                "866230fc4a3bde6a292d874463304342628c6607",
+                "666b6bfb6ba5d91d484c59f5b6f95ec1b587185c",
+                "895ba16aa0c8a4d32186dc514b97c58c4d3b5c2d",
+                "dc0268413e92691c8809bc14f752ecafc68a7749",
+                "f22aaad1ec4218856eb64515ec5215af202401ee"
+            ],
+            "swagger": "arm-analysisservices/2016-05-16/swagger/analysisservices.json",
+            "latest_folder": "2016-05-16",
+            "commit_dates": [
+                "2017-03-01T17:21:29Z",
+                "2017-01-14T02:30:36Z",
+                "2016-12-21T00:23:53Z",
+                "2016-11-13T20:56:28Z",
+                "2016-11-13T20:39:17Z",
+                "2016-10-21T22:43:39Z",
+                "2016-10-21T18:41:26Z",
+                "2016-10-19T19:27:33Z",
+                "2016-10-19T18:38:25Z",
+                "2016-10-19T18:34:56Z",
+                "2016-10-19T00:55:45Z"
+            ]
+        },
+        "arm-servicefabric": {
+            "is_composite": "No",
+            "commits": [
+                "c683f6510a689e1629adb5d8e9e21848c68f2ca3",
+                "13dee0c45f4ac20ba3f339f367e944bcbba06ffd"
+            ],
+            "swagger": "arm-servicefabric/2016-09-01/swagger/servicefabric.json",
+            "latest_folder": "2016-09-01",
+            "commit_dates": [
+                "2017-03-30T21:36:03Z",
+                "2017-03-17T19:40:04Z"
+            ]
+        },
+        "arm-customer-insights": {
+            "is_composite": "No",
+            "commits": [
+                "e383daf1e156ecc84123b6fd127f060e5e839ee9",
+                "148277e8e55ee708096a959da0c4a11ca308fc99"
+            ],
+            "swagger": "arm-customer-insights/2017-01-01/swagger/customer-insights.json",
+            "latest_folder": "2017-01-01",
+            "commit_dates": [
+                "2017-02-14T19:22:21Z",
+                "2017-01-28T04:07:09Z"
+            ]
+        },
+        "arm-recoveryservices": {
+            "is_composite": "Yes",
+            "commits": [
+                "08f0f317ccb89b86f552232bd8fce02f98889463",
+                "ddaf1b13b5ed7b6e6e550ddc8c19f2e5fe3e0bf7",
+                "bd58a9496b29df353a8cbd5838140de1efbe3b69"
+            ],
+            "swagger": "arm-recoveryservices/compositeRecoveryServicesClient.json",
+            "latest_folder": "2016-06-01",
+            "commit_dates": [
+                "2017-03-30T23:11:39Z",
+                "2017-03-27T21:59:37Z",
+                "2017-03-27T16:52:52Z"
+            ]
+        },
+        "servicefabric": {
+            "is_composite": "No",
+            "commits": [
+                "9daa8e2258f44b9d1a3724b247deaea60ed46168",
+                "3015ce5ae2617550067e9ad6bac6535990575df1",
+                "e3eedaed2c09b399e9afa597913af0ed1949ab6c",
+                "290a1897950ffbc74a986589306485cf92dd6304",
+                "bc1ce0e59543600ae608e016e23609482e204aa3",
+                "6fb31d65efb1013c068e5e516b8785a4bf728606",
+                "b923746e04ef0076e868a8bc6c12839ebf5f616a",
+                "c7c4d30d4cff52edfa8a69bf11d299f86cf2891e",
+                "9180d4b9e4cb2ebcff070d2b679329ff1b9bbebe",
+                "ed07dc99cc0f41d4b5e5d7d38a689ac9a80b8a2e",
+                "264846f01824fd097ddea25eed99ef24edfca8b2",
+                "c086f3df5fde9edbd860c9c85e31fdc4eaf96f43",
+                "fb4ccbaae5c016d44755c6f79d6ee9065e62c199",
+                "a681e012e80f5cb7847fdfefc9d059d4f8ac9f54",
+                "06db3678dc526cd359fe326d678d6780c88e0019",
+                "ccaf3bdc31b196b322a3c95313c87611fcb6b529",
+                "d1d04c5a4883350db3d1905e2f1fc42cf9f0bb99",
+                "f714da3b6be84e1cf5c757e7834de2a5ac8aa671",
+                "0baff2ae9330b47348159b43071b2ccd8f198564"
+            ],
+            "swagger": "servicefabric/2016-01-28/swagger/servicefabric.json",
+            "latest_folder": "2016-01-28",
+            "commit_dates": [
+                "2017-02-17T17:20:09Z",
+                "2017-02-04T19:20:46Z",
+                "2016-12-21T01:04:38Z",
+                "2016-09-22T18:07:02Z",
+                "2016-09-22T03:06:55Z",
+                "2016-09-19T18:23:25Z",
+                "2016-09-17T00:15:00Z",
+                "2016-09-15T22:07:54Z",
+                "2016-09-15T17:39:43Z",
+                "2016-09-14T21:54:01Z",
+                "2016-09-14T20:22:01Z",
+                "2016-09-09T22:23:10Z",
+                "2016-09-08T22:06:57Z",
+                "2016-09-08T02:07:25Z",
+                "2016-09-02T22:39:48Z",
+                "2016-09-01T23:58:58Z",
+                "2016-09-01T23:55:12Z",
+                "2016-03-26T21:06:24Z",
+                "2016-03-26T21:04:56Z"
+            ]
+        },
+        "arm-mobileengagement": {
+            "is_composite": "No",
+            "commits": [
+                "edd184db2075ab6af123c3a1ae43718017f25081",
+                "d05ff09dd1fc1285bcadd1690a71fb4ae75ee43c",
+                "02b6274d211d00465246be354e95964c31d962a7",
+                "2dbbd79be24658286963f75179231fa713a1717f",
+                "4181e4442dad2639f74f2f73942dfa6c077fd84d",
+                "48bc044a6288328f0d3e545eb099a4732d97820f",
+                "bf8ed074eabeb2e5799f91ec28bd19a2d8288ff1",
+                "9593b1b5cbb72af01bddb89715dccd7acf6102b8",
+                "7fe6a85c90aa611dc014fad04710384431ec0359",
+                "51685a41aef12076c087598b44f29c8930dae4de",
+                "98795260b449c65edf38764c8fe38089b1a132d8",
+                "7aa7740b9d158a736ccbcf75bd2a3bbbe7ee3f56",
+                "ef806c5944f84846bd5379454deeff1037b8f797",
+                "9e85f358510f83e06427a8d0a01897d6a1504d47"
+            ],
+            "swagger": "arm-mobileengagement/2014-12-01/swagger/mobile-engagement.json",
+            "latest_folder": "2014-12-01",
+            "commit_dates": [
+                "2016-12-13T19:18:16Z",
+                "2016-07-25T17:12:31Z",
+                "2016-06-16T21:51:43Z",
+                "2016-06-13T21:15:01Z",
+                "2016-04-20T00:22:00Z",
+                "2016-03-26T14:59:19Z",
+                "2016-03-26T14:04:52Z",
+                "2016-03-12T18:06:03Z",
+                "2016-03-10T01:33:37Z",
+                "2016-03-01T19:47:19Z",
+                "2016-02-11T21:48:47Z",
+                "2016-02-05T21:49:41Z",
+                "2016-01-28T00:15:33Z",
+                "2016-01-27T22:43:58Z"
+            ]
+        },
+        "arm-billing": {
+            "is_composite": "No",
+            "commits": [
+                "ed4a7c5427117c2233f2aa54905d649c26e9a344"
+            ],
+            "swagger": "arm-billing/2017-02-27-preview/swagger/billing.json",
+            "latest_folder": "2017-02-27-preview",
+            "commit_dates": [
+                "2017-02-18T02:44:41Z"
+            ]
+        },
+        "insights": {
+            "is_composite": "Yes",
+            "commits": [
+                "b1ee4141749bd42c7888afedf3b148e32c5e7534",
+                "c7574a07191ef70ca68c64f69db84470a39a3c17",
+                "79775effd649d42cc203c63581f4e4e12f46d756"
+            ],
+            "swagger": "insights/compositeInsightsClient.json",
+            "latest_folder": "2014-04-01",
+            "commit_dates": [
+                "2016-10-03T19:58:34Z",
+                "2016-09-20T17:37:55Z",
+                "2016-09-17T03:10:58Z"
+            ]
+        },
+        "arm-insights": {
+            "is_composite": "Yes",
+            "commits": [
+                "23b6f7062da434d3c07fcea8bc51a0383b4cd0bf",
+                "b1ee4141749bd42c7888afedf3b148e32c5e7534",
+                "c7574a07191ef70ca68c64f69db84470a39a3c17",
+                "79775effd649d42cc203c63581f4e4e12f46d756",
+                "45f44ddad1bf69feff611dcacd2f17fe610a8eaf"
+            ],
+            "swagger": "arm-insights/compositeInsightsManagementClient.json",
+            "latest_folder": "2015-04-01",
+            "commit_dates": [
+                "2016-11-16T23:11:58Z",
+                "2016-10-03T19:58:34Z",
+                "2016-09-20T17:37:55Z",
+                "2016-09-17T03:10:58Z",
+                "2016-09-15T17:00:26Z"
+            ]
+        },
+        "arm-apimanagement": {
+            "is_composite": "Yes",
+            "commits": [
+                "b59e088d03f253ddd98751c29695e308ee0ed300"
+            ],
+            "swagger": "arm-apimanagement/compositeApiManagementClient.json",
+            "latest_folder": "2016-07-07",
+            "commit_dates": [
+                "2017-03-23T18:16:59Z"
+            ]
+        },
+        "arm-service-map": {
+            "is_composite": "No",
+            "commits": [
+                "97108efb20d34aec6d90450b733521de213979f0",
+                "f634de210835e8df6c80aa857536e7c2a3301b04"
+            ],
+            "swagger": "arm-service-map/2015-11-01-preview/swagger/arm-service-map.json",
+            "latest_folder": "2015-11-01-preview",
+            "commit_dates": [
+                "2017-03-13T18:22:23Z",
+                "2017-02-02T20:28:56Z"
+            ]
+        },
+        "arm-advisor": {
+            "is_composite": "No",
+            "commits": [
+                "ca4fbf186161f3766297fe0ef2c026e3f1c3f428"
+            ],
+            "swagger": "arm-advisor/2016-07-12-preview/swagger/advisor.json",
+            "latest_folder": "2016-07-12-preview",
+            "commit_dates": [
+                "2017-03-09T01:02:28Z"
+            ]
+        },
+        "arm-relay": {
+            "is_composite": "No",
+            "commits": [
+                "ab558496b600d801cb35bbb0b679239711dd61e7",
+                "3dfb498c563a63f87e4f73eb4fdfb9ddaa655682",
+                "683ad4140c4ffdbda25ac4d1fab974033f91e3e1"
+            ],
+            "swagger": "arm-relay/2016-07-01/swagger/relay.json",
+            "latest_folder": "2016-07-01",
+            "commit_dates": [
+                "2017-03-30T01:18:51Z",
+                "2017-03-28T01:12:16Z",
+                "2017-03-13T20:13:52Z"
+            ]
+        },
+        "arm-storageimportexport": {
+            "is_composite": "No",
+            "commits": [
+                "db94c6746a5502ee6656e3c22edd7fd8478bb0fc",
+                "adf69f0857d6d39d61d79b8b07870fcca942c08b"
+            ],
+            "swagger": "arm-storageimportexport/2016-11-01/swagger/storageimportexport.json",
+            "latest_folder": "2016-11-01",
+            "commit_dates": [
+                "2017-04-03T17:29:31Z",
+                "2016-12-14T00:25:12Z"
+            ]
+        },
+        "arm-recoveryservicesbackup": {
+            "is_composite": "Yes",
+            "commits": [
+                "188c597d6e87fede4a3b0048ddff3fbfdb7cfd4c"
+            ],
+            "swagger": "arm-recoveryservicesbackup/compositeRecoveryServicesBackupClient.json",
+            "latest_folder": "2016-06-01",
+            "commit_dates": [
+                "2016-10-20T16:25:22Z"
+            ]
+        },
+        "arm-operationalinsights": {
+            "is_composite": "Yes",
+            "commits": [
+                "a2afb19c0d17535c1d0c3ebf05258e25375fc5a3"
+            ],
+            "swagger": "arm-operationalinsights/compositeOperationalInsights.json",
+            "latest_folder": "2015-03-20",
+            "commit_dates": [
+                "2017-01-26T18:04:52Z"
+            ]
+        }
+    }
+}
