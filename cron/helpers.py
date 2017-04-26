@@ -1,5 +1,5 @@
 import os, json,shutil
-import requests, jinja2
+import requests
 import random
 from bs4 import BeautifulSoup
 from time import gmtime, strftime
@@ -385,6 +385,9 @@ def get_swagger_updates_v2(azure_api_swagger_path, git_url=None, current_date=No
     #current_sha = base_data['current_version']
 
     """
+    if not current_date:
+        current_date ='2017-04-01' 
+
     #object to return 
     changes= {}
     changes['file_dates'] = []
@@ -557,7 +560,7 @@ def get_new_project_details(new_projects_list, git_url=None):
 #def get_existing_changes(sdk_map, current_project_details, git_url=None):
 ##EXISTING CHANGES ###
 
-def get_existing_changes_v2(swagger_to_sdk_config_file_name =None, sdk_url=None, git_url=None, assumed_current_date=None):
+def get_existing_changes_v2(sdk_map, swagger_to_sdk_config_file_name =None, sdk_url=None, git_url=None, assumed_current_date=None):
     
     """
     sdk_url = https://api.github.com/repos/Azure/azure-sdk-for-python/
@@ -706,7 +709,7 @@ def get_existing_changes_v2(swagger_to_sdk_config_file_name =None, sdk_url=None,
                         else:
                             #get the current sha of from the recent date. 
 
-                            changes = get_swagger_updates_v2(current_swagger_path, git_url=git_url, current_date=current_date)
+                            changes = get_swagger_updates_v2(current_swagger_path, git_url=git_url, current_date=c_recent_date)
 
                             if changes['swagger_behind'] >0:
                                 changes['change_type'] = "SwaggerUpdate"
@@ -719,7 +722,7 @@ def get_existing_changes_v2(swagger_to_sdk_config_file_name =None, sdk_url=None,
                 if not c_swagger:
                         print (azure_api_name + 'swagger not found')
                 else:
-                    changes = get_swagger_updates_v2(current_swagger_path, git_url=git_url, current_date=current_date)
+                    changes = get_swagger_updates_v2(current_swagger_path, git_url=git_url, current_date=c_recent_date)
                     if changes['swagger_behind'] >0:
                         changes['change_type'] = "SwaggerUpdate"
                         existing_changes[i]['changes'] = changes

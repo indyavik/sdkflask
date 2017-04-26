@@ -164,8 +164,10 @@
                             {% for p in new_projects %}
                             <tr>
 
-                                <td style="font-weight: bold;"> {{ p }}</td>
+                            <td>
 
+                                <span style="background-color: pink;"> <a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ p }}" target="_blank" > {{ p }} </a>  </span> 
+                            </td>
                                 <td> {{ new_projects[p].is_composite }}</td>
                                 <td> {{ new_projects[p].swagger }}</td>
                                 <td><span style="font-size:10px;">{{ new_projects[p].oldest_commit}}</span></td>
@@ -210,7 +212,7 @@
 
                             <tr id="changed">
 
-                                <td style="font-weight: bold;"><span class="project glyphicon glyphicon-star"></span><span class="project"><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ k }}" target="_blank" > {{ k }}</a></span> </td>
+                                <td style="font-weight: bold;"><span class="project glyphicon glyphicon-star"></span><span class="project"><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ meta.azure_api_name }}" target="_blank" > {{ k }}</a></span> </td>
 
                                 {% if e.change_type == "Folder" %}
 
@@ -272,7 +274,7 @@
                             {% else %}
 
                             <tr id="unchanged" class="unchanged">
-                                <td style="font-weight: bold;"><span class="project"><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ k }}" target="_blank" > {{ k }}</a></span> </td>
+                                <td style="font-weight: bold;"><span class="project"><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ meta.azure_api_name }}" target="_blank" > {{ k }}</a></span> </td>
 
                                 <td>{{ "No Change" }}</td>
 
