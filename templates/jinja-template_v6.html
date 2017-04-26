@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            /*font-size: 10px; */
+        }
+        
+        html,
+        body,
+        .container,
+        .sideBar,
+        .content {
+            height: 100%;
+        }
+        
+        h1 {
+            height: 50px;
+            line-height: 50px;
+        }
+        
+        .container {
+            margin-top: -50px;
+            padding-top: 50px;
+            box-sizing: border-box;
+            width: 100% !important;
+            height: 1000px;
+        }
+        
+        .sideBar {
+            float: left;
+            width: 150px;
+            background-color: #4F628E;
+        }
+        
+        .content {
+            overflow: hidden;
+            /* background: #efefef; */
+            overflow-y: auto;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+        
+        .inner {
+            margin: 10px 10px 10px 10px;
+        }
+        
+        .title {
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .project {
+            color: blue;
+            margin-left: 5px;
+        }
+        
+        .leftm {
+            margin-left: 5px;
+        }
+        
+        .panel {
+            font-size: 16px;
+        }
+        /* credit : bootsnip */
+        
+        .badgebox {
+            opacity: 0;
+        }
+        
+        .badgebox+.badge {
+            /* Move the check mark away when unchecked */
+            text-indent: -999999px;
+            /* Makes the badge's width stay the same checked and unchecked */
+            width: 27px;
+        }
+        
+        .badgebox:focus+.badge {
+            /* Set something to make the badge looks focused */
+            /* This really depends on the application, in my case it was: */
+            /* Adding a light border */
+            box-shadow: inset 0px 0px 5px;
+            /* Taking the difference out of the padding */
+        }
+        
+        .badgebox:checked+.badge {
+            /* Move the check mark back when checked */
+            text-indent: 0;
+        }
+        
+        th {
+            background-color: #f1f8ff;
+        }
+        
+        #changed {
+            background-color: #f1f8ff;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <div id="title" style="width:230px;">
+
+            <h4 style="background-color: #e32072; padding: 10px 10px 10px 10px; color:white;"><span class="lyphicon glyphicon-cloud" style="margin-right:10px;"></span>Python SDK monitor!</h4>
+            <p style="font-size:10px; color:teal"> Updated At : {{ report_time }}</p>
+
+        </div>
+
+        <div id="panel" class="panel panel-success" style="max-width: 80%;margin:0 auto;margin-bottom: 10px; margin-top:50px;">
+            <div class="panel-body">
+                <span style="margin-left:60px;"></span><span class="leftm">Build:001</span>
+                <span class="glyphicon glyphicon-bell" style="margin-left:60px;"></span><span class="leftm">{{ new_projects |length }} New Projects</span>
+                <span class="glyphicon glyphicon-warning-sign" style="margin-left:60px;"></span><span class="leftm">{{ number_changes }} Changes</span>
+
+                <span class="glyphicon glyphicon-link" style="margin-left:60px;"></span><span class="leftm" style="color:blue;">Latest commit {{recent_sha | truncate(10)}}..</span>
+
+            </div>
+
+
+        </div>
+        <!-- main panel -->
+
+
+
+        </br>
+        <div class="content">
+
+
+
+            <div class="inner">
+
+                <div id="new_projects" class="new_projects">
+                    <div id="title" style="margin-bottom:20px;">
+
+                        <label for="default" class="btn btn-default">New Projects<input type="checkbox" id="default" class="badgebox newproj" checked>
+            <span class="badge">&check;</span></label>
+
+
+                    </div>
+
+                    <table id="new_projects_table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th> <input type="checkbox" value="allNew"> New Project</th>
+                                <th>Composite?</th>
+                                <th>Swagger </th>
+                                <th>First Updated</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in new_projects %}
+                            <tr>
+
+                                <td style="font-weight: bold;"> {{ p }}</td>
+
+                                <td> {{ new_projects[p].is_composite }}</td>
+                                <td> {{ new_projects[p].swagger }}</td>
+                                <td><span style="font-size:10px;">{{ new_projects[p].oldest_commit}}</span></td>
+
+
+                            </tr>
+
+                            {% endfor %}
+
+
+                        </tbody>
+
+                    </table>
+                    <!-- new projects -->
+                </div>
+                <!-- new projects -->
+
+                <div id="existing_projects" class="existing_projects">
+
+                    <p><span style="font-size:18px;">Existing Projects</span><span style="margin-left:300px;"><input type="checkbox" class="changeShowHide" checked autocomplete="off"><span style="margin-left:5px;">hide/show only 'changed' projects</span></label>
+                        </span>
+                    </p>
+
+                    <br>
+
+
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" value="allExisting"> Existing Projects</th>
+                                <th>Change Type</th>
+                                <th>Details </th>
+                                <th>Nuget Info </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for k in seq %} {% if existing_projects.get(k) %} {% set meta = existing_projects[k]['meta'] %} {% if existing_projects[k].get('nuget_info') %} {% set nug = existing_projects[k]['nuget_info'] %} {% endif %} {% if existing_projects[k].get('changes')
+                            %} {% set e = existing_projects[k]['changes'] %}
+
+
+                            <tr id="changed">
+
+                                <td style="font-weight: bold;"><span class="project glyphicon glyphicon-star"></span><span class="project"><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ k }}" target="_blank" > {{ k }}</a></span> </td>
+
+                                {% if e.change_type == "Folder" %}
+
+
+                                <td>New Folder <span class="badge"> {{ e.new_folder}} </span> </a>
+                                </td>
+
+                                <td><span style="background-color: pink;"> <a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ e.use_swagger}}" target="_blank" > {{ e.use_swagger}} </a>  </span></br><span style="font-size:10px; font-weight: bold;">
+			Oldest commit:  {{ e.oldest_commit}} </span></td>
+
+                                {% endif %} {% if e.change_type == "Removed Folder" %}
+
+                                <td>{{ e.change_type }} </td>
+
+                                <td><span style="background-color: tomato;">Current folder : {{ e.most_recent_folder}} has been removed</span></td>
+
+                                {% endif %} {% if e.change_type == "CompositeStatus" %}
+
+                                <td>{{ e.change_type }}</td>
+
+                                <td><span style="background-color: Cornsilk ;">{{ e.change_status}} </span></br><span style="font-size:10px;  font-weight: bold;">
+			Oldest commit:  {{ e.oldest_commit}} </span></td>
+
+
+                                {% endif %} {% if e.change_type == "SwaggerUpdate" %}
+
+                                <td>Swagger Behind <span class="badge"> {{ e.swagger_behind}}</span> </a>
+                                </td>
+
+                                <td><span style="background-color: pink;"> <a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ meta.current_swagger}}" target="_blank" > {{ meta.current_swagger}} </a>  </span></br><span style="font-size:10px; font-weight: bold;">
+			Oldest commit:  {{ e.oldest_commit}} </span></td>
+
+
+
+                                {% endif %} {% if e.change_type == "Swagger Update - Composite Project" %}
+
+                                <td>{{ e.change_type }}</td>
+
+                                <td><span style="background-color: PowderBlue ;">#Swaggers updated: {{ e.number_swaggers_updated }} </span></br><span style="font-size:10px; font-weight: bold;">
+			Oldest commit:  {{ e.oldest_commit}} </span></td>
+
+
+                                {% endif %}
+
+
+                                <!-- nuget column -->
+
+                                {% if nug %}
+
+                                <td><span style="font-size: 12px;"><a href="https://www.nuget.org{{ nug['nuget_recent'].recent_href }}" target="_blank" > {{nug['nuget_recent'].recent_release}}
+                                </span></br><span style="font-size:10px; font-weight: bold;">Last updated: {{ nug['nuget_recent'].recent_days_ago }} days ago</span> {% if nug['nuget_stable'] %}
+                                    </br> <span style="font-size:8px; font-style: italic; color:blue">Stable: {{ nug['nuget_stable'].stable_release }}, Updated  {{ nug['nuget_stable'].stable_days_ago }} days ago</span></td>
+                                {% endif %} {% else %}
+                                <td><span style="font-size: 12px;">No Info.</span></td>
+                                {% endif %}
+
+                            </tr>
+
+                            {% else %}
+
+                            <tr id="unchanged" class="unchanged">
+                                <td style="font-weight: bold;"><span class="project"><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ k }}" target="_blank" > {{ k }}</a></span> </td>
+
+                                <td>{{ "No Change" }}</td>
+
+                                <td><span style="font-size: 12px;"> <a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ meta.current_swagger}}" target="_blank" > {{ meta.current_swagger }} </a></span></br><span style="font-size:10px;">Last updated: {{ meta.recent_build_date}}</span></td>
+
+                                {% if nug %}
+
+                                <td><span style="font-size: 12px;"><a href="https://www.nuget.org {{ nug['nuget_recent'].recent_href  }}" target="_blank" > {{nug['nuget_recent'].recent_release}}
+                                </span></br><span style="font-size:10px; font-weight: bold;">Last updated: {{ nug['nuget_recent'].recent_days_ago }} days ago</span> {% if nug['nuget_stable'] %}
+                                    </br><span style="font-size:8px; font-style: italic; color:blue">Stable: {{ nug['nuget_stable'].stable_release }}, Updated  {{ nug['nuget_stable'].stable_days_ago }} days ago</span></td>
+                                {% endif %} {% else %}
+                                <td><span style="font-size: 12px;">No Info.</span></td>
+                                {% endif %}
+
+                            </tr>
+
+
+
+                            {% endif %} {% endif %} {% endfor %}
+
+
+                        </tbody>
+
+                    </table>
+                    <!-- existing projects -->
+
+                    <button type="button" class="btn btn-primary">BUILD PROJECTS</button>
+
+                </div>
+                <!-- existing projects -->
+
+            </div>
+            <!-- inner all content goes above this.. -->
+
+        </div>
+        <!--content-->
+    </div>
+    <!--container -->
+
+    <script>
+        /*
+                                                                                                                                                                                                                                                            $('.newproj').change(function(){
+
+                                                                                                                                                                                                                                                                    var divname = this.name; 
+
+                                                                                                                                                                                                                                                                    if($(this).prop("checked")) {
+
+                                                                                                                                                                                                                                                                    $("#" + divname).show();
+                                                                                                                                                                                                                                                                        } 
+                                                                                                                                                                                                                                                                    else {
+                                                                                                                                                                                                                                                                        alert(this.name + 'is unchecked');
+                                                                                                                                                                                                                                                                    $("#" + divname).hide();
+                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                        });
+
+                                                                                                                                                                                                                                                        */
+        $('.newproj').change(function() {
+
+            if ($(this).prop("checked")) {
+
+                $('#new_projects_table').show();
+            } else {
+                $('#new_projects_table').hide();
+
+            }
+
+        });
+
+        $('.changeShowHide').change(function() {
+
+            if ($(this).prop("checked")) {
+
+                $('.unchanged').show();
+            } else {
+                $('.unchanged').hide();
+
+            }
+
+        });
+    </script>
+
+
+</body>
+
+</html>
