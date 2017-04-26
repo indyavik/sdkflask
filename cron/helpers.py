@@ -461,8 +461,8 @@ def get_swagger_updates(azure_api_swagger_path, git_url=None, current_sha=None):
             else:
                 file_dates, commit_sha, swagger_behind =[],[],0
                 
-        except ValueError, Argument:
-            print "sha index not found", Argument
+        except:
+            print ("sha index not found")
             file_dates, commit_sha, swagger_behind = dates, shas, len(shas)
             
     else:
