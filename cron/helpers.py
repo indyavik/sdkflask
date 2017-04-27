@@ -525,7 +525,7 @@ def get_new_project_details(new_projects_list, git_url=None):
     new_output ={}
     for p in new_projects_list:
         #print (get_key_folder_params(git_url,p))
-        is_composite, folders, swagger = get_key_folder_params_v2(git_url,p)
+        is_composite, folders, swagger = get_key_folder_params_v3(git_url,p)
         if not new_output.get(p):
 
             new_output[p] ={}
