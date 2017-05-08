@@ -143,11 +143,12 @@ def get_key_folder_params_v2(git_url, azure_folder_path):
   
     if not swagger and folders:
         r_file = request_helper(git_url + 'contents/' + azure_folder_path + '/' + folders[-1] + '/swagger/')
-        swagger =''
-        for r in r_file:
-            if '.json' in r:
-                swagger = r 
-                break;
+        if r_file:
+            swagger = ''
+            for r in r_file:
+                if '.json' in r:
+                    swagger = r 
+                    break;
             
         #swagger = r_file[0]['path']
         
