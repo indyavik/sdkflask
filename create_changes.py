@@ -10,7 +10,8 @@ from cron import helpers
 #globals (via a config later on)
 git_url = 'https://api.github.com/repos/Azure/azure-rest-api-specs/'
 sdk_url = 'https://api.github.com/repos/Azure/azure-sdk-for-python/'
-sdk_raw_url = 'https://raw.githubusercontent.com/Azure/azure-sdk-for-python/master/' 
+assumed_current_date = '2017-04-01' #all packages without build.json are assued to be current as of  04-01
+sdk_raw_url = 'https://raw.githubusercontent.com/Azure/azure-sdk-for-python/master/'
 
 assumed_current_date = '2017-04-01' #all packages without build.json are assued to be current as of  04-01
 
@@ -33,7 +34,7 @@ azure_projects_no_duplicate = list(set(azure_projects))
 
 #Get changes. 
 new_projects = helpers.get_new_project_details(helpers.get_new_project_names_v2(azure_projects_no_duplicate))
-existing_projects = helpers.get_existing_changes_v2(sdk_map, git_url=git_url, assumed_current_date=assumed_current_date)
+existing_projects = helpers.get_existing_changes_v3(sdk_map, git_url=git_url, assumed_current_date=assumed_current_date)
 
 
 #write to a json file (or database) to build web views. 

@@ -59,9 +59,15 @@ def report():
 
     new_projects = changes['new_projects']
     existing_projects = changes['existing_projects']
+
     report_time = changes['report_time']
-    number_changes = sum([1 if existing_projects[c].get('changes') else 0 for c in existing_projects ])
+    
     seq = [k for k in sorted(existing_projects.iterkeys())]
+
+    number_changes = sum([1 if existing_projects[c].get('changes') and not existing_projects[c].get('multiple')  else 0 for c in existing_projects ])
+    errors=0
+    if existing_projects.get('errors'):
+        errors = len( [e for e in existing_projects['errors'] ])
 
     """
 
@@ -79,9 +85,9 @@ def report():
         f.write(output)
     """
 
-    return render_template('jinja-template_v6.html', new_projects=new_projects, existing_projects=existing_projects,
-                            recent_sha = '123',recent_date='abc', base=build_file,
-                            sdk_map= map_object, seq = seq, number_changes=number_changes, report_time=report_time)
+    return render_template('jinja-template_v7.html', new_projects=new_projects, existing_projects=existing_projects, 
+                         recent_sha = '123',recent_date='abc', base=build_file, 
+                         sdk_map= map_object, seq = seq, number_changes=number_changes, report_time=report_time, errors=errors)
 
 if __name__ == '__main__':
     app.run()
