@@ -636,11 +636,13 @@ def get_new_project_details(new_projects_list, git_url=None):
 
             #get swagger file history
             r_files = request_helper(git_url+'commits?path=' + swagger)
-            for r in r_files:
-                commit_sha = r['sha']
-                commit_date = r['commit']['committer']['date']
-                new_output[p]['commits'].append(commit_sha)
-                new_output[p]['commit_dates'].append(commit_date)
+
+            if r_files:
+                for r in r_files:
+                    commit_sha = r['sha']
+                    commit_date = r['commit']['committer']['date']
+                    new_output[p]['commits'].append(commit_sha)
+                    new_output[p]['commit_dates'].append(commit_date)
                 
             #get the oldest commit 
             
