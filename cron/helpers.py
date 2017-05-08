@@ -137,22 +137,45 @@ def get_key_folder_params_v2(git_url, azure_folder_path):
         folder = path.split(azure_folder_path +'/')[1]
         if folder.startswith('20') or folder.startswith('/20'): 
             folders.append(folder)
+        
+        print 'folder is ==='
+        
+        print folders
+        
         if '.json' in path:
             most_recent_composite_status = 'Yes'
             swagger=path
+            
+    #print 'swagger is ===' + swagger
   
     if not swagger and folders:
         r_file = request_helper(git_url + 'contents/' + azure_folder_path + '/' + folders[-1] + '/swagger/')
+        
+        """
+        print 'r_file is =='
+        print r_file
+        print 'folder is at ==='
+        print git_url + 'contents/' + azure_folder_path + '/' + folders[-1] + '/Swagger/'
+        """
+        if not r_file:
+            #try capital Swagger
+            r_file2 = request_helper(git_url + 'contents/' + azure_folder_path + '/' + folders[-1] + '/Swagger/')
+            if not r_file2:
+                return ('No', ['not-found'], '')
+            else:
+                swagger =''
+                for r in r_file2:
+                    if r.get('path'):
+                        #u'arm-timeseriesinsights/2017-02-28-preview/Swagger/timeseriesinsights.json'
+                        swagger = r['path']
+                        
         if r_file:
             swagger = ''
             for r in r_file:
                 if '.json' in r:
                     swagger = r 
                     break;
-            
-        #swagger = r_file[0]['path']
-        
-            
+                    
     return(most_recent_composite_status, sorted(folders), swagger)
 
 def get_recent_from_nuget(package, base_url=None):
@@ -624,6 +647,7 @@ def get_new_project_details(new_projects_list, git_url=None):
     new_output ={}
     for p in new_projects_list:
         #print (get_key_folder_params(git_url,p))
+        print 'project === ' + p
         is_composite, folders, swagger = get_key_folder_params_v2(git_url,p)
         if not new_output.get(p):
 
