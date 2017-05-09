@@ -138,9 +138,9 @@ def get_key_folder_params_v2(git_url, azure_folder_path):
         if folder.startswith('20') or folder.startswith('/20'): 
             folders.append(folder)
         
-        print 'folder is ==='
+        #print 'folder is ==='
         
-        print folders
+        #print folders
         
         if '.json' in path:
             most_recent_composite_status = 'Yes'
