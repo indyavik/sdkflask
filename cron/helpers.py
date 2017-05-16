@@ -8,6 +8,164 @@ from datetime import datetime
 #globals (via a config later on)
 git_url = 'https://api.github.com/repos/Azure/azure-rest-api-specs/'
 
+def get_prs_in_range(shas, projects):
+
+    """
+    Small helper function to return PR numbers given a 1) list of shas, and 2) corresponding project names. 
+    returns a tuple of project, sha, and pr_number -->(u'azure-mgmt-servicebus', u'ab6034c2ed4ae7347a5817242487706e5a49b73c', u'1138')
+    """
+
+    return_list =[]    
+    
+    for i in range(len(projects)):
+        r_com = shas[i]
+        proj = projects[i]
+        pr_num = get_pr_from_commits(r_com)
+        
+        if pr_num:
+            if '#' in pr_num:
+                pr_num = pr_num[1:]
+
+            return_list.append((proj, r_com, pr_num))
+            
+        
+        """"
+        #bad idea to add no -pr as this may be because of a network error or 429 from github. 
+
+        else:
+            return_list.append((proj, r_com, 'No PR num found'))
+            
+        """
+
+    return return_list
+
+def update_remaining_PR_v2(existing_projects, max_lookup =50, sha2pr=None):
+    """
+    given a max number of PR nums to find (usually 9, as github limits 10 per min.) updates the missing PR #
+    saves the commit_sha --> PR num relations in a json file (sha2pr_history.json) in order to minimize look up. 
+    waits for 90 seconds for every 9 look up. 
+    max_lookup value is safeguard to stop after 50 look ups (about 600 seconds)
+    sha2pr is a dict of {'sha' : 'pr_num' } that can be updated and kept to minimize future look ups. 
+    
+    """
+
+
+    if not sha2pr:
+        sha2pr = {}
+    
+    for p in existing_projects:
+        if existing_projects[p].get('changes'):
+            if not existing_projects[p]['changes'].get('pr_num'):
+                existing_projects[p]['changes']['pr_num'] = 'n.a'
+            else:
+                pr = existing_projects[p]['changes']['pr_num']
+                if '#' in pr:
+                    #remove the '#' from PR num. 
+                    pr = pr[1:]
+                
+    
+    missing_pr_shas =[]
+    missing_pr_projects =[]
+    
+
+    for p in existing_projects:
+        if existing_projects[p].get('changes'):
+            if existing_projects[p]['changes'].get('commit_sha'):   
+                if not existing_projects[p]['changes'].get('pr_num') or existing_projects[p]['changes']['pr_num'] == 'not found':
+                    r_commit = existing_projects[p]['changes']['commit_sha'][0]
+                    #check if r_commit is already is in the file.        
+                    if sha2pr.get(r_commit):
+                        existing_projects[proj]['changes']['pr_num'] = sha2pr[r_commit]
+                        
+                    else:
+                        missing_pr_shas.append(r_commit)
+                        missing_pr_projects.append(p)
+                        
+    print "Number of missing PRS -->" + str(len(missing_pr_shas))
+    
+    print (missing_pr_shas)
+    print (missing_pr_projects)
+    
+    prs =[]
+    remaining =0
+    max_time = 0
+    userange = len(missing_pr_projects)
+    
+    if len(missing_pr_projects) > 9:
+        userange =9
+        remaining = len(missing_pr_projects) - 9
+        max_time +=9
+        
+        
+    #update the first 9 projects. 
+    start = 0
+    end = userange
+    
+    print('start ...' + str(start))
+    print('end ...' + str(end))
+
+    prs.append(get_prs_in_range(missing_pr_shas[start:end], missing_pr_projects[start:end]))
+    
+    print('prs in the func')
+    print(prs)
+
+    if not remaining ==0:
+        time.sleep(90) 
+
+        while remaining > 0 and max_time < max_lookup:
+
+            if remaining > 9:
+                start = start + 9 
+                end = end + 9 
+                remaining = remaining - 9 
+                max_time +=0
+            else:
+                start = start +9
+                end = start + remaining 
+                remaining = 0  
+
+            prs.append(get_prs_in_range(missing_pr_shas[start:end], missing_pr_projects[start:end]))
+
+            time.sleep(90) 
+
+    return prs
+    
+
+def parse_swagger_to_sdk_config(project):
+#count the #  of slashes 1 ->, composite file. , 3 =>swagger file with datefolder. > 3 staggered/subprojects. 
+#Use the fact that folder -=2015, 2016, 2017. ..starts with 20
+
+    sdk = project['output_dir'].split('/')[0]
+
+    namespace = project['autorest_options']['Namespace']
+
+    if not namespace:
+        namespace = ''
+
+    swagger_file_path = project['swagger']
+
+    if not swagger_file_path:
+        return None 
+
+    if 'swagger' in swagger_file_path:
+        #not a composite
+        split_path = swagger_file_path.split('/swagger/')   
+        azure_api = '/'.join(split_path[0].split('/')[0:-1])
+        folder, swagger_name = split_path[0].split('/')[-1], split_path[-1]
+
+
+    else:
+        #is a composite file. 
+        folder = 'Composite'
+        split_path = swagger_file_path.split('/')
+        azure_api, swagger_name = split_path[0], split_path[-1]
+
+    #print azure_api, folder, swagger_name
+
+
+    #print azure_api_spec_folder, date_folder, swagger_file
+    return (azure_api, folder, swagger_name, sdk, namespace)
+
 def get_pr_from_swagger_path(azure_api_swagger_path):
 
     swagger_soup_url = 'https://github.com/Azure/azure-rest-api-specs/blob/master/' + azure_api_swagger_path
@@ -138,9 +296,9 @@ def get_key_folder_params_v2(git_url, azure_folder_path):
         if folder.startswith('20') or folder.startswith('/20'): 
             folders.append(folder)
         
-        #print 'folder is ==='
+        print 'folder is ==='
         
-        #print folders
+        print folders
         
         if '.json' in path:
             most_recent_composite_status = 'Yes'
@@ -297,6 +455,10 @@ def get_key_folder_params_v3(git_url, azure_folder_path):
     3) gets the swagger file. ??
     """   
     rcomposite = request_helper(git_url + 'contents/' + azure_folder_path )
+    
+    if not rcomposite:
+        return None
+    
     most_recent_composite_status = 'No' 
     swagger = None
     folders =[]
@@ -447,40 +609,6 @@ def get_pr_from_commits(commit_sha, base_url=None, access_token=None):
         
     
     return pr
-
-def parse_swagger_to_sdk_config(project):
-#count the #  of slashes 1 ->, composite file. , 3 =>swagger file with datefolder. > 3 staggered/subprojects. 
-#Use the fact that folder -=2015, 2016, 2017. ..starts with 20
-    
-    sdk = project['output_dir'].split('/')[0]
-
-    namespace = project['autorest_options']['Namespace']
-    
-    if not namespace:
-        namespace = ''
-
-    swagger_file_path = project['swagger']
-
-    if not swagger_file_path:
-        return None 
-
-    if swagger_file_path:
-        #print swagger_file_path
-
-        split_path = swagger_file_path.split('/20')
-
-        if len(split_path) > 1:
-            #not composite. 
-            azure_api_spec_folder, date_folder, swagger_file  = split_path[0], '20'+ split_path[1].split('/')[0], split_path[1].split('/')[2]
-
-        else:
-            azure_api_spec_folder, date_folder, swagger_file = split_path[0].split('/')[0], 'Composite',  split_path[0].split('/')[1]
-
-
-        
-
-    #print azure_api_spec_folder, date_folder, swagger_file
-    return (azure_api_spec_folder, date_folder, swagger_file, sdk, namespace)
 
 
 
@@ -647,7 +775,6 @@ def get_new_project_details(new_projects_list, git_url=None):
     new_output ={}
     for p in new_projects_list:
         #print (get_key_folder_params(git_url,p))
-        print 'project === ' + p
         is_composite, folders, swagger = get_key_folder_params_v2(git_url,p)
         if not new_output.get(p):
 
@@ -660,13 +787,11 @@ def get_new_project_details(new_projects_list, git_url=None):
 
             #get swagger file history
             r_files = request_helper(git_url+'commits?path=' + swagger)
-
-            if r_files:
-                for r in r_files:
-                    commit_sha = r['sha']
-                    commit_date = r['commit']['committer']['date']
-                    new_output[p]['commits'].append(commit_sha)
-                    new_output[p]['commit_dates'].append(commit_date)
+            for r in r_files:
+                commit_sha = r['sha']
+                commit_date = r['commit']['committer']['date']
+                new_output[p]['commits'].append(commit_sha)
+                new_output[p]['commit_dates'].append(commit_date)
                 
             #get the oldest commit 
             
@@ -691,13 +816,12 @@ def get_existing_changes_v3(sdk_map, swagger_to_sdk_config_file_name =None, sdk_
     sdk_url = https://api.github.com/repos/Azure/azure-sdk-for-python/
     
     """
-    
     if not raw_url:
         raw_url = 'https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/' 
     if not sdk_raw_url:
         sdk_raw_url = 'https://raw.githubusercontent.com/Azure/azure-sdk-for-python/master/' 
 
-    
+
     if not swagger_to_sdk_config_file_name:
         swagger_to_sdk_config_file_name = 'swagger_to_sdk_config.json'
 
@@ -714,15 +838,16 @@ def get_existing_changes_v3(sdk_map, swagger_to_sdk_config_file_name =None, sdk_
 
     existing_changes ={}
     existing_changes['errors'] = {}
-    
+
     #get main swagger_to_sdk_config file 
 
     swagger_to_sdk = request_helper(sdk_raw_url + swagger_to_sdk_config_file_name )
-    
-    
+
+
     for proj in swagger_to_sdk['projects']:
-        #if proj.startswith('c'):
-        
+
+        #if proj.startswith('rdbms.mysql'):
+
         print ('printing_prject_name :' + proj )
 
         #(u'arm-commerce', u'2015-06-01-preview', u'commerce.json'), (u'arm-network', 'Composite', u'compositeNetworkClient_2015_06_15.json')
@@ -763,157 +888,165 @@ def get_existing_changes_v3(sdk_map, swagger_to_sdk_config_file_name =None, sdk_
             existing_changes[i]['parent_sdk'] = sdk
 
         #GET THE info from azure api spec for this project. 
-        is_composite, folders, swagger = get_key_folder_params_v3(git_url,azure_api_name)
 
-        if c_composite =='Composite':
-            current_composite = 'Yes'
-            c_recent_folder = 'No'
+        params = get_key_folder_params_v3(git_url,azure_api_name)
+
+        if not params:
+            existing_changes[i]['errors'] = {'Project' : 'Project ' + azure_api_name +' not found. Probably private' }
+            existing_changes['errors'][i] = 'Project ' + azure_api_name +' not found. Probably private'
 
         else:
-            c_recent_folder = c_composite
-            current_composite = 'No'
+            is_composite, folders, swagger = get_key_folder_params_v3(git_url,azure_api_name)
 
-        #print(azure_api_name, c_composite, c_swagger)
-        #print(is_composite, folders, swagger )
-
-
-        #check changes in composite status. 
-        if is_composite != current_composite:
-            #project composite status has changed. 
-            changes = get_swagger_updates(swagger, git_url=git_url) 
-            changes['use_swagger'] = swagger
-
-            if current_composite =="Yes":
-                #is_composite is NO
-
-                print(azure_api_name + 'has changed to Composite to --> non composite')  
-
-                #get the details for this swagger file and update the details. 
-
-                changes['change_type'] = "CompositeStatus"
-                changes['change_status'] = "Moved to a non - composite swagger"
-                existing_changes[i]['changes'] = changes
-
+            if c_composite =='Composite':
+                current_composite = 'Yes'
+                c_recent_folder = 'No'
 
             else:
-                #moved to a composite swagger. get all lower level swagger details if possible. 
+                c_recent_folder = c_composite
+                current_composite = 'No'
 
-                print(azure_api_name + 'Moved to a composite swagger')
-                changes['change_type'] = "CompositeStatus"
-                changes['change_status'] = "Moved to a composite swagger"
-
-                existing_changes[i]['changes']= changes
-
-        #check if folder is the same 
-        else:     
-            if is_composite =='No': 
-                #there must be folders. 
-                if len(folders) > 0: 
-                    latest_folder = folders[-1]
-                    if c_recent_folder != latest_folder:
-
-                        print(azure_api_name + ' has a new folder : ' + latest_folder)
-
-                        changes = get_swagger_updates(swagger, git_url=git_url)
-                        changes['use_swagger'] = swagger
-                        changes['change_type'] = "Folder"
-                        changes['new_folder'] = latest_folder
-                        existing_changes[i]['changes'] =changes
-
-                    else:
-                        #most proable scenario : check for swagger update. 
-
-                        if current_swagger_path != swagger:
-                            print (azure_api_name + '   swagger not found')
-                            #print(c_swagger, swagger)
-
-                        else:
-                            #get the current sha of from the recent date. 
-
-                            changes = get_swagger_updates_v2(current_swagger_path, git_url=git_url, current_date=c_recent_date)
-
-                            if changes['swagger_behind'] >0:
-                                changes['change_type'] = "SwaggerUpdate"
-                                existing_changes[i]['changes'] = changes
+            #print(azure_api_name, c_composite, c_swagger)
+            #print(is_composite, folders, swagger )
 
 
-            else:
-                #TO DO TO DO TO DO existing composite project that may have been updated. check if swagger has changed. 
-                #i.e, a composite project. 
-                #current_sha = base_data['current_version']
-                print ('COMPOSITE_SWAGGER' + current_swagger_path)
-                if not c_swagger or not current_swagger_path:
-                        print (azure_api_name + 'swagger not found')
+            #check changes in composite status. 
+            if is_composite != current_composite:
+                #project composite status has changed. 
+                changes = get_swagger_updates(swagger, git_url=git_url) 
+                changes['use_swagger'] = swagger
+
+                if current_composite =="Yes":
+                    #is_composite is NO
+
+                    print(azure_api_name + 'has changed to Composite to --> non composite')  
+
+                    #get the details for this swagger file and update the details. 
+
+                    changes['change_type'] = "CompositeStatus"
+                    changes['change_status'] = "Moved to a non - composite swagger"
+                    existing_changes[i]['changes'] = changes
+
+
                 else:
-                    # check for the update in main composite file first 
-                    changes_composite = get_swagger_updates_v2(current_swagger_path, git_url=git_url, current_date=c_recent_date)
+                    #moved to a composite swagger. get all lower level swagger details if possible. 
 
-                    if changes_composite['swagger_behind'] >0:
-                        changes['change_type'] = "SwaggerUpdate"
-                        existing_changes[i]['changes'] = changes
+                    print(azure_api_name + 'Moved to a composite swagger')
+                    changes['change_type'] = "CompositeStatus"
+                    changes['change_status'] = "Moved to a composite swagger"
 
-                    # check for the update in main composite file first                 
-                    #get the full file and individual paths from the composite file. 
-                    #raw_url = 'https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/' 
+                    existing_changes[i]['changes']= changes
 
-                    cfile= request_helper(raw_url + current_swagger_path)
+            #check if folder is the same 
+            else:     
+                if is_composite =='No': 
+                    #there must be folders. 
+                    if len(folders) > 0: 
+                        latest_folder = folders[-1]
+                        if c_recent_folder != latest_folder:
 
-                    if not cfile:
-                        #current swagger file not found. 
-                        
-                        existing_changes['errors'][i] = 'swagger_file : ' + current_swagger_path +' not found'
-                        
-                        if not existing_changes[i].get('errors'): 
-                            existing_changes[i]['errors'] = {}
-                            existing_changes[i]['errors']['swagger_file'] = 'swagger_file : ' + current_swagger_path +' not found'
+                            print(azure_api_name + ' has a new folder : ' + latest_folder)
+
+                            changes = get_swagger_updates(swagger, git_url=git_url)
+                            changes['use_swagger'] = swagger
+                            changes['change_type'] = "Folder"
+                            changes['new_folder'] = latest_folder
+                            existing_changes[i]['changes'] =changes
 
                         else:
-                            existing_changes[i]['errors']['swagger_file'] = 'swagger_file : ' + current_swagger_path +' not found'
+                            #most proable scenario : check for swagger update. 
+
+                            if current_swagger_path != swagger:
+                                print (azure_api_name + '   swagger not found')
+                                #print(c_swagger, swagger)
+
+                            else:
+                                #get the current sha of from the recent date. 
+
+                                changes = get_swagger_updates_v2(current_swagger_path, git_url=git_url, current_date=c_recent_date)
+
+                                if changes['swagger_behind'] >0:
+                                    changes['change_type'] = "SwaggerUpdate"
+                                    existing_changes[i]['changes'] = changes
 
 
-                    if cfile and cfile.get('documents'):
-                        for f in cfile.get('documents'):
-                            #get file history 
-                            ind_swagger = azure_api_name + f[1:]
-                            print ('IND_SWAGGER' + ind_swagger)
-                            #file_data = get_swagger_updates(ind_swagger, git_url, current_sha=None)
-                            changes_ind_file = get_swagger_updates_v2(ind_swagger, git_url=git_url, current_date=c_recent_date)
+                else:
+                    #TO DO TO DO TO DO existing composite project that may have been updated. check if swagger has changed. 
+                    #i.e, a composite project. 
+                    #current_sha = base_data['current_version']
+                    print ('COMPOSITE_SWAGGER' + current_swagger_path)
+                    if not c_swagger or not current_swagger_path:
+                            print (azure_api_name + 'swagger not found')
+                    else:
+                        # check for the update in main composite file first 
+                        changes_composite = get_swagger_updates_v2(current_swagger_path, git_url=git_url, current_date=c_recent_date)
 
-                            #catch any errors. 
+                        if changes_composite['swagger_behind'] >0:
+                            changes['change_type'] = "SwaggerUpdate"
+                            existing_changes[i]['changes'] = changes
 
-                            if not changes_ind_file:
-                                existing_changes['errors'][i] = 'swagger_file : ' + ind_swagger +' not found'
+                        # check for the update in main composite file first                 
+                        #get the full file and individual paths from the composite file. 
+                        #raw_url = 'https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/' 
 
-                            if changes_ind_file and changes_ind_file['swagger_behind'] >0:
+                        cfile= request_helper(raw_url + current_swagger_path)
 
-                                if existing_changes[i].get('changes'):
+                        if not cfile:
+                            #current swagger file not found. 
 
-                                    if not existing_changes[i]['changes'].get('ind_changes'):
-                                        existing_changes[i]['changes']['ind_changes'] = {}
-                                        existing_changes[i]['changes']['ind_changes'][ind_swagger] = changes_ind_file
-                                    else:
-                                         existing_changes[i]['changes']['ind_changes'][ind_swagger] = changes_ind_file
+                            existing_changes['errors'][i] = 'swagger_file : ' + current_swagger_path +' not found'
+
+                            if not existing_changes[i].get('errors'): 
+                                existing_changes[i]['errors'] = {}
+                                existing_changes[i]['errors']['swagger_file'] = 'swagger_file : ' + current_swagger_path +' not found'
+
+                            else:
+                                existing_changes[i]['errors']['swagger_file'] = 'swagger_file : ' + current_swagger_path +' not found'
 
 
-                            #d[ind_swagger] = {'sha' : file_data['commit_sha'], 'dates': file_data['file_dates']}
+                        if cfile and cfile.get('documents'):
+                            for f in cfile.get('documents'):
+                                #get file history 
+                                ind_swagger = azure_api_name + f[1:]
+                                print ('IND_SWAGGER' + ind_swagger)
+                                #file_data = get_swagger_updates(ind_swagger, git_url, current_sha=None)
+                                changes_ind_file = get_swagger_updates_v2(ind_swagger, git_url=git_url, current_date=c_recent_date)
+
+                                #catch any errors. 
+
+                                if not changes_ind_file:
+                                    existing_changes['errors'][i] = 'swagger_file : ' + ind_swagger +' not found'
+
+                                if changes_ind_file and changes_ind_file['swagger_behind'] >0:
+
+                                    if existing_changes[i].get('changes'):
+
+                                        if not existing_changes[i]['changes'].get('ind_changes'):
+                                            existing_changes[i]['changes']['ind_changes'] = {}
+                                            existing_changes[i]['changes']['ind_changes'][ind_swagger] = changes_ind_file
+                                        else:
+                                             existing_changes[i]['changes']['ind_changes'][ind_swagger] = changes_ind_file
 
 
-        #print('CHANGES')
+                                #d[ind_swagger] = {'sha' : file_data['commit_sha'], 'dates': file_data['file_dates']}
 
-        if not sdk_map.get(azure_api_name):
-            existing_changes[i]['nuget_info'] = {}
-            print('No Nuget URL Map for azure api: ' + azure_api_name)
+            #print('CHANGES')
 
-        else:
-            nuget_package = sdk_map[azure_api_name].get('nuget_package')
-            if nuget_package:
-                existing_changes[i]['nuget_info'] = get_recent_from_nuget_v2(nuget_package) or 'Nuget info not found.'
-            else:
+            if not sdk_map.get(azure_api_name):
                 existing_changes[i]['nuget_info'] = {}
                 print('No Nuget URL Map for azure api: ' + azure_api_name)
 
-    #update multiple projects for easy rendering later on. 
-    update_multiple_projects_4_web(existing_changes)
+            else:
+                nuget_package = sdk_map[azure_api_name].get('nuget_package')
+                if nuget_package:
+                    existing_changes[i]['nuget_info'] = get_recent_from_nuget_v2(nuget_package) or 'Nuget info not found.'
+                else:
+                    existing_changes[i]['nuget_info'] = {}
+                    print('No Nuget URL Map for azure api: ' + azure_api_name)
+
+        #update multiple projects for easy rendering later on. 
+
+        update_multiple_projects_4_web(existing_changes)
 
     return existing_changes
 
