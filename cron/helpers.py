@@ -75,7 +75,7 @@ def update_remaining_PR_v2(existing_projects, max_lookup =50, sha2pr=None):
                     r_commit = existing_projects[p]['changes']['commit_sha'][0]
                     #check if r_commit is already is in the file.        
                     if sha2pr.get(r_commit):
-                        existing_projects[proj]['changes']['pr_num'] = sha2pr[r_commit]
+                        existing_projects[p]['changes']['pr_num'] = sha2pr[r_commit]
                         
                     else:
                         missing_pr_shas.append(r_commit)
@@ -296,7 +296,7 @@ def get_key_folder_params_v2(git_url, azure_folder_path):
         if folder.startswith('20') or folder.startswith('/20'): 
             folders.append(folder)
         
-        print 'folder is ==='
+        #print 'folder is ==='
         
         print folders
         
