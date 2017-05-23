@@ -58,6 +58,7 @@ def report():
         changes = json.load(f)
 
     new_projects = changes['new_projects']
+
     existing_projects = changes['existing_projects']
 
     report_time = changes['report_time']
@@ -85,9 +86,10 @@ def report():
         f.write(output)
     """
 
-    return render_template('jinja-template_v7.html', new_projects=new_projects, existing_projects=existing_projects, 
+    return render_template('jinja-template_v7c.html', new_projects=new_projects, existing_projects=existing_projects, 
                          recent_sha = '123',recent_date='abc', base=build_file, 
                          sdk_map= map_object, seq = seq, number_changes=number_changes, report_time=report_time, errors=errors)
+
 
 if __name__ == '__main__':
     app.run()
