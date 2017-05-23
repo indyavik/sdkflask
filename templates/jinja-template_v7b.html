@@ -255,21 +255,24 @@
                         </thead>
                         <tbody>
 
-                            {% for k in seq %} {% if existing_projects.get(k) and k != 'errors' %} {% if not existing_projects[k].get('multiple') %} {% set meta = existing_projects[k]['meta'] %} {% if existing_projects[k].get('nuget_info') %} {% set nug = existing_projects[k]['nuget_info']
-                            %} {% endif %} {% if existing_projects[k].get('changes') %} {% set e = existing_projects[k]['changes'] %} {% if existing_projects[k].get('multiple_projects') %}
+                            {% for s in seq %} {% if existing_projects.get(s) and s != 'errors' %}
+
+                            <!-- multiple projects -->
+
+                            {% if existing_projects[s].get('multiple_projects') %} {% set multi = existing_projects[s].get('multiple_projects') %} {% set meta = existing_projects[s]['multiple_projects'].items()[0][1]['meta'] %}
+
 
                             <tr id="changed">
 
-                                <td style="font-weight: bold;"><span class="project glyphicon glyphicon-star"></span><span class="project"><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ meta.azure_api_name }}" target="_blank" > {{ k }}</a></span> </td>
+                                <td style="font-weight: bold;"><span class="project glyphicon glyphicon-star"></span><span class="project"><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ meta.azure_api_name }}" target="_blank" > {{ s }}</a></span> </td>
 
                                 <td><span class="badge"> Multiple Proj</span> </td>
-
 
                                 <td>
 
                                     <ul>
 
-                                        {% for k1,v1 in existing_projects[k].get('multiple_projects').items() %}
+                                        {% for k1,v1 in multi.items() %} {% if v1.get('changes') %}
 
                                         <li style="font-size:11px;">
                                             <span><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ v1['changes'].use_swagger}}">
@@ -279,7 +282,7 @@
 
                                         </li>
 
-                                        {% endfor %}
+                                        {% endif %} {% endfor %}
 
 
                                     </ul>
@@ -287,134 +290,142 @@
 
                                 </td>
 
-                                {% if nug %}
+                                {% if multi.get('nuget_info') %} {% set nug = multi.get('nuget_info') %}
 
                                 <td><span style="font-size: 12px;"><a href="https://www.nuget.org{{ nug['nuget_recent'].recent_href }}" target="_blank" > {{nug['nuget_recent'].recent_release}}
-                                </span></br><span style="font-size:10px; font-weight: bold;">Last updated: {{ nug['nuget_recent'].recent_days_ago }} days ago</span> {% if nug['nuget_stable'] %}
+                                </span></br><span style="font-size:10px; font-weight: bold;">Last updated: {{ nug['nuget_recent'].recent_days_ago }} days ago
+                                    </span> {% if nug['nuget_stable'] %}
                                     </br> <span style="font-size:8px; font-style: italic; color:blue">Stable: {{ nug['nuget_stable'].stable_release }}, Updated  {{ nug['nuget_stable'].stable_days_ago }} days ago</span></td>
                                 {% endif %} {% else %}
                                 <td><span style="font-size: 12px;">No Info.</span></td>
-                                {% endif %} {% else %}
-                                <!-- else not a multip proj -->
+                                {% endif %} {% endif %}
 
+                                <!-- end ..multiple projects -->
 
+                                <!-- Same SDK -->
+
+                                {% if existing_projects[s].get('same_sdk') %} {% set multi_sdk = existing_projects[s].get('same_sdk') %} {% set meta = existing_projects[s]['same_sdk'].items()[0][1]['meta'] %}
 
 
 
                                 <tr id="changed">
 
-                                    <td style="font-weight: bold;"><span class="project glyphicon glyphicon-star"></span><span class="project"><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ meta.azure_api_name }}" target="_blank" > {{ k }}</a></span> </td>
-
-                                    {% if e.change_type == "Folder" %}
-
-
-                                    <td>New Folder <span class="badge"> {{ e.new_folder}} </span> </a>
-                                    </td>
-
-                                    <td><span style="background-color: pink;"> <a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ e.use_swagger}}" target="_blank" > {{ e.use_swagger}} </a>  </span>
-                                        <span><a href="">( {{ e.pr_num }})</a></span>
-                                        </br><span style="font-size:10px; font-weight: bold;">
-			Oldest commit:  {{ e.oldest_commit}} </span></td>
-
-                                    {% endif %} {% if e.change_type == "Removed Folder" %}
-
-                                    <td>{{ e.change_type }} </td>
-
-                                    <td><span style="background-color: tomato;">Current folder : {{ e.most_recent_folder}} has been removed</span></td>
-
-                                    {% endif %} {% if e.change_type == "CompositeStatus" %}
-
-                                    <td>{{ e.change_type }}</td>
-
-                                    <td><span style="background-color: Cornsilk ;">{{ e.change_status}} </span></br><span style="font-size:10px;  font-weight: bold;">
-			Oldest commit:  {{ e.oldest_commit}} </span></td>
-
-
-                                    {% endif %} {% if e.change_type == "SwaggerUpdate" %} {% if not e.get('ind_changes') %}
-
-                                    <td>Swagger Behind <span class="badge"> {{ e.swagger_behind}}</span> </a>
-                                    </td>
-
-                                    <td><span style="background-color: pink;"> <a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ meta.current_swagger}}" target="_blank" > {{ meta.current_swagger}} </a>  </span></br><span style="font-size:10px; font-weight: bold;">
-			Oldest commit:  {{ e.oldest_commit}} </span></td>
-
-                                    {% else %}
-
-                                    <td>Swagger Behind <span class="badge"> {{ e.swagger_behind}}</span> </a>
-                                    </td>
+                                    <td style="font-weight: bold;"><span class="project glyphicon glyphicon-star"></span><span class="project"><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ meta.azure_api_name }}" target="_blank" > {{ s }}</a></span> </td>
 
                                     <td>
                                         <ul>
-                                            {% for k,v in e.get('ind_changes').items() %}
+                                            {% for k1,v1 in multi_sdk.items() %} {% if v1.get('changes') %}
+                                            <li style="font-size:11px;">
+
+                                                {{k1}}
+
+                                            </li>
+
+                                            {% endif %} {% endfor %}
 
 
-                                            <li style="font-size:11px;"><span> <a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ k }}" target="_blank" > {{ k }} </a>  </span>
-                                                <span>is {{ v['swagger_behind']}} swagger behind </span></li>{% endfor %}
 
                                         </ul>
 
                                     </td>
 
+                                    <td>
+
+                                        <ul>
+
+                                            {% for k1,v1 in multi_sdk.items() %} {% if v1.get('changes') %}
+
+                                            <li style="font-size:11px;">
+                                                <span><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ v1['changes'].use_swagger}}">
+                                        {{ k1 }} </a></span><span style="font-style:bold;">[ {{v1['changes'].change_type }} ]</span>
+
+                                                <span> oldest_commit: {{v1['changes'].oldest_commit }} </span>
+
+                                            </li>
+
+                                            {% endif %} {% endfor %}
 
 
-                                    {% endif %}
-                                    <!-- if e.get('ind_changes') -->
+                                        </ul>
 
 
-                                    {% endif %}
-                                    <!-- if e.change_type == 'SwaggerUpdate' -->
+                                    </td>
 
-                                    {% if e.change_type == "Swagger Update - Composite Project" %}
+                                    <td>
 
-                                    <td>{{ e.change_type }}</td>
+                                        <ul>
 
-                                    <td><span style="background-color: PowderBlue ;">#Swaggers updated: {{ e.number_swaggers_updated }} </span></br><span style="font-size:10px; font-weight: bold;">
-			Oldest commit:  {{ e.oldest_commit}} </span></td>
+                                            {% for k1,v1 in multi_sdk.items() %} {% if v1.get('nuget_info') %} {% set nug = v1.get('nuget_info') %}
 
 
-                                    {% endif %}
+                                            <li style="font-size:11px;">
+
+                                                <span style="font-size: 12px;"><a href="https://www.nuget.org{{ nug['nuget_recent'].recent_href }}" target="_blank" > {{nug['nuget_recent'].recent_release}}
+                                                    </span></br><span style="font-size:10px; font-weight: bold;">Last updated: {{ nug['nuget_recent'].recent_days_ago }} days ago
+                                                </span> {% if nug['nuget_stable'] %}
+
+                                                </br> <span style="font-size:8px; font-style: italic; color:blue">Stable: {{ nug['nuget_stable'].stable_release }}, Updated  {{ nug['nuget_stable'].stable_days_ago }} days ago
+                                                    </span> {% endif %}
 
 
 
 
-                                    <!-- nuget column -->
 
-                                    {% if nug %}
+                                            </li>
+
+                                            {% endif %} {% endfor %}
+
+
+                                        </ul>
+
+
+                                    </td>
+
+                                    {% if multi_sdk.get('nuget_info') %} {% set nug = multi_sdk.get('nuget_info') %}
 
                                     <td><span style="font-size: 12px;"><a href="https://www.nuget.org{{ nug['nuget_recent'].recent_href }}" target="_blank" > {{nug['nuget_recent'].recent_release}}
-                                </span></br><span style="font-size:10px; font-weight: bold;">Last updated: {{ nug['nuget_recent'].recent_days_ago }} days ago</span> {% if nug['nuget_stable'] %}
+                                </span></br><span style="font-size:10px; font-weight: bold;">Last updated: {{ nug['nuget_recent'].recent_days_ago }} days ago
+                                    </span> {% if nug['nuget_stable'] %}
                                         </br> <span style="font-size:8px; font-style: italic; color:blue">Stable: {{ nug['nuget_stable'].stable_release }}, Updated  {{ nug['nuget_stable'].stable_days_ago }} days ago</span></td>
                                     {% endif %} {% else %}
                                     <td><span style="font-size: 12px;">No Info.</span></td>
+                                    {% endif %} {% endif %}
+                                    <!-- end ..same sdk-->
+
+
+
+                                    <!-- All other existing -->
+
+
+                                    {% if not existing_projects[s].get('same_sdk') and not existing_projects[s].get('multiple_projects') %} {% set meta = existing_projects[s].get('meta') %}
+                                    <!-- end All other existing -->
+
+                                    <tr>
+
+                                        <td>{{s}}</td>
+                                        <td>Changes</td>
+
+
+                                        <td>
+                                            More info later.
+
+                                        </td>
+
+
+                                        <td>No Nuget</td>
+
+
+
+                                    </tr>
+
+
+
                                     {% endif %}
-
-                                </tr>
-                                {% endif %}
-                                <!-- if multiple projects -->
-
-                                {% else %}
-
-                                <tr id="unchanged" class="unchanged">
-                                    <td style="font-weight: bold;"><span class="project"><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ meta.azure_api_name }}" target="_blank" > {{ k }}</a></span> </td>
-
-                                    <td>{{ "No Change" }}</td>
-
-                                    <td><span style="font-size: 12px;"> <a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ meta.current_swagger}}" target="_blank" > {{ meta.current_swagger }} </a></span></br><span style="font-size:10px;">Last updated: {{ meta.recent_build_date}}</span></td>
-
-                                    {% if nug and nug.nuget_info %}
-
-                                    <td><span style="font-size: 12px;"><a href="https://www.nuget.org {{ nug['nuget_recent'].recent_href  }}" target="_blank" > {{nug['nuget_recent'].recent_release}}
-                                </span></br><span style="font-size:10px; font-weight: bold;">Last updated: {{ nug['nuget_recent'].recent_days_ago }} days ago</span> {% if nug['nuget_stable'] %}
-                                        </br><span style="font-size:8px; font-style: italic; color:blue">Stable: {{ nug['nuget_stable'].stable_release }}, Updated  {{ nug['nuget_stable'].stable_days_ago }} days ago</span></td>
-                                    {% endif %} {% else %}
-                                    <td><span style="font-size: 12px;">No Info.</span></td>
-                                    {% endif %}
-
-                                </tr>
+                                    <!-- if k, and k is not error -->
+                                    {% endif %} {% endfor %}
+                                    <!-- for k in seq -->
 
 
-
-                                {% endif %} {% endif %} {% endif %} {% endfor %}
 
 
                         </tbody>
@@ -437,21 +448,21 @@
 
     <script>
         /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            $('.newproj').change(function(){
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    $('.newproj').change(function(){
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    var divname = this.name; 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            var divname = this.name; 
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    if($(this).prop("checked")) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            if($(this).prop("checked")) {
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    $("#" + divname).show();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        } 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    else {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        alert(this.name + 'is unchecked');
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    $("#" + divname).hide();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            $("#" + divname).show();
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                } 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            else {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                alert(this.name + 'is unchecked');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            $("#" + divname).hide();
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                });
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
         $('.newproj').change(function() {
 
             if ($(this).prop("checked")) {

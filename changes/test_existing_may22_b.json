@@ -1,0 +1,1462 @@
+{
+    "azure-mgmt-batch": {
+        "meta": {
+            "composite_or_recent_folder": "2017-05-01",
+            "azure_api_name": "arm-batch",
+            "current_swagger": "arm-batch/2017-05-01/swagger/BatchManagement.json",
+            "recent_build_date": "2017-05-10T15:04:08Z",
+            "current_version": "4.0.0",
+            "sdk_proj_name": "batch.management"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.Batch/5.0.0",
+                "recent_date": "2017-05-10T17:35:06.8800000",
+                "recent_days_ago": "12 days",
+                "recent_release": "5.0.0"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.Batch/5.0.0",
+                "stable_date": "2017-05-10T17:35:06.8800000",
+                "stable_days_ago": "12 days",
+                "stable_release": "5.0.0"
+            }
+        }
+    },
+    "azure-mgmt-servermanager": {
+        "meta": {
+            "composite_or_recent_folder": "2016-07-01-preview",
+            "azure_api_name": "arm-servermanagement",
+            "current_swagger": "arm-servermanagement/2016-07-01-preview/swagger/servermanagement.json",
+            "recent_build_date": "2017-04-01",
+            "current_version": "1.1.0",
+            "sdk_proj_name": "servermanager"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.ServerManagement/1.1.0",
+                "recent_date": "2017-03-03T06:17:33.9600000",
+                "recent_days_ago": "80 days",
+                "recent_release": "1.1.0"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.ServerManagement/1.1.0",
+                "stable_date": "2017-03-03T06:17:33.9600000",
+                "stable_days_ago": "80 days",
+                "stable_release": "1.1.0"
+            }
+        }
+    },
+    "azure-mgmt-scheduler": {
+        "meta": {
+            "composite_or_recent_folder": "2016-03-01",
+            "azure_api_name": "arm-scheduler",
+            "current_swagger": "arm-scheduler/2016-03-01/swagger/scheduler.json",
+            "recent_build_date": "2017-04-18T20:13:42Z",
+            "current_version": "1.1.2",
+            "sdk_proj_name": "scheduler"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.Scheduler/2.2.0",
+                "recent_date": "2017-03-03T06:17:21.6470000",
+                "recent_days_ago": "80 days",
+                "recent_release": "2.2.0"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.Scheduler/2.2.0",
+                "stable_date": "2017-03-03T06:17:21.6470000",
+                "stable_days_ago": "80 days",
+                "stable_release": "2.2.0"
+            }
+        }
+    },
+    "azure-mgmt-network": {
+        "multiple_projects": {
+            "network.2017-03-01": {
+                "meta": {
+                    "composite_or_recent_folder": "Composite",
+                    "azure_api_name": "arm-network",
+                    "current_swagger": "arm-network/compositeNetworkClient.json",
+                    "recent_build_date": "2017-05-03T20:13:42Z",
+                    "current_version": "1.0.0rc3",
+                    "sdk_proj_name": "network.2017-03-01"
+                }
+            },
+            "network.2015-06-15": {
+                "meta": {
+                    "composite_or_recent_folder": "Composite",
+                    "azure_api_name": "arm-network",
+                    "current_swagger": "arm-network/compositeNetworkClient_2015_06_15.json",
+                    "recent_build_date": "2017-05-03T20:13:42Z",
+                    "current_version": "1.0.0rc3",
+                    "sdk_proj_name": "network.2015-06-15"
+                },
+                "changes": {
+                    "swagger_behind": 1,
+                    "oldest_commit": "2017-05-05,17 days ago",
+                    "commit_sha": [
+                        "7ac57844bc21954a69eb7f9e9aad5f1b853d3b08"
+                    ],
+                    "file_dates": [
+                        "2017-05-05T22:34:38Z"
+                    ],
+                    "pr_num": "not found"
+                }
+            },
+            "network.2016-09-01": {
+                "meta": {
+                    "composite_or_recent_folder": "Composite",
+                    "azure_api_name": "arm-network",
+                    "current_swagger": "arm-network/compositeNetworkClient_2016_09_01.json",
+                    "recent_build_date": "2017-05-03T20:13:42Z",
+                    "current_version": "1.0.0rc3",
+                    "sdk_proj_name": "network.2016-09-01"
+                },
+                "errors": "Swagger: arm-network/compositeNetworkClient_2016_09_01.json Not found"
+            },
+            "network.2016-12-01": {
+                "meta": {
+                    "composite_or_recent_folder": "Composite",
+                    "azure_api_name": "arm-network",
+                    "current_swagger": "arm-network/compositeNetworkClient_2016_12_01.json",
+                    "recent_build_date": "2017-05-03T20:13:42Z",
+                    "current_version": "1.0.0rc3",
+                    "sdk_proj_name": "network.2016-12-01"
+                },
+                "errors": "Swagger: arm-network/compositeNetworkClient_2016_12_01.json Not found"
+            }
+        },
+        "changes": {
+            "swagger_behind": 0,
+            "commit_sha": [],
+            "file_dates": [],
+            "pr_num": "n.a"
+        }
+    },
+    "azure-mgmt-storage": {
+        "multiple_projects": {
+            "storage.2016-12-01": {
+                "meta": {
+                    "composite_or_recent_folder": "2015-06-15",
+                    "azure_api_name": "arm-storage",
+                    "current_swagger": "arm-storage/2016-12-01/swagger/storage.json",
+                    "recent_build_date": "2017-04-11T17:45:43Z",
+                    "current_version": "1.0.0rc1",
+                    "sdk_proj_name": "storage.2016-12-01"
+                },
+                "changes": {
+                    "swagger_behind": 1,
+                    "oldest_commit": "2017-04-19,33 days ago",
+                    "commit_sha": [
+                        "cf35632382557982d526792bbc78d3e50888ff7e"
+                    ],
+                    "file_dates": [
+                        "2017-04-19T21:54:02Z"
+                    ],
+                    "pr_num": "1120"
+                }
+            },
+            "storage.2015-06-15": {
+                "meta": {
+                    "composite_or_recent_folder": "2015-06-15",
+                    "azure_api_name": "arm-storage",
+                    "current_swagger": "arm-storage/2015-06-15/swagger/storage.json",
+                    "recent_build_date": "2017-04-11T17:45:43Z",
+                    "current_version": "1.0.0rc1",
+                    "sdk_proj_name": "storage.2015-06-15"
+                },
+                "changes": {
+                    "swagger_behind": 1,
+                    "oldest_commit": "2017-05-08,14 days ago",
+                    "commit_sha": [
+                        "4edca1c798d58d08294316728944b5ba5de8ff35"
+                    ],
+                    "file_dates": [
+                        "2017-05-08T17:54:18Z"
+                    ],
+                    "pr_num": "not found"
+                }
+            }
+        },
+        "changes": {
+            "swagger_behind": 0,
+            "commit_sha": [],
+            "file_dates": [],
+            "pr_num": "n.a"
+        }
+    },
+    "azure-graphrbac": {
+        "meta": {
+            "composite_or_recent_folder": "Composite",
+            "azure_api_name": "arm-graphrbac",
+            "current_swagger": "arm-graphrbac/compositeGraphRbacManagementClient.json",
+            "recent_build_date": "2017-04-18T20:13:42Z",
+            "current_version": "0.30.0",
+            "sdk_proj_name": "graphrbac"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.Graph.RBAC.Fluent/1.0.0",
+                "recent_date": "2017-04-20T01:49:05.5670000",
+                "recent_days_ago": "32 days",
+                "recent_release": "1.0.0"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.Graph.RBAC.Fluent/1.0.0",
+                "stable_date": "2017-04-20T01:49:05.5670000",
+                "stable_days_ago": "32 days",
+                "stable_release": "1.0.0"
+            }
+        }
+    },
+    "azure-monitor": {
+        "meta": {
+            "composite_or_recent_folder": "Composite",
+            "azure_api_name": "monitor",
+            "current_swagger": "monitor/compositeMonitorClient.json",
+            "recent_build_date": "2017-04-18T20:13:42Z",
+            "current_version": "0.3.0",
+            "sdk_proj_name": "monitor.data"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.WindowsAzure.Management.Monitoring/4.1.0",
+                "recent_date": "2015-01-30T19:49:16.6930000",
+                "recent_days_ago": "843 days",
+                "recent_release": "4.1.0"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.WindowsAzure.Management.Monitoring/4.1.0",
+                "stable_date": "2015-01-30T19:49:16.6930000",
+                "stable_days_ago": "843 days",
+                "stable_release": "4.1.0"
+            }
+        }
+    },
+    "azure-mgmt-keyvault": {
+        "meta": {
+            "composite_or_recent_folder": "2015-06-01",
+            "azure_api_name": "arm-keyvault",
+            "current_swagger": "arm-keyvault/2015-06-01/swagger/keyvault.json",
+            "recent_build_date": "2017-04-18T20:13:42Z",
+            "current_version": "0.31.0",
+            "sdk_proj_name": "keyvault.mgmt"
+        },
+        "changes": {
+            "change_type": "Folder",
+            "new_folder": "2016-10-01",
+            "oldest_commit": "2017-05-10,12 days ago",
+            "commit_sha": [
+                "96b984319c0a885e9cfe72bcf90f53f792b09ed7",
+                "ab6034c2ed4ae7347a5817242487706e5a49b73c"
+            ],
+            "swagger_behind": 2,
+            "file_dates": [
+                "2017-05-17T21:12:39Z",
+                "2017-05-10T23:41:48Z"
+            ],
+            "use_swagger": "arm-keyvault/2016-10-01/swagger/keyvault.json"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.KeyVault/2.2.0-preview ",
+                "recent_date": "2017-04-25T20:36:06.6600000",
+                "recent_days_ago": "27 days",
+                "recent_release": "2.2.0-preview "
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.KeyVault/1.0.1",
+                "stable_date": "2015-10-28T02:31:30.5470000",
+                "stable_days_ago": "572 days",
+                "stable_release": "1.0.1"
+            }
+        }
+    },
+    "azure-mgmt-billing": {
+        "meta": {
+            "composite_or_recent_folder": "2017-04-24-preview",
+            "azure_api_name": "arm-billing",
+            "current_swagger": "arm-billing/2017-04-24-preview/swagger/billing.json",
+            "recent_build_date": "2017-04-01",
+            "current_version": "0.1.0",
+            "sdk_proj_name": "billing"
+        },
+        "changes": {
+            "change_type": "SwaggerUpdate",
+            "pr_num": "1167",
+            "oldest_commit": "2017-04-21,31 days ago",
+            "commit_sha": [
+                "9c3e59d35f802851c56574d08e687e5119a5d2d8",
+                "5ef46a8e9f86e7c9e54e1a024078117f3525e4a2"
+            ],
+            "swagger_behind": 2,
+            "file_dates": [
+                "2017-04-27T00:27:33Z",
+                "2017-04-21T19:32:32Z"
+            ]
+        }
+    },
+    "azure-mgmt-datalake-store": {
+        "meta": {
+            "composite_or_recent_folder": "2016-11-01",
+            "azure_api_name": "arm-datalake-store/account",
+            "current_swagger": "arm-datalake-store/account/2016-11-01/swagger/account.json",
+            "recent_build_date": "2017-04-18T20:13:42Z",
+            "current_version": "0.1.4",
+            "sdk_proj_name": "datalake.store.account"
+        },
+        "changes": {
+            "change_type": "SwaggerUpdate",
+            "pr_num": "1182",
+            "oldest_commit": "2017-05-03,19 days ago",
+            "commit_sha": [
+                "156cd442edf6badb940149878cecfba2d3198776"
+            ],
+            "swagger_behind": 1,
+            "file_dates": [
+                "2017-05-03T20:55:15Z"
+            ]
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.DataLake.Store/2.1.3-preview ",
+                "recent_date": "2017-05-08T21:44:01.1000000",
+                "recent_days_ago": "14 days",
+                "recent_release": "2.1.3-preview "
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.DataLake.Store/1.0.4",
+                "stable_date": "2017-02-15T01:06:20.7700000",
+                "stable_days_ago": "96 days",
+                "stable_release": "1.0.4"
+            }
+        }
+    },
+    "azure-mgmt-search": {
+        "meta": {
+            "composite_or_recent_folder": "2015-08-19",
+            "azure_api_name": "arm-search",
+            "current_swagger": "arm-search/2015-08-19/swagger/search.json",
+            "recent_build_date": "2017-04-01",
+            "current_version": "0.1.0",
+            "sdk_proj_name": "search"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.Search/1.0.2",
+                "recent_date": "2017-05-19T23:07:29.7930000",
+                "recent_days_ago": "3 days",
+                "recent_release": "1.0.2"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.Search/1.0.2",
+                "stable_date": "2017-05-19T23:07:29.7930000",
+                "stable_days_ago": "3 days",
+                "stable_release": "1.0.2"
+            }
+        }
+    },
+    "azure-mgmt-documentdb": {
+        "meta": {
+            "composite_or_recent_folder": "2015-04-08",
+            "azure_api_name": "arm-documentdb",
+            "current_swagger": "arm-documentdb/2015-04-08/swagger/documentdb.json",
+            "recent_build_date": "2017-05-01T20:13:42Z",
+            "current_version": "0.1.3",
+            "sdk_proj_name": "documentdb"
+        },
+        "changes": {
+            "change_type": "SwaggerUpdate",
+            "pr_num": "not found",
+            "oldest_commit": "2017-05-02,20 days ago",
+            "commit_sha": [
+                "68c601d4a1fcc45f81f6bb5d2160ade962012ddf"
+            ],
+            "swagger_behind": 1,
+            "file_dates": [
+                "2017-05-02T17:34:58Z"
+            ]
+        }
+    },
+    "azure-mgmt-iothub": {
+        "meta": {
+            "composite_or_recent_folder": "2016-02-03",
+            "azure_api_name": "arm-iothub",
+            "current_swagger": "arm-iothub/2016-02-03/swagger/iothub.json",
+            "recent_build_date": "2017-04-21T17:45:43Z",
+            "current_version": "0.2.2",
+            "sdk_proj_name": "iothub"
+        },
+        "changes": {
+            "change_type": "Folder",
+            "new_folder": "2017-01-19",
+            "oldest_commit": "2017-05-01,21 days ago",
+            "commit_sha": [
+                "4610bcc25359458e84131d797d2e31137d32ba73",
+                "d374d03801e97737ddb32e01f20513e7b2bbd9c3"
+            ],
+            "swagger_behind": 2,
+            "file_dates": [
+                "2017-05-08T17:45:20Z",
+                "2017-05-01T21:07:32Z"
+            ],
+            "use_swagger": "arm-iothub/2017-01-19/swagger/iothub.json"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.IotHub/1.1.2",
+                "recent_date": "2017-05-22T19:27:10.4930000",
+                "recent_days_ago": "0:00:00",
+                "recent_release": "1.1.2"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.IotHub/1.1.2",
+                "stable_date": "2017-05-22T19:27:10.4930000",
+                "stable_days_ago": "0:00:00",
+                "stable_release": "1.1.2"
+            }
+        }
+    },
+    "errors": {
+        "rdbms.postgres": "Project arm-rdbms not found. Probably private",
+        "rdbms.mysql": "Project arm-rdbms not found. Probably private",
+        "compute.compute.2016-04-30-preview": "Swagger: arm-compute/compositeComputeClient_2016_04_30_preview.json Not found",
+        "network.2016-09-01": "Swagger: arm-network/compositeNetworkClient_2016_09_01.json Not found",
+        "network.2016-12-01": "Swagger: arm-network/compositeNetworkClient_2016_12_01.json Not found"
+    },
+    "azure-mgmt-datalake-analytics": {
+        "same_sdk": {
+            "datalake.analytics.account": {
+                "meta": {
+                    "composite_or_recent_folder": "2016-11-01",
+                    "azure_api_name": "arm-datalake-analytics/account",
+                    "current_swagger": "arm-datalake-analytics/account/2016-11-01/swagger/account.json",
+                    "recent_build_date": "2017-04-18T20:13:42Z",
+                    "current_version": "0.1.4",
+                    "sdk_proj_name": "datalake.analytics.account"
+                },
+                "changes": {
+                    "change_type": "SwaggerUpdate",
+                    "pr_num": "not found",
+                    "oldest_commit": "2017-05-03,19 days ago",
+                    "commit_sha": [
+                        "12b641f181711ec1e9a50f1dcfc7861721aa3242",
+                        "156cd442edf6badb940149878cecfba2d3198776"
+                    ],
+                    "swagger_behind": 2,
+                    "file_dates": [
+                        "2017-05-10T18:17:50Z",
+                        "2017-05-03T20:55:15Z"
+                    ]
+                },
+                "nuget_info": {
+                    "nuget_recent": {
+                        "recent_href": "/packages/Microsoft.Azure.Management.DataLake.Analytics/2.2.0-preview ",
+                        "recent_date": "2017-04-27T18:30:32.8570000",
+                        "recent_days_ago": "25 days",
+                        "recent_release": "2.2.0-preview "
+                    },
+                    "nuget_stable": {
+                        "stable_href": "/packages/Microsoft.Azure.Management.DataLake.Analytics/2.0.0",
+                        "stable_date": "2017-01-11T18:21:10.4900000",
+                        "stable_days_ago": "131 days",
+                        "stable_release": "2.0.0"
+                    }
+                }
+            },
+            "datalake.analytics.catalog": {
+                "meta": {
+                    "composite_or_recent_folder": "2016-11-01",
+                    "azure_api_name": "arm-datalake-analytics/catalog",
+                    "current_swagger": "arm-datalake-analytics/catalog/2016-11-01/swagger/catalog.json",
+                    "recent_build_date": "2017-04-18T20:13:42Z",
+                    "current_version": "0.1.4",
+                    "sdk_proj_name": "datalake.analytics.catalog"
+                },
+                "changes": {
+                    "change_type": "SwaggerUpdate",
+                    "pr_num": "not found",
+                    "oldest_commit": "2017-05-12,10 days ago",
+                    "commit_sha": [
+                        "3e174b51b97f230c9e2ff70e67f18692f41a10bf"
+                    ],
+                    "swagger_behind": 1,
+                    "file_dates": [
+                        "2017-05-12T18:12:19Z"
+                    ]
+                },
+                "nuget_info": {
+                    "nuget_recent": {
+                        "recent_href": "/packages/Microsoft.Azure.Management.DataLake.Analytics/2.2.0-preview ",
+                        "recent_date": "2017-04-27T18:30:32.8570000",
+                        "recent_days_ago": "25 days",
+                        "recent_release": "2.2.0-preview "
+                    },
+                    "nuget_stable": {
+                        "stable_href": "/packages/Microsoft.Azure.Management.DataLake.Analytics/2.0.0",
+                        "stable_date": "2017-01-11T18:21:10.4900000",
+                        "stable_days_ago": "131 days",
+                        "stable_release": "2.0.0"
+                    }
+                }
+            },
+            "datalake.analytics.job": {
+                "meta": {
+                    "composite_or_recent_folder": "2016-11-01",
+                    "azure_api_name": "arm-datalake-analytics/job",
+                    "current_swagger": "arm-datalake-analytics/job/2016-11-01/swagger/job.json",
+                    "recent_build_date": "2017-04-18T20:13:42Z",
+                    "current_version": "0.1.4",
+                    "sdk_proj_name": "datalake.analytics.job"
+                },
+                "nuget_info": {
+                    "nuget_recent": {
+                        "recent_href": "/packages/Microsoft.Azure.Management.DataLake.Analytics/2.2.0-preview ",
+                        "recent_date": "2017-04-27T18:30:32.8570000",
+                        "recent_days_ago": "25 days",
+                        "recent_release": "2.2.0-preview "
+                    },
+                    "nuget_stable": {
+                        "stable_href": "/packages/Microsoft.Azure.Management.DataLake.Analytics/2.0.0",
+                        "stable_date": "2017-01-11T18:21:10.4900000",
+                        "stable_days_ago": "131 days",
+                        "stable_release": "2.0.0"
+                    }
+                }
+            }
+        }
+    },
+    "azure-mgmt-notificationhubs": {
+        "meta": {
+            "composite_or_recent_folder": "2016-03-01",
+            "azure_api_name": "arm-notificationhubs",
+            "current_swagger": "arm-notificationhubs/2016-03-01/swagger/notificationhubs.json",
+            "recent_build_date": "2017-04-01",
+            "current_version": "0.30.0",
+            "sdk_proj_name": "notificationhubs"
+        },
+        "changes": {
+            "change_type": "Folder",
+            "new_folder": "2017-04-01",
+            "oldest_commit": "2017-04-27,25 days ago",
+            "commit_sha": [
+                "7a5c77e9d5fceb33a59551625bb11f4db257057a",
+                "bdde0a249d28c6cfb45bc36008072d58fbef806e"
+            ],
+            "swagger_behind": 2,
+            "file_dates": [
+                "2017-05-02T20:24:24Z",
+                "2017-04-27T18:43:55Z"
+            ],
+            "use_swagger": "arm-notificationhubs/2017-04-01/swagger/notificationhubs.json"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.NotificationHubs/2.3.1-preview",
+                "recent_date": "2017-05-22T19:29:25.8170000",
+                "recent_days_ago": "0:00:00",
+                "recent_release": "2.3.1-preview"
+            },
+            "nuget_stable": {}
+        }
+    },
+    "azure-mgmt-authorization": {
+        "meta": {
+            "composite_or_recent_folder": "2015-07-01",
+            "azure_api_name": "arm-authorization",
+            "current_swagger": "arm-authorization/2015-07-01/swagger/authorization.json",
+            "recent_build_date": "2017-04-28T21:59:35Z",
+            "current_version": "0.30.0",
+            "sdk_proj_name": "authorization"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.Authorization/2.6.0-stack ",
+                "recent_date": "2017-05-18T21:32:07.4770000",
+                "recent_days_ago": "4 days",
+                "recent_release": "2.6.0-stack "
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.Authorization/2.0.0",
+                "stable_date": "2015-12-02T03:06:54.7830000",
+                "stable_days_ago": "537 days",
+                "stable_release": "2.0.0"
+            }
+        }
+    },
+    "azure-mgmt-cognitiveservices": {
+        "meta": {
+            "composite_or_recent_folder": "2017-04-18",
+            "azure_api_name": "arm-cognitiveservices",
+            "current_swagger": "arm-cognitiveservices/2017-04-18/swagger/cognitiveservices.json",
+            "recent_build_date": "2017-04-26T22:48:42Z",
+            "current_version": "1.0.0",
+            "sdk_proj_name": "cognitiveservices"
+        },
+        "changes": {
+            "change_type": "SwaggerUpdate",
+            "pr_num": "1224",
+            "oldest_commit": "2017-05-15,7 days ago",
+            "commit_sha": [
+                "20b02b6d2f6cdc6bd7f627bec57fc8b0bde12e26"
+            ],
+            "swagger_behind": 1,
+            "file_dates": [
+                "2017-05-15T17:45:19Z"
+            ]
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.CognitiveServices/0.3.0-preview",
+                "recent_date": "2017-03-03T05:17:35.9830000",
+                "recent_days_ago": "80 days",
+                "recent_release": "0.3.0-preview"
+            },
+            "nuget_stable": {}
+        }
+    },
+    "azure-mgmt-eventhub": {
+        "meta": {
+            "composite_or_recent_folder": "2015-08-01",
+            "azure_api_name": "arm-eventhub",
+            "current_swagger": "arm-eventhub/2015-08-01/swagger/EventHub.json",
+            "recent_build_date": "2017-04-01",
+            "current_version": "0.2.0",
+            "sdk_proj_name": "eventhub"
+        },
+        "changes": {
+            "change_type": "SwaggerUpdate",
+            "pr_num": "1199",
+            "oldest_commit": "2017-04-18,34 days ago",
+            "commit_sha": [
+                "26837ac3ab19dcd537ceb5805a4cbbfce205cc1b",
+                "0cd4da929a9900eb3ac160b1d6c4cb11feca57de",
+                "a22038c9f7368a3156037012c9555ecdf8cce978"
+            ],
+            "swagger_behind": 3,
+            "file_dates": [
+                "2017-05-09T23:44:36Z",
+                "2017-04-20T15:21:36Z",
+                "2017-04-18T00:42:07Z"
+            ]
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.EventHub/1.2.0",
+                "recent_date": "2017-04-28T17:27:39.1700000",
+                "recent_days_ago": "24 days",
+                "recent_release": "1.2.0"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.EventHub/1.2.0",
+                "stable_date": "2017-04-28T17:27:39.1700000",
+                "stable_days_ago": "24 days",
+                "stable_release": "1.2.0"
+            }
+        }
+    },
+    "azure-mgmt-devtestlabs": {
+        "meta": {
+            "composite_or_recent_folder": "2016-05-15",
+            "azure_api_name": "arm-devtestlabs",
+            "current_swagger": "arm-devtestlabs/2016-05-15/swagger/DTL.json",
+            "recent_build_date": "2017-04-26T22:48:42Z",
+            "current_version": "2.0.0",
+            "sdk_proj_name": "devtestlabs"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.DevTestLabs/2.0.1",
+                "recent_date": "2017-05-22T19:26:15.6770000",
+                "recent_days_ago": "0:00:00",
+                "recent_release": "2.0.1"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.DevTestLabs/2.0.1",
+                "stable_date": "2017-05-22T19:26:15.6770000",
+                "stable_days_ago": "0:00:00",
+                "stable_release": "2.0.1"
+            }
+        }
+    },
+    "azure-mgmt-resource": {
+        "same_sdk": {
+            "resources.links.2016-09-01": {
+                "meta": {
+                    "composite_or_recent_folder": "2016-09-01",
+                    "azure_api_name": "arm-resources/links",
+                    "current_swagger": "arm-resources/links/2016-09-01/swagger/links.json",
+                    "recent_build_date": "2017-05-04T19:23:06Z",
+                    "current_version": "",
+                    "sdk_proj_name": "resources.links.2016-09-01"
+                },
+                "nuget_info": {
+                    "nuget_recent": {
+                        "recent_href": "/packages/Microsoft.Azure.Management.ResourceManager/1.6.0-preview",
+                        "recent_date": "2017-05-02T02:04:37.6670000",
+                        "recent_days_ago": "20 days",
+                        "recent_release": "1.6.0-preview"
+                    },
+                    "nuget_stable": {}
+                }
+            },
+            "resources.subscriptions.2016-06-01": {
+                "meta": {
+                    "composite_or_recent_folder": "2016-06-01",
+                    "azure_api_name": "arm-resources/subscriptions",
+                    "current_swagger": "arm-resources/subscriptions/2016-06-01/swagger/subscriptions.json",
+                    "recent_build_date": "2017-05-04T19:23:06Z",
+                    "current_version": "",
+                    "sdk_proj_name": "resources.subscriptions.2016-06-01"
+                },
+                "nuget_info": {
+                    "nuget_recent": {
+                        "recent_href": "/packages/Microsoft.Azure.Management.ResourceManager/1.6.0-preview",
+                        "recent_date": "2017-05-02T02:04:37.6670000",
+                        "recent_days_ago": "20 days",
+                        "recent_release": "1.6.0-preview"
+                    },
+                    "nuget_stable": {}
+                }
+            },
+            "resources.features.2015-12-01": {
+                "meta": {
+                    "composite_or_recent_folder": "2015-12-01",
+                    "azure_api_name": "arm-resources/features",
+                    "current_swagger": "arm-resources/features/2015-12-01/swagger/features.json",
+                    "recent_build_date": "2017-05-04T19:23:06Z",
+                    "current_version": "",
+                    "sdk_proj_name": "resources.features.2015-12-01"
+                },
+                "nuget_info": {
+                    "nuget_recent": {
+                        "recent_href": "/packages/Microsoft.Azure.Management.ResourceManager/1.6.0-preview",
+                        "recent_date": "2017-05-02T02:04:37.6670000",
+                        "recent_days_ago": "20 days",
+                        "recent_release": "1.6.0-preview"
+                    },
+                    "nuget_stable": {}
+                }
+            },
+            "resources.managedapplications.2016-09-01-preview": {
+                "meta": {
+                    "composite_or_recent_folder": "2016-09-01-preview",
+                    "azure_api_name": "arm-resources/managedapplications",
+                    "current_swagger": "arm-resources/managedapplications/2016-09-01-preview/swagger/managedapplications.json",
+                    "recent_build_date": "2017-05-04T19:23:06Z",
+                    "current_version": "",
+                    "sdk_proj_name": "resources.managedapplications.2016-09-01-preview"
+                }
+            }
+        }
+    },
+    "azure-mgmt-logic": {
+        "meta": {
+            "composite_or_recent_folder": "2016-06-01",
+            "azure_api_name": "arm-logic",
+            "current_swagger": "arm-logic/2016-06-01/swagger/logic.json",
+            "recent_build_date": "2017-04-18T20:13:42Z",
+            "current_version": "2.1.0",
+            "sdk_proj_name": "logic"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.Logic/3.0.0",
+                "recent_date": "2017-03-16T16:59:12.1570000",
+                "recent_days_ago": "67 days",
+                "recent_release": "3.0.0"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.Logic/3.0.0",
+                "stable_date": "2017-03-16T16:59:12.1570000",
+                "stable_days_ago": "67 days",
+                "stable_release": "3.0.0"
+            }
+        }
+    },
+    "azure-batch": {
+        "meta": {
+            "composite_or_recent_folder": "2017-05-01.5.0",
+            "azure_api_name": "batch",
+            "current_swagger": "batch/2017-05-01.5.0/swagger/BatchService.json",
+            "recent_build_date": "2017-05-18T22:46:36Z",
+            "current_version": "",
+            "sdk_proj_name": "batch"
+        }
+    },
+    "azure-mgmt-consumption": {
+        "meta": {
+            "composite_or_recent_folder": "2017-04-24-preview",
+            "azure_api_name": "arm-consumption",
+            "current_swagger": "arm-consumption/2017-04-24-preview/swagger/consumption.json",
+            "recent_build_date": "2017-04-01",
+            "current_version": "0.1.0",
+            "sdk_proj_name": "consumption"
+        },
+        "changes": {
+            "change_type": "SwaggerUpdate",
+            "pr_num": "not found",
+            "oldest_commit": "2017-04-21,31 days ago",
+            "commit_sha": [
+                "ba50eafc653f8d6340bb261fd0da81dc1929a3be",
+                "1141893c69c16724c1702f26d8c2c9a2da516be9",
+                "5ef46a8e9f86e7c9e54e1a024078117f3525e4a2"
+            ],
+            "swagger_behind": 3,
+            "file_dates": [
+                "2017-05-05T16:52:42Z",
+                "2017-04-26T19:29:24Z",
+                "2017-04-21T19:32:32Z"
+            ]
+        }
+    },
+    "azure-mgmt-sql": {
+        "meta": {
+            "composite_or_recent_folder": "Composite",
+            "azure_api_name": "arm-sql",
+            "current_swagger": "arm-sql/compositeSql.json",
+            "recent_build_date": "2017-04-28T21:59:35Z",
+            "current_version": "0.5.1",
+            "sdk_proj_name": "sql"
+        },
+        "changes": {
+            "change_type": "SwaggerUpdate",
+            "ind_changes": {
+                "arm-sql/2014-04-01/swagger/sql.core.json": {
+                    "swagger_behind": 3,
+                    "oldest_commit": "2017-05-02,20 days ago",
+                    "commit_sha": [
+                        "50c3e1f16974f2c44996feb87b722e9bc4f3c833",
+                        "312fb7fb39388c811fb2dac89e84dd53f3be3e32",
+                        "b1c64e75e3e0e3e9c3546d4466c7ebd0d5948cfe"
+                    ],
+                    "file_dates": [
+                        "2017-05-12T20:02:27Z",
+                        "2017-05-12T02:19:56Z",
+                        "2017-05-02T16:09:25Z"
+                    ],
+                    "pr_num": "not found"
+                },
+                "arm-sql/2014-04-01/swagger/serverAzureADAdministrators.json": {
+                    "swagger_behind": 1,
+                    "oldest_commit": "2017-05-10,12 days ago",
+                    "commit_sha": [
+                        "c1ccd7a71b3c3f5b9ffbb9d3f4fec06c9ef7008b"
+                    ],
+                    "file_dates": [
+                        "2017-05-10T16:59:37Z"
+                    ],
+                    "pr_num": "1203"
+                },
+                "arm-sql/2014-04-01/swagger/servers.json": {
+                    "swagger_behind": 2,
+                    "oldest_commit": "2017-05-12,10 days ago",
+                    "commit_sha": [
+                        "50c3e1f16974f2c44996feb87b722e9bc4f3c833",
+                        "312fb7fb39388c811fb2dac89e84dd53f3be3e32"
+                    ],
+                    "file_dates": [
+                        "2017-05-12T20:02:27Z",
+                        "2017-05-12T02:19:56Z"
+                    ],
+                    "pr_num": "not found"
+                }
+            }
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.Sql/1.3.0-preview",
+                "recent_date": "2017-04-25T23:00:05.6530000",
+                "recent_days_ago": "27 days",
+                "recent_release": "1.3.0-preview"
+            },
+            "nuget_stable": {}
+        }
+    },
+    "azure-mgmt-trafficmanager": {
+        "meta": {
+            "composite_or_recent_folder": "2017-03-01",
+            "azure_api_name": "arm-trafficmanager",
+            "current_swagger": "arm-trafficmanager/2017-03-01/swagger/trafficmanager.json",
+            "recent_build_date": "2017-04-18T20:13:42Z",
+            "current_version": "0.30.0",
+            "sdk_proj_name": "trafficmanager"
+        },
+        "changes": {
+            "change_type": "Folder",
+            "new_folder": "2017-05-01",
+            "oldest_commit": "2017-05-16,6 days ago",
+            "commit_sha": [
+                "9e35e9c1e14dc46fcb1837ad108bba185ccaf9a9"
+            ],
+            "swagger_behind": 1,
+            "file_dates": [
+                "2017-05-16T18:22:32Z"
+            ],
+            "use_swagger": "arm-trafficmanager/2017-05-01/swagger/trafficmanager.json"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.TrafficManager.Fluent/1.0.0",
+                "recent_date": "2017-04-20T01:52:35.6470000",
+                "recent_days_ago": "32 days",
+                "recent_release": "1.0.0"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.TrafficManager.Fluent/1.0.0",
+                "stable_date": "2017-04-20T01:52:35.6470000",
+                "stable_days_ago": "32 days",
+                "stable_release": "1.0.0"
+            }
+        }
+    },
+    "azure-mgmt-compute": {
+        "multiple_projects": {
+            "compute.compute.2015-06-15": {
+                "meta": {
+                    "composite_or_recent_folder": "2015-06-15",
+                    "azure_api_name": "arm-compute",
+                    "current_swagger": "arm-compute/2015-06-15/swagger/compute.json",
+                    "recent_build_date": "2017-04-11T17:45:43Z",
+                    "current_version": "1.0.0rc1",
+                    "sdk_proj_name": "compute.compute.2015-06-15"
+                },
+                "changes": {
+                    "swagger_behind": 1,
+                    "oldest_commit": "2017-05-03,19 days ago",
+                    "commit_sha": [
+                        "2dc43333a1ba18ebf0213f9d3948172be17d3bc1"
+                    ],
+                    "file_dates": [
+                        "2017-05-03T17:51:16Z"
+                    ],
+                    "pr_num": "not found"
+                }
+            },
+            "compute.compute.2016-03-30": {
+                "meta": {
+                    "composite_or_recent_folder": "2015-06-15",
+                    "azure_api_name": "arm-compute",
+                    "current_swagger": "arm-compute/2016-03-30/swagger/compute.json",
+                    "recent_build_date": "2017-04-11T17:45:43Z",
+                    "current_version": "1.0.0rc1",
+                    "sdk_proj_name": "compute.compute.2016-03-30"
+                }
+            },
+            "compute.compute.2016-04-30-preview": {
+                "meta": {
+                    "composite_or_recent_folder": "2015-06-15",
+                    "azure_api_name": "arm-compute",
+                    "current_swagger": "arm-compute/compositeComputeClient_2016_04_30_preview.json",
+                    "recent_build_date": "2017-04-11T17:45:43Z",
+                    "current_version": "1.0.0rc1",
+                    "sdk_proj_name": "compute.compute.2016-04-30-preview"
+                },
+                "errors": "Swagger: arm-compute/compositeComputeClient_2016_04_30_preview.json Not found"
+            },
+            "compute.containerservice.2017-01-31": {
+                "meta": {
+                    "composite_or_recent_folder": "2015-06-15",
+                    "azure_api_name": "arm-compute",
+                    "current_swagger": "arm-compute/2017-01-31/swagger/containerService.json",
+                    "recent_build_date": "2017-04-11T17:45:43Z",
+                    "current_version": "1.0.0rc1",
+                    "sdk_proj_name": "compute.containerservice.2017-01-31"
+                }
+            }
+        },
+        "changes": {
+            "swagger_behind": 0,
+            "commit_sha": [],
+            "file_dates": [],
+            "pr_num": "n.a"
+        }
+    },
+    "azure-keyvault": {
+        "meta": {
+            "composite_or_recent_folder": "2016-10-01",
+            "azure_api_name": "keyvault",
+            "current_swagger": "keyvault/2016-10-01/swagger/keyvault.json",
+            "recent_build_date": "2017-04-18T20:13:42Z",
+            "current_version": "0.2.0",
+            "sdk_proj_name": "keyvault.data"
+        },
+        "changes": {
+            "change_type": "SwaggerUpdate",
+            "pr_num": "1231",
+            "oldest_commit": "2017-04-26,26 days ago",
+            "commit_sha": [
+                "96b984319c0a885e9cfe72bcf90f53f792b09ed7",
+                "ab6034c2ed4ae7347a5817242487706e5a49b73c",
+                "abb21385a3c5701ec738cb4ee714696d00584cff"
+            ],
+            "swagger_behind": 3,
+            "file_dates": [
+                "2017-05-17T21:12:39Z",
+                "2017-05-10T23:41:48Z",
+                "2017-04-26T22:35:11Z"
+            ]
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.KeyVault/2.2.1-preview ",
+                "recent_date": "2017-05-05T01:05:28.9570000",
+                "recent_days_ago": "17 days",
+                "recent_release": "2.2.1-preview "
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.KeyVault/2.0.6",
+                "stable_date": "2016-12-07T17:38:48.3970000",
+                "stable_days_ago": "166 days",
+                "stable_release": "2.0.6"
+            }
+        }
+    },
+    "azure-mgmt-cdn": {
+        "meta": {
+            "composite_or_recent_folder": "2016-10-02",
+            "azure_api_name": "arm-cdn",
+            "current_swagger": "arm-cdn/2016-10-02/swagger/cdn.json",
+            "recent_build_date": "2017-04-01",
+            "current_version": "0.30.3",
+            "sdk_proj_name": "cdn"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.Cdn/3.1.0-preview ",
+                "recent_date": "2017-03-03T05:17:19.1370000",
+                "recent_days_ago": "80 days",
+                "recent_release": "3.1.0-preview "
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.Cdn/2.1.0",
+                "stable_date": "2016-12-17T01:57:15.1570000",
+                "stable_days_ago": "156 days",
+                "stable_release": "2.1.0"
+            }
+        }
+    },
+    "azure-mgmt-containerregistry": {
+        "meta": {
+            "composite_or_recent_folder": "2017-03-01",
+            "azure_api_name": "arm-containerregistry",
+            "current_swagger": "arm-containerregistry/2017-03-01/swagger/containerregistry.json",
+            "recent_build_date": "2017-04-18T20:13:42Z",
+            "current_version": "0.2.1",
+            "sdk_proj_name": "containerregistry"
+        },
+        "changes": {
+            "change_type": "Folder",
+            "new_folder": "2017-06-01-preview",
+            "oldest_commit": "2017-04-24,28 days ago",
+            "commit_sha": [
+                "416762812e33d91fddce44258f8de34b696ad7ef",
+                "0ca88c0c276ea4fd96db1a3b69951638099db503",
+                "993690fb3578f8b8ea1bd5fc86bbfe10bb71c20d",
+                "10f5fca1294ac8b2d5fb7f2f85b769a57d87632a"
+            ],
+            "swagger_behind": 4,
+            "file_dates": [
+                "2017-05-17T01:20:53Z",
+                "2017-05-02T21:20:50Z",
+                "2017-04-27T17:28:46Z",
+                "2017-04-24T18:31:14Z"
+            ],
+            "use_swagger": "arm-containerregistry/2017-06-01-preview/swagger/containerregistry.json"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.ContainerRegistry/1.2.0-preview",
+                "recent_date": "2017-03-23T21:51:15.2400000",
+                "recent_days_ago": "60 days",
+                "recent_release": "1.2.0-preview"
+            },
+            "nuget_stable": {}
+        }
+    },
+    "azure-mgmt-redis": {
+        "meta": {
+            "composite_or_recent_folder": "2016-04-01",
+            "azure_api_name": "arm-redis",
+            "current_swagger": "arm-redis/2016-04-01/swagger/redis.json",
+            "recent_build_date": "2017-04-18T20:13:42Z",
+            "current_version": "4.1.0",
+            "sdk_proj_name": "redis"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.Redis/4.3.0-preview",
+                "recent_date": "2017-03-03T06:14:31.0500000",
+                "recent_days_ago": "80 days",
+                "recent_release": "4.3.0-preview"
+            },
+            "nuget_stable": {}
+        }
+    },
+    "azure-mgmt-powerbiembedded": {
+        "meta": {
+            "composite_or_recent_folder": "2016-01-29",
+            "azure_api_name": "arm-powerbiembedded",
+            "current_swagger": "arm-powerbiembedded/2016-01-29/swagger/powerbiembedded.json",
+            "recent_build_date": "2017-04-01",
+            "current_version": "0.00",
+            "sdk_proj_name": "powerbiembedded"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.PowerBIEmbedded/1.1.0-preview",
+                "recent_date": "2017-03-03T06:13:47.2970000",
+                "recent_days_ago": "80 days",
+                "recent_release": "1.1.0-preview"
+            },
+            "nuget_stable": {}
+        }
+    },
+    "azure-mgmt-monitor": {
+        "meta": {
+            "composite_or_recent_folder": "Composite",
+            "azure_api_name": "arm-monitor",
+            "current_swagger": "arm-monitor/compositeMonitorManagementClient.json",
+            "recent_build_date": "2017-04-26T22:48:42Z",
+            "current_version": "0.2.1",
+            "sdk_proj_name": "monitor.mgmt"
+        },
+        "changes": {
+            "change_type": "SwaggerUpdate",
+            "ind_changes": {
+                "arm-monitor/2016-09-01/swagger/serviceDiagnosticsSettings_API.json": {
+                    "swagger_behind": 1,
+                    "oldest_commit": "2017-05-04,18 days ago",
+                    "commit_sha": [
+                        "d4c1ad933ee01abf2f7c3dc0ac4034fc0e6c4317"
+                    ],
+                    "file_dates": [
+                        "2017-05-04T23:29:16Z"
+                    ],
+                    "pr_num": "not found"
+                },
+                "arm-monitor/2015-04-01/swagger/autoscale_API.json": {
+                    "swagger_behind": 1,
+                    "oldest_commit": "2017-05-04,18 days ago",
+                    "commit_sha": [
+                        "d4c1ad933ee01abf2f7c3dc0ac4034fc0e6c4317"
+                    ],
+                    "file_dates": [
+                        "2017-05-04T23:29:16Z"
+                    ],
+                    "pr_num": "not found"
+                },
+                "arm-monitor/2017-04-01/swagger/actionGroups_API.json": {
+                    "swagger_behind": 1,
+                    "oldest_commit": "2017-05-04,18 days ago",
+                    "commit_sha": [
+                        "d4c1ad933ee01abf2f7c3dc0ac4034fc0e6c4317"
+                    ],
+                    "file_dates": [
+                        "2017-05-04T23:29:16Z"
+                    ],
+                    "pr_num": "not found"
+                },
+                "arm-monitor/2016-03-01/swagger/logProfiles_API.json": {
+                    "swagger_behind": 1,
+                    "oldest_commit": "2017-05-04,18 days ago",
+                    "commit_sha": [
+                        "d4c1ad933ee01abf2f7c3dc0ac4034fc0e6c4317"
+                    ],
+                    "file_dates": [
+                        "2017-05-04T23:29:16Z"
+                    ],
+                    "pr_num": "not found"
+                },
+                "arm-monitor/2017-04-01/swagger/activityLogAlerts_API.json": {
+                    "swagger_behind": 1,
+                    "oldest_commit": "2017-05-04,18 days ago",
+                    "commit_sha": [
+                        "d4c1ad933ee01abf2f7c3dc0ac4034fc0e6c4317"
+                    ],
+                    "file_dates": [
+                        "2017-05-04T23:29:16Z"
+                    ],
+                    "pr_num": "1183"
+                },
+                "arm-monitor/2016-03-01/swagger/alertRules_API.json": {
+                    "swagger_behind": 1,
+                    "oldest_commit": "2017-05-04,18 days ago",
+                    "commit_sha": [
+                        "d4c1ad933ee01abf2f7c3dc0ac4034fc0e6c4317"
+                    ],
+                    "file_dates": [
+                        "2017-05-04T23:29:16Z"
+                    ],
+                    "pr_num": "not found"
+                }
+            }
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.WindowsAzure.Management.Monitoring/4.1.0",
+                "recent_date": "2015-01-30T19:49:16.6930000",
+                "recent_days_ago": "843 days",
+                "recent_release": "4.1.0"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.WindowsAzure.Management.Monitoring/4.1.0",
+                "stable_date": "2015-01-30T19:49:16.6930000",
+                "stable_days_ago": "843 days",
+                "stable_release": "4.1.0"
+            }
+        }
+    },
+    "azure-mgmt-servicebus": {
+        "meta": {
+            "composite_or_recent_folder": "2015-08-01",
+            "azure_api_name": "arm-servicebus",
+            "current_swagger": "arm-servicebus/2015-08-01/swagger/servicebus.json",
+            "recent_build_date": "2017-04-01",
+            "current_version": "0.1.0",
+            "sdk_proj_name": "servicebus"
+        },
+        "changes": {
+            "change_type": "SwaggerUpdate",
+            "pr_num": "not found",
+            "oldest_commit": "2017-04-19,33 days ago",
+            "commit_sha": [
+                "4779d58229fbe5cb94e8c6c40204af0515c07677"
+            ],
+            "swagger_behind": 1,
+            "file_dates": [
+                "2017-04-19T10:26:29Z"
+            ]
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.ServiceBus/0.2.0-preview",
+                "recent_date": "2017-04-28T01:26:29.5230000",
+                "recent_days_ago": "24 days",
+                "recent_release": "0.2.0-preview"
+            },
+            "nuget_stable": {}
+        }
+    },
+    "azure-mgmt-media": {
+        "meta": {
+            "composite_or_recent_folder": "2015-10-01",
+            "azure_api_name": "arm-mediaservices",
+            "current_swagger": "arm-mediaservices/2015-10-01/swagger/media.json",
+            "recent_build_date": "2017-04-01",
+            "current_version": "0.1.1",
+            "sdk_proj_name": "media"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.Media/0.2.0",
+                "recent_date": "2017-03-03T05:45:11.4200000",
+                "recent_days_ago": "80 days",
+                "recent_release": "0.2.0"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.Media/0.2.0",
+                "stable_date": "2017-03-03T05:45:11.4200000",
+                "stable_days_ago": "80 days",
+                "stable_release": "0.2.0"
+            }
+        }
+    },
+    "azure-mgmt-dns": {
+        "meta": {
+            "composite_or_recent_folder": "2016-04-01",
+            "azure_api_name": "arm-dns",
+            "current_swagger": "arm-dns/2016-04-01/swagger/dns.json",
+            "recent_build_date": "2017-04-18T20:13:42Z",
+            "current_version": "1.0.1",
+            "sdk_proj_name": "dns"
+        },
+        "changes": {
+            "change_type": "SwaggerUpdate",
+            "pr_num": "not found",
+            "oldest_commit": "2017-05-05,17 days ago",
+            "commit_sha": [
+                "459fe58b32b3ff8ecec16968a368cc3ecdaa48c6"
+            ],
+            "swagger_behind": 1,
+            "file_dates": [
+                "2017-05-05T18:22:28Z"
+            ]
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.Dns/1.8.0-preview",
+                "recent_date": "2017-03-03T05:43:23.2970000",
+                "recent_days_ago": "80 days",
+                "recent_release": "1.8.0-preview"
+            },
+            "nuget_stable": {}
+        }
+    },
+    "unreleased": {
+        "meta": {
+            "composite_or_recent_folder": "2016-05-01-preview",
+            "azure_api_name": "arm-machinelearning",
+            "current_swagger": "arm-machinelearning/2016-05-01-preview/swagger/webservices.json",
+            "recent_build_date": "2017-04-01",
+            "current_version": "0.1.0",
+            "sdk_proj_name": "machinelearning"
+        },
+        "changes": {
+            "change_type": "Folder",
+            "new_folder": "2017-01-01",
+            "oldest_commit": "2017-03-31,52 days ago",
+            "commit_sha": [
+                "17824f2e14ffc916331445a80029da7dbb0bc987"
+            ],
+            "swagger_behind": 1,
+            "file_dates": [
+                "2017-03-31T16:49:56Z"
+            ],
+            "use_swagger": "arm-machinelearning/2017-01-01/swagger/webservices.json"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.MachineLearning/1.0.0",
+                "recent_date": "2017-04-13T06:10:20.7570000",
+                "recent_days_ago": "39 days",
+                "recent_release": "1.0.0"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Management.MachineLearning/1.0.0",
+                "stable_date": "2017-04-13T06:10:20.7570000",
+                "stable_days_ago": "39 days",
+                "stable_release": "1.0.0"
+            }
+        }
+    },
+    "azure-servicefabric": {
+        "meta": {
+            "composite_or_recent_folder": "5.6.130",
+            "azure_api_name": "servicefabric",
+            "current_swagger": "servicefabric/5.6.130/swagger/servicefabric.json",
+            "recent_build_date": "2017-04-01",
+            "current_version": "5.6.130",
+            "sdk_proj_name": "servicefabric"
+        },
+        "changes": {
+            "change_type": "Folder",
+            "new_folder": "2016-01-28",
+            "oldest_commit": "2016-03-26,422 days ago",
+            "commit_sha": [
+                "9daa8e2258f44b9d1a3724b247deaea60ed46168",
+                "3015ce5ae2617550067e9ad6bac6535990575df1",
+                "e3eedaed2c09b399e9afa597913af0ed1949ab6c",
+                "290a1897950ffbc74a986589306485cf92dd6304",
+                "bc1ce0e59543600ae608e016e23609482e204aa3",
+                "6fb31d65efb1013c068e5e516b8785a4bf728606",
+                "b923746e04ef0076e868a8bc6c12839ebf5f616a",
+                "c7c4d30d4cff52edfa8a69bf11d299f86cf2891e",
+                "9180d4b9e4cb2ebcff070d2b679329ff1b9bbebe",
+                "ed07dc99cc0f41d4b5e5d7d38a689ac9a80b8a2e",
+                "264846f01824fd097ddea25eed99ef24edfca8b2",
+                "c086f3df5fde9edbd860c9c85e31fdc4eaf96f43",
+                "fb4ccbaae5c016d44755c6f79d6ee9065e62c199",
+                "a681e012e80f5cb7847fdfefc9d059d4f8ac9f54",
+                "06db3678dc526cd359fe326d678d6780c88e0019",
+                "ccaf3bdc31b196b322a3c95313c87611fcb6b529",
+                "d1d04c5a4883350db3d1905e2f1fc42cf9f0bb99",
+                "f714da3b6be84e1cf5c757e7834de2a5ac8aa671",
+                "0baff2ae9330b47348159b43071b2ccd8f198564"
+            ],
+            "swagger_behind": 19,
+            "file_dates": [
+                "2017-02-17T17:20:09Z",
+                "2017-02-04T19:20:46Z",
+                "2016-12-21T01:04:38Z",
+                "2016-09-22T18:07:02Z",
+                "2016-09-22T03:06:55Z",
+                "2016-09-19T18:23:25Z",
+                "2016-09-17T00:15:00Z",
+                "2016-09-15T22:07:54Z",
+                "2016-09-15T17:39:43Z",
+                "2016-09-14T21:54:01Z",
+                "2016-09-14T20:22:01Z",
+                "2016-09-09T22:23:10Z",
+                "2016-09-08T22:06:57Z",
+                "2016-09-08T02:07:25Z",
+                "2016-09-02T22:39:48Z",
+                "2016-09-01T23:58:58Z",
+                "2016-09-01T23:55:12Z",
+                "2016-03-26T21:06:24Z",
+                "2016-03-26T21:04:56Z"
+            ],
+            "use_swagger": "servicefabric/2016-01-28/swagger/servicefabric.json"
+        }
+    },
+    "azure-mgmt-web": {
+        "meta": {
+            "composite_or_recent_folder": "Composite",
+            "azure_api_name": "arm-web",
+            "current_swagger": "arm-web/compositeWebAppClient.json",
+            "recent_build_date": "2017-04-26T22:48:42Z",
+            "current_version": "0.32.0",
+            "sdk_proj_name": "web"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Management.WebSites/1.6.0-preview",
+                "recent_date": "2017-03-03T06:18:36.4530000",
+                "recent_days_ago": "80 days",
+                "recent_release": "1.6.0-preview"
+            },
+            "nuget_stable": {}
+        }
+    },
+    "azure-mgmt-commerce": {
+        "meta": {
+            "composite_or_recent_folder": "2015-06-01-preview",
+            "azure_api_name": "arm-commerce",
+            "current_swagger": "arm-commerce/2015-06-01-preview/swagger/commerce.json",
+            "recent_build_date": "2017-04-01",
+            "current_version": "0.00",
+            "sdk_proj_name": "commerce"
+        },
+        "nuget_info": {
+            "nuget_recent": {
+                "recent_href": "/packages/Microsoft.Azure.Commerce.UsageAggregates/1.5.0",
+                "recent_date": "2016-04-14T01:34:38.4000000",
+                "recent_days_ago": "403 days",
+                "recent_release": "1.5.0"
+            },
+            "nuget_stable": {
+                "stable_href": "/packages/Microsoft.Azure.Commerce.UsageAggregates/1.5.0",
+                "stable_date": "2016-04-14T01:34:38.4000000",
+                "stable_days_ago": "403 days",
+                "stable_release": "1.5.0"
+            }
+        }
+    },
+    "azure-mgmt-rdbms": {
+        "same_sdk": {
+            "rdbms.postgres": {
+                "meta": {
+                    "composite_or_recent_folder": "2017-04-30-preview",
+                    "azure_api_name": "arm-rdbms",
+                    "current_swagger": "arm-rdbms/2017-04-30-preview/swagger/Rdms.PostgreSQL.json",
+                    "recent_build_date": "2017-04-01",
+                    "current_version": "0.1.0",
+                    "sdk_proj_name": "rdbms.postgres"
+                },
+                "errors": "Project arm-rdbms not found. Probably private"
+            },
+            "rdbms.mysql": {
+                "meta": {
+                    "composite_or_recent_folder": "2017-04-30-preview",
+                    "azure_api_name": "arm-rdbms",
+                    "current_swagger": "arm-rdbms/2017-04-30-preview/swagger/Rdms.MySQL.json",
+                    "recent_build_date": "2017-04-01",
+                    "current_version": "0.1.0",
+                    "sdk_proj_name": "rdbms.mysql"
+                },
+                "errors": "Project arm-rdbms not found. Probably private"
+            }
+        }
+    }
+}
