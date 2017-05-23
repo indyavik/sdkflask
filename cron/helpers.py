@@ -7,6 +7,12 @@ from datetime import datetime
 
 #globals (via a config later on)
 git_url = 'https://api.github.com/repos/Azure/azure-rest-api-specs/'
+raw_url = 'https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/' 
+sdk_raw_url = 'https://raw.githubusercontent.com/Azure/azure-sdk-for-python/master/'
+swagger_to_sdk_config_file_name = 'swagger_to_sdk_config.json'
+assumed_current_date = '2017-04-01' #all packages without build.json are assued to be current as of  04-01
+sdk_url = 'https://api.github.com/repos/Azure/azure-sdk-for-python/'
+
 with open('config/api2sdk2nuget.json', 'r') as f:
     map_object = json.load(f)
 
@@ -294,9 +300,9 @@ def get_key_folder_params_v2(git_url, azure_folder_path):
         if folder.startswith('20') or folder.startswith('/20'): 
             folders.append(folder)
         
-        print 'folder is ==='
+        #print 'folder is ==='
         
-        print folders
+        #print folders
         
         if '.json' in path:
             most_recent_composite_status = 'Yes'
@@ -1113,7 +1119,7 @@ def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_c
                                'current_swagger': current_swagger_path , 'recent_build_date': c_recent_date, 
                                'current_version':c_version, 'sdk_proj_name' : proj}
 
-        print azure_api_name, c_composite, c_swagger, c_recent_date
+        #print azure_api_name, c_composite, c_swagger, c_recent_date
 
         get_changes = get_changes_for_project(azure_api_name, c_composite, current_swagger_path , c_recent_date)
         

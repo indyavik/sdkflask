@@ -8,13 +8,6 @@ from datetime import datetime
 from cron import helpers
 
 
-#globals (via a config later on)
-git_url = 'https://api.github.com/repos/Azure/azure-rest-api-specs/'
-raw_url = 'https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/' 
-sdk_raw_url = 'https://raw.githubusercontent.com/Azure/azure-sdk-for-python/master/'
-swagger_to_sdk_config_file_name = 'swagger_to_sdk_config.json'
-assumed_current_date = '2017-04-01' #all packages without build.json are assued to be current as of  04-01
-sdk_url = 'https://api.github.com/repos/Azure/azure-sdk-for-python/'
 
 
 with open('config/api2sdk2nuget.json', 'r') as f:
