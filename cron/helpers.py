@@ -7,6 +7,10 @@ from datetime import datetime
 
 #globals (via a config later on)
 git_url = 'https://api.github.com/repos/Azure/azure-rest-api-specs/'
+with open('config/api2sdk2nuget.json', 'r') as f:
+    map_object = json.load(f)
+
+    sdk_map = map_object
 
 def get_prs_in_range(shas, projects):
 
