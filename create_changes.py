@@ -50,7 +50,7 @@ except:
     sha2pr = {}
 
 print ('@@@@UPDATING PRS .....')
-prs = update_remaining_PR_v2(existing_projects, sha2pr=sha2pr) #[[(u'azure-keyvault', u'ab6034c2ed4ae7347a5817242487706e5a49b73c', u'1195')]
+prs = helpers.update_remaining_PR_v2(existing_projects, sha2pr=sha2pr) #[[(u'azure-keyvault', u'ab6034c2ed4ae7347a5817242487706e5a49b73c', u'1195')]
 
 print(prs)
 
