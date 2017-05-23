@@ -1194,4 +1194,4 @@ def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_c
 
 
     print("Done finding existing changes")
-    #return existing_changes
+    return existing_changes
