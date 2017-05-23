@@ -26,9 +26,8 @@ sdk_map = map_object
 
 swagger_to_sdk_config_file_name = 'swagger_to_sdk_config.json'
 
-"""
+
 swagger_to_sdk = helpers.request_helper(sdk_raw_url + swagger_to_sdk_config_file_name )
-"""
 azure_projects = [helpers.get_azure_name_space_data(swagger_to_sdk['projects'][p]['swagger'])[0] for p in swagger_to_sdk['projects']]
 azure_projects_no_duplicate = list(set(azure_projects))
 
