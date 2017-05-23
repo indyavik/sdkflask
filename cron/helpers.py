@@ -1186,7 +1186,7 @@ def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_c
                 ind_change = existing_changes[e]['changes'].get('ind_changes')
                 max_behind = 1
                 for k,v in ind_change.items():
-                    print v['swagger_behind']
+                    #print v['swagger_behind']
                     if v['swagger_behind'] > max_behind:
                         max_behind = v['swagger_behind'] 
 
@@ -1194,4 +1194,5 @@ def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_c
 
 
     print("Done finding existing changes")
+    
     return existing_changes
