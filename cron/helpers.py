@@ -1044,3 +1044,144 @@ def get_new_project_details(new_projects_list, git_url=None):
     return(new_output)
 
 #print(get_new_project_details(get_new_project_names()))
+
+def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_current_date): 
+    
+    existing_changes ={}
+    existing_changes['errors'] = {}
+
+    #get main swagger_to_sdk_config file 
+
+    swagger_to_sdk = request_helper(sdk_raw_url + swagger_to_sdk_file )
+
+    #get normal sdks (points to SINGLE API SPEC on AZURE-API-SPEC), and multiple sdks (POINTS to SAME AZURE-API-SPEC on github)
+    s_to_sdk_projects = sorted([s for s in swagger_to_sdk['projects'] ])
+
+    multi_sdk = {} 
+
+    normal_sdk = []
+
+    d ={}
+
+    for i in range(len(s_to_sdk_projects)):
+        azure_api_x = parse_swagger_to_sdk_config(swagger_to_sdk['projects'][s_to_sdk_projects[i]])[0]
+        if not d.get(azure_api_x):
+            d[azure_api_x] = []
+            d[azure_api_x].append(s_to_sdk_projects[i])
+        else:
+             d[azure_api_x].append(s_to_sdk_projects[i])
+
+    for a in d:
+        if len(d.get(a)) >1 and 'rdbms' not in a:
+            multi_sdk[a] = d[a]     
+        else:
+            for sdk in d.get(a):
+                normal_sdk.append(sdk)
+
+    #process normal sdk projects first (i.e, one that points to SINGLE API SPEC on AZURE-API-SPECs)
+
+    for proj in normal_sdk:
+
+        #if 'devtestlabs' in proj:
+
+        print ('Process Project :' + proj )
+
+        #(u'arm-commerce', u'2015-06-01-preview', u'commerce.json'), (u'arm-network', 'Composite', u'compositeNetworkClient_2015_06_15.json')
+
+        azure_api_name, c_composite, c_swagger, sdk, namespace = parse_swagger_to_sdk_config(swagger_to_sdk['projects'][proj])
+
+        current_swagger_path = swagger_to_sdk['projects'][proj]['swagger']
+
+        #right now there is no build.json info included in swagger_to_sdk_config.json, so try to find build.json for each 'sdk'
+        #note c_swagger is "short form -> i.e xyz.json" , swagger_path is full path including the folder. 
+
+        sdk_recent_build = get_python_sdk_build_info(sdk)
+
+        if not sdk_recent_build:
+            c_recent_date = assumed_current_date #assume it's current as of April 15th. 
+            c_version = swagger_to_sdk['projects'][proj]['autorest_options'].get("PackageVersion", "0.00") #assume current version == package version
+
+        else:
+            c_recent_date = sdk_recent_build['date']
+            c_version = sdk_recent_build['version']
+
+        meta = {'azure_api_name' : azure_api_name, 'composite_or_recent_folder' : c_composite, 
+                               'current_swagger': current_swagger_path , 'recent_build_date': c_recent_date, 
+                               'current_version':c_version, 'sdk_proj_name' : proj}
+
+        print azure_api_name, c_composite, c_swagger, c_recent_date
+
+        get_changes = get_changes_for_project(azure_api_name, c_composite, current_swagger_path , c_recent_date)
+        
+        #print get_changes
+
+        project_changes = {}
+
+        project_changes['meta'] = meta
+
+        if get_changes.get('changes'):
+            project_changes['changes'] = get_changes.get('changes')
+
+        if get_changes.get('errors'):
+            print ('    errors in project -->') + proj 
+            print get_changes.get('errors')
+            if any(get_changes.get('errors')):
+                project_changes['errors'] =  get_changes.get('errors')
+                existing_changes['errors'][proj] = project_changes['errors']
+
+
+        if get_changes.get('nuget_info'):
+            project_changes['nuget_info'] = get_changes.get('nuget_info')
+
+        if not existing_changes.get(sdk):
+            existing_changes[sdk] = project_changes
+
+        else: 
+            if existing_changes[sdk].get('same_sdk'):
+                existing_changes[sdk]['same_sdk'][proj] = project_changes
+            else:
+                #get the very first one. 
+                clip = existing_changes.pop(sdk, None)
+                existing_changes[sdk] ={}
+                existing_changes[sdk]['same_sdk'] = {}
+                #clip = existing_changes.get(sdk)
+                proj_name = clip['meta']['sdk_proj_name']
+                existing_changes[sdk]['same_sdk'][proj_name] = clip 
+                existing_changes[sdk]['same_sdk'][proj] = project_changes
+
+
+    #process multi sdks
+
+    for m in multi_sdk:
+        multi_changes = get_changes_for_projects_multi(m, multi_sdk[m], swagger_to_sdk, assumed_current_date='2017-04-01')
+        sdk= multi_changes['sdk']
+        top_changes = multi_changes['changes']
+        multiple_projects = multi_changes['multiple_projects']
+
+        if not existing_changes.get(sdk):
+            existing_changes[sdk] = {'changes': top_changes, 'multiple_projects' : multiple_projects}
+
+    #consolidate errors for multi projects, find out max swagger behind when therea re multiple swagger updates
+
+    for e in existing_changes:
+        if existing_changes[e].get('multiple_projects'):
+            proj = existing_changes[e].get('multiple_projects')
+            for p in proj:
+                if proj[p].get('errors'):
+                    print proj[p].get('errors')
+                    existing_changes['errors'][p] = proj[p].get('errors')
+
+        if existing_changes[e].get('changes'):
+            if existing_changes[e]['changes'].get('ind_changes'):
+                ind_change = existing_changes[e]['changes'].get('ind_changes')
+                max_behind = 1
+                for k,v in ind_change.items():
+                    print v['swagger_behind']
+                    if v['swagger_behind'] > max_behind:
+                        max_behind = v['swagger_behind'] 
+
+                existing_changes[e]['changes']['max_behind'] = max_behind
+
+
+    print("Done finding existing changes")
+    #return existing_changes

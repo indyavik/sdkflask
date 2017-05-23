@@ -20,7 +20,7 @@ sdk_url = 'https://api.github.com/repos/Azure/azure-sdk-for-python/'
 with open('config/api2sdk2nuget.json', 'r') as f:
     map_object = json.load(f)
     
-sdk_map = map_object
+global sdk_map = map_object
 
 #get existing projects from swagger_to_sdk config file (this is the main source of truth.)
 
