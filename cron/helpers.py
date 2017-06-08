@@ -141,7 +141,11 @@ def parse_swagger_to_sdk_config(project):
 
     sdk = project['output_dir'].split('/')[0]
 
-    namespace = project['autorest_options']['Namespace']
+    if project.get('autorest_options'):
+
+        namespace = project['autorest_options']['Namespace']
+    else:
+        namespace = "no-name-space"
 
     if not namespace:
         namespace = ''
@@ -229,7 +233,7 @@ def request_helper(url, access_token=None):
     """
     
     if not access_token:
-        access_token = '2dd078a2a012e23bed1ff39015ead3675bc9f1d0'
+        access_token = "7b5453396d6396ebde3491aba79d1d72758f1aca"
         
     r = requests.get(url, auth=('username', access_token))
     
@@ -266,7 +270,7 @@ def should_ignore(changed_file):
 
 def get_key_folder_params(git_url, azure_folder_path):
     """
-    returns the composite status. if there is a .json file in root folder. this will be yes. 
+    returns the composite status, latest folder if any, and swagger file that to be used. if there is a .json file in root folder. this will be yes. 
     returns the most recent folder (2015-10-11 is more recent than 2014-10-09)
     """   
     rcomposite = request_helper(git_url + 'contents/' + azure_folder_path )
@@ -464,19 +468,32 @@ def get_key_folder_params_v3(git_url, azure_folder_path):
         return None
     
     most_recent_composite_status = 'No' 
+
     swagger = None
+
     folders =[]
+
     for r in rcomposite:
         path = r['path']
         folder = path.split(azure_folder_path +'/')[1]
         if folder.startswith('20') or folder.startswith('/20'): 
             folders.append(folder)
+
         if '.json' in path:
             most_recent_composite_status = 'Yes'
             swagger=path
+
+    #print (folders)
   
     if not swagger and folders:
-        r_file = request_helper(git_url + 'contents/' + azure_folder_path + '/' + folders[-1] + '/swagger/')
+        surl = git_url + 'contents/' + azure_folder_path + '/' + folders[-1] + '/swagger/'
+        r_file = request_helper(surl)
+        if not r_file: # try 'Swagger with caps '
+            surl = git_url + 'contents/' + azure_folder_path + '/' + folders[-1] + '/Swagger/'
+            r_file = request_helper(surl)
+            if not r_file:
+                return (most_recent_composite_status, sorted(folders), surl + "swagger_not_found.json")
+
         swagger =''
         for r in r_file:
             #print r
@@ -839,8 +856,10 @@ def get_changes_for_projects_multi(azure_api_name, sdk_project_list, swagger_to_
 
         if not sdk_recent_build:
             c_recent_date = assumed_current_date #assume it's current as of April 15th. 
-            c_version = swagger_to_sdk['projects'][proj]['autorest_options'].get("PackageVersion", "0.00") #assume current version == package version
-
+            if swagger_to_sdk['projects'][proj].get('autorest_options'):
+                c_version = swagger_to_sdk['projects'][proj]['autorest_options'].get("PackageVersion", "0.00") #assume current version == package version
+            else:
+                c_version = "0.00"
         else:
             c_recent_date = sdk_recent_build['date']
             c_version = sdk_recent_build['version']
@@ -1023,7 +1042,7 @@ def get_new_project_details(new_projects_list, git_url=None):
     new_output ={}
     for p in new_projects_list:
         #print (get_key_folder_params(git_url,p))
-        is_composite, folders, swagger = get_key_folder_params_v2(git_url,p)
+        is_composite, folders, swagger = get_key_folder_params_v3(git_url,p)
         if not new_output.get(p):
 
             new_output[p] ={}
@@ -1109,8 +1128,11 @@ def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_c
 
         if not sdk_recent_build:
             c_recent_date = assumed_current_date #assume it's current as of April 15th. 
-            c_version = swagger_to_sdk['projects'][proj]['autorest_options'].get("PackageVersion", "0.00") #assume current version == package version
 
+            if swagger_to_sdk['projects'][proj].get('autorest_options'):
+                c_version = swagger_to_sdk['projects'][proj]['autorest_options'].get("PackageVersion", "0.00") #assume current version == package version
+            else:
+                c_version = "0.00"
         else:
             c_recent_date = sdk_recent_build['date']
             c_version = sdk_recent_build['version']
