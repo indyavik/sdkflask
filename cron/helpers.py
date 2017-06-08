@@ -192,39 +192,7 @@ def get_pr_from_swagger_path(azure_api_swagger_path):
     return 'not found'
 
 #request_helper(raw_url + 'compositeComputeClient_2016_04_30_preview.json')
-def update_multiple_projects_4_web(existing_changes):
-    for p in existing_changes:
-        if existing_changes[p].get('multiple') and existing_changes[p].get('parent_sdk'):
-            parent = existing_changes[p]['parent_sdk']
-            child = p
-            if existing_changes.get(parent) and existing_changes[child].get('changes'):
-                
-                if not existing_changes[parent]['meta'].get('multiple_changes'):
-                    existing_changes[parent]['meta']['multiple_changes'] = 'Yes'
-                    
-                if not existing_changes[parent].get('changes'):
-                    existing_changes[parent]['changes'] = {'multiple_changes' : 'Yes'}
                  
-                if not existing_changes[parent].get('multiple_projects'):
-                    existing_changes[parent]['multiple_projects'] = {}
-
-                if not existing_changes[parent]['multiple_projects'].get(child):
-                    existing_changes[parent]['multiple_projects'][child] = {} 
-                    existing_changes[parent]['multiple_projects'][child]['changes'] = existing_changes[child]['changes']
-                else:
-                     existing_changes[parent]['multiple_projects'][child]['changes'] = existing_changes[child]['changes']
-                        
-        if existing_changes[p].get('changes'):
-            #composite project has ind_project with changes.
-            #max swagger-behind to be reported correctly. 
-            if existing_changes[p]['changes'].get('ind_changes'):
-                max = existing_changes[p]['changes']['swagger_behind']
-                for k,v in existing_changes[p]['changes']['ind_changes'].items():
-                    if v['swagger_behind'] > max:
-                        max = v['swagger_behind']
-                existing_changes[p]['changes']['swagger_behind'] = max 
-
-                        
 def request_helper(url, access_token=None):
     """
     helper function/method to call API using request and return JSON encoded object. 
@@ -243,140 +211,6 @@ def request_helper(url, access_token=None):
     else:
         return r.json()
     
-
-def should_ignore(changed_file):
-    """
-    helper function to ignore certain files on azure_api_spec
-    example: xyz.md, xyz.js, /test/ , /examples/ ....
-    
-    """
-    if not changed_file.endswith('.json'):
-        return True
-    
-    if changed_file.startswith('test/'):
-        return True
-    
-    if '/examples/' in changed_file:
-        return True
-    
-    if '/' not in changed_file:
-        return True
-    
-    
-    return False
-
-#should_ignore('test/somethih')
-
-
-def get_key_folder_params(git_url, azure_folder_path):
-    """
-    returns the composite status, latest folder if any, and swagger file that to be used. if there is a .json file in root folder. this will be yes. 
-    returns the most recent folder (2015-10-11 is more recent than 2014-10-09)
-    """   
-    rcomposite = request_helper(git_url + 'contents/' + azure_folder_path )
-    most_recent_composite_status = 'No' 
-    folders =[]
-    for r in rcomposite:
-        path = r['path']
-        folder = path.split(azure_folder_path +'/')[1]
-        if folder.startswith('20') or folder.startswith('/20'): 
-            folders.append(folder)
-        if '.json' in path:
-            most_recent_composite_status = 'Yes'
-            
-    
-    return(most_recent_composite_status, sorted(folders))
-
-def get_key_folder_params_v2(git_url, azure_folder_path):
-    """
-    Given an azure api spec folder (which is a package) name, returns some key parameters for that package. 
-    1) composite status. if there is a .json file in root folder. this will be yes. 
-    2) most recent sub folder (2015-10-11 is more recent than 2014-10-09)
-    3) gets the swagger file. ??
-    """   
-    rcomposite = request_helper(git_url + 'contents/' + azure_folder_path )
-    most_recent_composite_status = 'No' 
-    swagger = None
-    folders =[]
-    for r in rcomposite:
-        path = r['path']
-        folder = path.split(azure_folder_path +'/')[1]
-        if folder.startswith('20') or folder.startswith('/20'): 
-            folders.append(folder)
-        
-        #print 'folder is ==='
-        
-        #print folders
-        
-        if '.json' in path:
-            most_recent_composite_status = 'Yes'
-            swagger=path
-            
-    #print 'swagger is ===' + swagger
-  
-    if not swagger and folders:
-        r_file = request_helper(git_url + 'contents/' + azure_folder_path + '/' + folders[-1] + '/swagger/')
-        
-        """
-        print 'r_file is =='
-        print r_file
-        print 'folder is at ==='
-        print git_url + 'contents/' + azure_folder_path + '/' + folders[-1] + '/Swagger/'
-        """
-        if not r_file:
-            #try capital Swagger
-            r_file2 = request_helper(git_url + 'contents/' + azure_folder_path + '/' + folders[-1] + '/Swagger/')
-            if not r_file2:
-                return ('No', ['not-found'], '')
-            else:
-                swagger =''
-                for r in r_file2:
-                    if r.get('path'):
-                        #u'arm-timeseriesinsights/2017-02-28-preview/Swagger/timeseriesinsights.json'
-                        swagger = r['path']
-                        
-        if r_file:
-            swagger = ''
-            for r in r_file:
-                if '.json' in r:
-                    swagger = r 
-                    break;
-                    
-    return(most_recent_composite_status, sorted(folders), swagger)
-
-def get_recent_from_nuget(package, base_url=None):
-    """
-    given a name of a C# package on Nuget ('Microsoft.Azure.Management.DataLake.Store'), 
-    returns the most recent version and published date
-    """
-    #print package
-    if not base_url:
-        base_url = "https://www.nuget.org/packages/"
-    
-    page_result = requests.get(base_url + package)
-    
-    if page_result.status_code == 200:
-        soup = BeautifulSoup(page_result.content)
-        recent = soup.find("tr", class_= "versionTableRow recommended")
-        recent_date, recent_release = '',''
-        
-        if recent:
-
-                    recent_date = recent.find("span")['title']
-                    recent_release = recent.find("a", href=True)['href'].split('/')[-1]
-                    
-        else:
-            #get another set of tables. 
-            recent = soup.findAll("tr", class_= "versionTableRow")
-            #print recent
-            if recent:
-                recent_v = recent[0]
-                recent_date = recent_v.find("span")['title']
-                recent_release = recent_v.find("a", href=True)['href'].split('/')[-1]
-    
-    return (recent_date, recent_release)
-
-
 
 def get_oldest_date_v2(file_dates, recent=None):
     
@@ -537,12 +371,6 @@ def get_python_sdk_build_info(sdk_name):
     else:
         return 
     
-def compare_build_date(build_date, dates_list):
-        for i,d in enumerate(dates_list):
-            if d < build_date:
-                print (i, d)
-                return (i, d)
-                break;
 
 def get_azure_name_space_data(swagger_file_path):
     #count the #  of slashes 1 ->, composite file. , 3 =>swagger file with datefolder. > 3 staggered/subprojects. 
@@ -1005,33 +833,6 @@ def get_swagger_updates(azure_api_swagger_path, git_url=None, current_sha=None):
     
     return changes
 
-def get_new_project_names(map_object, git_url=None, ignore_list=None):
-    
-    if not ignore_list:
-        ignore_list = ['.github', '.gitignore', '.travis.yml', '.vscode', 'LICENSE' , 'README.md' , 'azure-rest-api-specs.sln', 
-          'azure-rest-api-specs.njsproj', 'documentation', 'package.json', '.scripts' , 'scripts']
-        
-    if not git_url:
-        git_url = 'https://api.github.com/repos/Azure/azure-rest-api-specs/'
-        
-        
-    api_folders = request_helper(git_url+'contents/')
-    
-    new_projects = []
-    for folder in api_folders:
-        f = folder['path'] #
-
-        if f not in ignore_list: 
-            test =0 
-            for m in map_object:     
-                if f in m:
-                    test =1
-                    break; 
-
-            if test ==0:
-                new_projects.append(f)
-                #print ('New project added:' + f)
-    return new_projects
 
 def get_new_project_details(new_projects_list, git_url=None):
     

@@ -3,9 +3,8 @@ from functools import wraps
 
 import os, json,shutil
 import requests, jinja2
-import random
 from bs4 import BeautifulSoup
-from time import gmtime, strftime
+from time import strftime
 from datetime import datetime
 
 app = Flask(__name__)
