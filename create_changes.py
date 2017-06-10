@@ -68,7 +68,6 @@ with open('config/sha2pr.json', 'w')as f:
     json.dump(sha2pr, f)
 
 
-
 #write to a json file (or database) to build web views. 
 
 time_stamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")

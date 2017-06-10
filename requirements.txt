@@ -1,0 +1,4 @@
+Jinja2==2.9.6
+Flask==0.12.1
+requests==2.3.0
+beautifulsoup4==4.6.0

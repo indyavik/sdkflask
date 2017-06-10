@@ -54,7 +54,6 @@ def update_remaining_PR_v2(existing_projects, max_lookup =50, sha2pr=None):
     
     """
 
-
     if not sha2pr:
         sha2pr = {}
     
@@ -111,7 +110,6 @@ def update_remaining_PR_v2(existing_projects, max_lookup =50, sha2pr=None):
 
     prs.append(get_prs_in_range(missing_pr_shas[start:end], missing_pr_projects[start:end]))
     
-
 
     if not remaining ==0:
         time.sleep(90) 
@@ -503,7 +501,7 @@ def get_changes_for_project(azure_api_name, c_composite, current_swagger_path , 
         if is_composite != current_composite:
             #project composite status has changed. 
 
-            changes = get_swagger_updates(swagger, git_url=git_url) 
+            changes = get_swagger_updates_v2(swagger, git_url=git_url) 
             changes['use_swagger'] = swagger
 
             if current_composite =="Yes":
@@ -537,7 +535,7 @@ def get_changes_for_project(azure_api_name, c_composite, current_swagger_path , 
 
                         print('    ' + azure_api_name + ' :has a new folder : ' + latest_folder)
 
-                        changes = get_swagger_updates(swagger, git_url=git_url)
+                        changes = get_swagger_updates_v2(swagger, git_url=git_url)
                         changes['use_swagger'] = swagger
                         changes['change_type'] = "Folder"
                         changes['new_folder'] = latest_folder
@@ -721,6 +719,8 @@ def get_swagger_updates_v2(azure_api_swagger_path, git_url=None, current_date=No
     if a current_sha of a swagger is known, function returns the updates 'since' this current date
     else, function returns the entire swagger history. 
 
+    #updated function also returns the PR (if any)
+
     #current_sha = base_data['current_version']
 
     """
@@ -777,7 +777,7 @@ def get_swagger_updates_v2(azure_api_swagger_path, git_url=None, current_date=No
 
     return changes
 
-def get_swagger_updates(azure_api_swagger_path, git_url=None, current_sha=None):
+def get_swagger_updates_llll(azure_api_swagger_path, git_url=None, current_sha=None):
     """
     return the updates to a swagger. 
     if a current_sha of a swagger is known, function returns the updates 'since' this current sha
@@ -842,6 +842,7 @@ def get_new_project_details(new_projects_list, git_url=None):
     
     new_output ={}
     for p in new_projects_list:
+        print("   Gathering details for New Project: " + p)
         #print (get_key_folder_params(git_url,p))
         is_composite, folders, swagger = get_key_folder_params_v3(git_url,p)
         if not new_output.get(p):
@@ -914,7 +915,7 @@ def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_c
 
         #if 'devtestlabs' in proj:
 
-        print ('Process Project :' + proj )
+        print ('  Finding Changes for Project :' + proj )
 
         #(u'arm-commerce', u'2015-06-01-preview', u'commerce.json'), (u'arm-network', 'Composite', u'compositeNetworkClient_2015_06_15.json')
 
