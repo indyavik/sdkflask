@@ -4,6 +4,8 @@ import random
 from bs4 import BeautifulSoup
 from time import gmtime, strftime
 from datetime import datetime
+import yaml
+import mistune
 
 #globals (via a config later on)
 git_url = 'https://api.github.com/repos/Azure/azure-rest-api-specs/'
@@ -30,17 +32,20 @@ def get_project_list_from_config(swagger_to_sdk):
     normal_projects = [] 
 
     d={}
+    md={}
 
     for p in swagger_to_sdk['projects']:
         project = swagger_to_sdk['projects'][p]
+
+ 
         autorest_options = project.get('autorest_options')
-        #print autorest_options
+
         if autorest_options:
             swagger = autorest_options.get('input-file')
             if swagger:
                 azure_project = get_azure_name_space_data(swagger)[0]
-                azure_projects.append(azure_project)
-                normal_projects.append(azure_project)
+                azure_projects.append(p)
+                normal_projects.append(p)
                 d[p] = [swagger, azure_project]
                 
             else:
@@ -48,8 +53,8 @@ def get_project_list_from_config(swagger_to_sdk):
                 composite = project.get("composite")
                 if composite:
                     azure_project = get_azure_name_space_data(composite)[0]
-                    azure_projects.append(azure_project)
-                    composite_projects.append(azure_project)
+                    azure_projects.append(p)
+                    composite_projects.append(p)
                     d[p] = [composite, azure_project]
                     
                 else:
@@ -59,14 +64,14 @@ def get_project_list_from_config(swagger_to_sdk):
             md = project.get('markdown')
             if md:
                 azure_project = get_azure_name_space_data(md)[0]
-                azure_projects.append(azure_project)
-                md_projects.append(azure_project)
-                d[p] = [md, azure_project]
+                azure_projects.append(p)
+                md_projects.append(p)
+                #d[p] = [md, azure_project, 'markdown']
                 print 'md project : ' + azure_project
             else:
                 print("   Error: no link to a file found: sdk_config seems to have changed for project =" + p) 
 
-    return (azure_projects, d)
+    return (azure_projects, d, md_projects)
 
 def get_prs_in_range(shas, projects):
 
@@ -518,9 +523,100 @@ def get_pr_from_commits(commit_sha, base_url=None, access_token=None):
 #####################################################
 ##############Main functions #######################
 
-#swagger history 
+def parse_markdown_from_spec(markdown_path):
+    """
+    input = 'arm-recoveryservicesbackup/readme.md'
+    output =([folder1, folder2], [/swagger/path/1, /swagger/path/2])
 
-#swagger history 
+    """
+    mf = requests.get(raw_url + markdown_path)
+    if mf.status_code == 200:
+        markdown_file = mf.text
+        markdown = mistune.markdown(markdown_file)
+        #print markdown
+        soup = BeautifulSoup(markdown)
+        code_blocks = soup.findAll("code", class_ ="lang-yaml")
+
+        for c in code_blocks:
+            if 'input-file:' in c.text:
+                data = yaml.load(c.text)
+            
+                #get folders and input files 
+                folders, swaggers = [], []
+                for d in data['input-file']:
+                    updated_path = d.split('/')[1:] #removes . -> /2016-12-01/swagger/backupManagement.json
+                    folder, swagger_path = updated_path[0], '/'.join(updated_path)
+                    folders.append(folder)
+                    swaggers.append(swagger_path)
+                
+                return  (folders, swaggers)
+            
+
+def get_changes_for_md_projects(project, sdk_map):
+
+    """
+    returns changes (if any) for a new style project that points to an MD file. 
+    input = project dict (from swagger_to_sdk_config), sdk_map
+    output = changes dict project :{ 'meta' :{} , 'changes' : {}}
+    """
+    
+    return_d = {}
+            
+    #project = swagger_to_sdk['projects'].get('recoveryservicesbackup')
+    markdown_path = project.get('markdown')
+    azure_api_name = markdown_path.split("/")[0]
+    print azure_api_name
+
+    output_dir = project.get('output_dir')
+    current_date = '04-15-2017'
+    if output_dir:
+        sdk_name = output_dir.split('/')[0]
+        build_info = get_python_sdk_build_info(sdk_name) #helpers.get_python_sdk_build_info('azure-mgmt-authorization')
+        if build_info:
+            current_date = build_info.get('date')
+
+
+    return_d['meta'] = {'azure_api_name' : azure_api_name, 'current_swagger': markdown_path , 'recent_build_date': current_date, 
+    'sdk_proj_name' : project }
+
+
+    markdown_info = parse_markdown_from_spec(markdown_path)
+    print markdown_info
+    if not markdown_info:
+        print("Error: No info could be retrived")
+        #return 
+
+    """
+    {'azure-arm': True,
+     'input-file': ['./2016-12-01/swagger/backupManagement.json',
+      './2016-08-10/swagger/operations.json'],
+     'license-header': 'MICROSOFT_MIT'}
+    """
+
+    folders, swagger = markdown_info[0], azure_api_name + '/' + markdown_info[1][0]
+    return_d['meta']['composite_or_recent_folder']=markdown_info[0][0]
+
+    changes = get_swagger_updates_v2(swagger, git_url=git_url, current_date='04-15-2017')
+
+    if changes['swagger_behind'] > 0:
+        return_d['changes'] = changes
+
+    #get nuget info 
+
+    if not sdk_map.get(azure_api_name):
+        return_d['nuget_info'] = {}
+        print('    No Nuget URL Map for azure api: ' + azure_api_name)
+
+    else:
+        nuget_package = sdk_map[azure_api_name].get('nuget_package')
+        if nuget_package:
+            return_d['nuget_info'] = get_recent_from_nuget_v2(nuget_package) or 'Nuget info not found.'
+        else:
+            return_d['nuget_info'] = {}
+            print('   No Nuget URL Map for azure api: ' + azure_api_name)
+
+    return return_d
+
 
 def get_changes_for_project(azure_api_name, c_composite, current_swagger_path , c_recent_date):
     
@@ -979,7 +1075,6 @@ def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_c
 
         azure_api_name, c_composite, c_swagger, sdk, namespace = parse_swagger_to_sdk_config(swagger_to_sdk['projects'][proj])
 
-        #current_swagger_path = swagger_to_sdk['projects'][proj]['swagger']
         current_swagger_path = lookup_map[proj][0] 
         
         #right now there is no build.json info included in swagger_to_sdk_config.json, so try to find build.json for each 'sdk'
@@ -1079,3 +1174,5 @@ def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_c
     print("Done finding existing changes")
     
     return existing_changes
+
+

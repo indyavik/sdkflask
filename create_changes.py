@@ -6,6 +6,8 @@ import time
 from time import gmtime, strftime
 from datetime import datetime
 from cron import helpers
+import yaml
+import mistune
 
 #globals (via a config later on)
 git_url = 'https://api.github.com/repos/Azure/azure-rest-api-specs/'
@@ -18,9 +20,8 @@ sdk_url = 'https://api.github.com/repos/Azure/azure-sdk-for-python/'
 """
 Key Definitions:
 project: Key in swagger_to_sdk_config. Example 'cdn', 'batch.management' , 'billing' 
-sdk: Name of the corresponding project as in azure-sdk-for-python repo. Example 'azure-mgt-cdn', 'azure-mgmt-batch' 
+sdk or sdk_name: Name of the corresponding project as in azure-sdk-for-python repo. Example 'azure-mgt-cdn', 'azure-mgmt-batch' 
 azure_api_name (or azure_project) : Name of the corresponding project in azure-rest-api-specs repo. Example 'arm-cdn'
-
 
 """
 
@@ -37,7 +38,7 @@ swagger_to_sdk_config_file_name = 'swagger_to_sdk_config.json'
 swagger_to_sdk = helpers.request_helper(sdk_raw_url + swagger_to_sdk_config_file_name )
 #azure_projects = [helpers.get_azure_name_space_data(swagger_to_sdk['projects'][p]['swagger'])[0] for p in swagger_to_sdk['projects']]
 metadata= helpers.get_project_list_from_config(swagger_to_sdk)
-azure_projects, lookup_map = metadata[0], metadata[1],
+azure_projects, lookup_map, md_projects = metadata[0], metadata[1],metadata[2]
 azure_projects_no_duplicate = list(set(azure_projects))
 
 
@@ -49,6 +50,13 @@ new_projects = helpers.get_new_project_details(helpers.get_new_project_names_v2(
 print ('@@@@ FINDING CHANGES IN EXISTING PROJECTS .....')
 
 existing_projects = helpers.get_changes_in_existing_projects(swagger_to_sdk_config_file_name, sdk_raw_url, assumed_current_date, lookup_map)
+
+#update the new markdown style existing projects (example - recoveryservicesbackup)
+
+for p in md_projects:
+    changes = get_changes_for_md_projects(swagger_to_sdk['projects'].get(p), sdk_map)
+    existing_projects[p] = changes
+
 
 
 #update the missing PR numbers. 
