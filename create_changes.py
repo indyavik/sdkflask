@@ -1,15 +1,9 @@
-import os, json,shutil
-import requests
-import random
-from bs4 import BeautifulSoup
-import time
+import os, json, shutil
 from time import gmtime, strftime
 from datetime import datetime
 from cron import helpers
-import yaml
-import mistune
 
-#globals (via a config later on)
+#globals (via a config file later on)
 git_url = 'https://api.github.com/repos/Azure/azure-rest-api-specs/'
 raw_url = 'https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/' 
 sdk_raw_url = 'https://raw.githubusercontent.com/Azure/azure-sdk-for-python/master/'
@@ -54,9 +48,9 @@ existing_projects = helpers.get_changes_in_existing_projects(swagger_to_sdk_conf
 #update the new markdown style existing projects (example - recoveryservicesbackup)
 
 for p in md_projects:
-    changes = get_changes_for_md_projects(swagger_to_sdk['projects'].get(p), sdk_map)
+    print ('  Finding Changes for Markdown Project :' + p)
+    changes = helpers.get_changes_for_md_projects(swagger_to_sdk['projects'].get(p), sdk_map)
     existing_projects[p] = changes
-
 
 
 #update the missing PR numbers. 
@@ -71,7 +65,6 @@ print ('@@@@UPDATING PRS .....')
 
 prs = helpers.update_remaining_PR_v2(existing_projects, sha2pr=sha2pr) #[[(u'azure-keyvault', u'ab6034c2ed4ae7347a5817242487706e5a49b73c', u'1195')]
 
-print(prs)
 
 for p in prs:
     for p1 in p:

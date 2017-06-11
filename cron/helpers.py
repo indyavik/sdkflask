@@ -44,7 +44,7 @@ def get_project_list_from_config(swagger_to_sdk):
             swagger = autorest_options.get('input-file')
             if swagger:
                 azure_project = get_azure_name_space_data(swagger)[0]
-                azure_projects.append(p)
+                azure_projects.append(azure_project)
                 normal_projects.append(p)
                 d[p] = [swagger, azure_project]
                 
@@ -53,7 +53,7 @@ def get_project_list_from_config(swagger_to_sdk):
                 composite = project.get("composite")
                 if composite:
                     azure_project = get_azure_name_space_data(composite)[0]
-                    azure_projects.append(p)
+                    azure_projects.append(azure_project)
                     composite_projects.append(p)
                     d[p] = [composite, azure_project]
                     
@@ -64,9 +64,9 @@ def get_project_list_from_config(swagger_to_sdk):
             md = project.get('markdown')
             if md:
                 azure_project = get_azure_name_space_data(md)[0]
-                azure_projects.append(p)
+                azure_projects.append(azure_project)
                 md_projects.append(p)
-                #d[p] = [md, azure_project, 'markdown']
+                d[p] = [md, azure_project]
                 print 'md project : ' + azure_project
             else:
                 print("   Error: no link to a file found: sdk_config seems to have changed for project =" + p) 
@@ -261,7 +261,8 @@ def request_helper(url, access_token=None):
     """
     
     if not access_token:
-        access_token = "7b5453396d6396ebde3491aba79d1d72758f1aca"
+        #access_token = "7b5453396d6396ebde3491aba79d1d72758f1aca"
+        access_token = os.environ.get('token')
         
     r = requests.get(url, auth=('username', access_token))
     
@@ -552,20 +553,25 @@ def parse_markdown_from_spec(markdown_path):
                 return  (folders, swaggers)
             
 
-def get_changes_for_md_projects(project, sdk_map):
+def get_changes_for_md_projects(project, sdk_map, assumed_current_date=None):
 
     """
     returns changes (if any) for a new style project that points to an MD file. 
     input = project dict (from swagger_to_sdk_config), sdk_map
     output = changes dict project :{ 'meta' :{} , 'changes' : {}}
     """
+
+    if not assumed_current_date:
+        current_date = '04-15-2017'
+    else:
+        current_date = assumed_current_date
     
     return_d = {}
             
     #project = swagger_to_sdk['projects'].get('recoveryservicesbackup')
     markdown_path = project.get('markdown')
     azure_api_name = markdown_path.split("/")[0]
-    print azure_api_name
+    
 
     output_dir = project.get('output_dir')
     current_date = '04-15-2017'
@@ -581,22 +587,15 @@ def get_changes_for_md_projects(project, sdk_map):
 
 
     markdown_info = parse_markdown_from_spec(markdown_path)
-    print markdown_info
+
     if not markdown_info:
         print("Error: No info could be retrived")
         #return 
 
-    """
-    {'azure-arm': True,
-     'input-file': ['./2016-12-01/swagger/backupManagement.json',
-      './2016-08-10/swagger/operations.json'],
-     'license-header': 'MICROSOFT_MIT'}
-    """
-
     folders, swagger = markdown_info[0], azure_api_name + '/' + markdown_info[1][0]
-    return_d['meta']['composite_or_recent_folder']=markdown_info[0][0]
+    return_d['meta']['composite_or_recent_folder'] = markdown_info[0][0]
 
-    changes = get_swagger_updates_v2(swagger, git_url=git_url, current_date='04-15-2017')
+    changes = get_swagger_updates_v2(swagger, git_url=git_url, current_date=current_date)
 
     if changes['swagger_behind'] > 0:
         return_d['changes'] = changes
@@ -999,11 +998,13 @@ def get_new_project_details(new_projects_list, git_url=None):
         print("   Gathering details for New Project: " + p)
         #print (get_key_folder_params(git_url,p))
         is_composite, folders, swagger = get_key_folder_params_v3(git_url,p)
+
         if not new_output.get(p):
 
             new_output[p] ={}
             new_output[p]['is_composite'] = is_composite
-            new_output[p]['latest_folder'] = folders[-1]
+            if folders :
+                new_output[p]['latest_folder'] = folders[-1]
             new_output[p]['swagger'] = swagger
             new_output[p]['commits'] = []
             new_output[p]['commit_dates'] = []
