@@ -261,7 +261,6 @@ def request_helper(url, access_token=None):
     """
     
     if not access_token:
-        #access_token = "7b5453396d6396ebde3491aba79d1d72758f1aca"
         access_token = os.environ.get('token')
         
     r = requests.get(url, auth=('username', access_token))
