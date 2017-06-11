@@ -18,6 +18,51 @@ with open('config/api2sdk2nuget.json', 'r') as f:
 
     sdk_map = map_object
 
+
+def get_project_list_from_config(swagger_to_sdk):
+    """
+    input : swagger_to_sdk_config as dictionary 
+    output : list of project names in azure api spec (ie. arm-cdn)
+    """
+    azure_projects = []
+    composite_projects =[]
+    md_projects = []
+    normal_projects = [] 
+
+    for p in swagger_to_sdk['projects']:
+        project = swagger_to_sdk['projects'][p]
+        autorest_options = project.get('autorest_options')
+        #print autorest_options
+        if autorest_options:
+            swagger = autorest_options.get('input-file')
+            if swagger:
+                azure_project = helpers.get_azure_name_space_data(swagger)[0]
+                azure_projects.append(azure_project)
+                normal_projects.append(azure_project)
+                
+            else:
+                #is a composite 
+                composite = project.get("composite")
+                if composite:
+                    azure_project = helpers.get_azure_name_space_data(composite)[0]
+                    azure_projects.append(azure_project)
+                    composite_projects.append(azure_project)
+                    
+                else:
+                    print("   Error: no link to a file: sdk_config seems to have changed for project =" + p)    
+        else:
+            #new type. look for md. 
+            md = project.get('markdown')
+            if md:
+                azure_project = helpers.get_azure_name_space_data(md)[0]
+                azure_projects.append(azure_project)
+                md_projects.append(azure_project)
+                print 'md project : ' + azure_project
+            else:
+                print("   Error: no link to a file found: sdk_config seems to have changed for project =" + p) 
+
+    return azure_projects
+
 def get_prs_in_range(shas, projects):
 
     """
