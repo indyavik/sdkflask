@@ -15,7 +15,14 @@ swagger_to_sdk_config_file_name = 'swagger_to_sdk_config.json'
 assumed_current_date = '2017-04-01' #all packages without build.json are assued to be current as of  04-01
 sdk_url = 'https://api.github.com/repos/Azure/azure-sdk-for-python/'
 
+"""
+Key Definitions:
+project: Key in swagger_to_sdk_config. Example 'cdn', 'batch.management' , 'billing' 
+sdk: Name of the corresponding project as in azure-sdk-for-python repo. Example 'azure-mgt-cdn', 'azure-mgmt-batch' 
+azure_api_name (or azure_project) : Name of the corresponding project in azure-rest-api-specs repo. Example 'arm-cdn'
 
+
+"""
 
 with open('config/api2sdk2nuget.json', 'r') as f:
     map_object = json.load(f)
@@ -29,7 +36,8 @@ swagger_to_sdk_config_file_name = 'swagger_to_sdk_config.json'
 
 swagger_to_sdk = helpers.request_helper(sdk_raw_url + swagger_to_sdk_config_file_name )
 #azure_projects = [helpers.get_azure_name_space_data(swagger_to_sdk['projects'][p]['swagger'])[0] for p in swagger_to_sdk['projects']]
-azure_projects = helpers.get_project_list_from_config(swagger_to_sdk)
+metadata= helpers.get_project_list_from_config(swagger_to_sdk)
+azure_projects, lookup_map = metadata[0], metadata[1],
 azure_projects_no_duplicate = list(set(azure_projects))
 
 
@@ -40,7 +48,7 @@ new_projects = helpers.get_new_project_details(helpers.get_new_project_names_v2(
 
 print ('@@@@ FINDING CHANGES IN EXISTING PROJECTS .....')
 
-existing_projects = helpers.get_changes_in_existing_projects(swagger_to_sdk_config_file_name, sdk_raw_url, assumed_current_date)
+existing_projects = helpers.get_changes_in_existing_projects(swagger_to_sdk_config_file_name, sdk_raw_url, assumed_current_date, lookup_map)
 
 
 #update the missing PR numbers. 

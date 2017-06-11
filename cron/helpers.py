@@ -18,16 +18,18 @@ with open('config/api2sdk2nuget.json', 'r') as f:
 
     sdk_map = map_object
 
-
 def get_project_list_from_config(swagger_to_sdk):
     """
     input : swagger_to_sdk_config as dictionary 
     output : list of project names in azure api spec (ie. arm-cdn)
+    vikas: also returns a dict {sdk_project : [swagger_name, api_name]}
     """
     azure_projects = []
     composite_projects =[]
     md_projects = []
     normal_projects = [] 
+
+    d={}
 
     for p in swagger_to_sdk['projects']:
         project = swagger_to_sdk['projects'][p]
@@ -36,17 +38,19 @@ def get_project_list_from_config(swagger_to_sdk):
         if autorest_options:
             swagger = autorest_options.get('input-file')
             if swagger:
-                azure_project = helpers.get_azure_name_space_data(swagger)[0]
+                azure_project = get_azure_name_space_data(swagger)[0]
                 azure_projects.append(azure_project)
                 normal_projects.append(azure_project)
+                d[p] = [swagger, azure_project]
                 
             else:
                 #is a composite 
                 composite = project.get("composite")
                 if composite:
-                    azure_project = helpers.get_azure_name_space_data(composite)[0]
+                    azure_project = get_azure_name_space_data(composite)[0]
                     azure_projects.append(azure_project)
                     composite_projects.append(azure_project)
+                    d[p] = [composite, azure_project]
                     
                 else:
                     print("   Error: no link to a file: sdk_config seems to have changed for project =" + p)    
@@ -54,14 +58,15 @@ def get_project_list_from_config(swagger_to_sdk):
             #new type. look for md. 
             md = project.get('markdown')
             if md:
-                azure_project = helpers.get_azure_name_space_data(md)[0]
+                azure_project = get_azure_name_space_data(md)[0]
                 azure_projects.append(azure_project)
                 md_projects.append(azure_project)
+                d[p] = [md, azure_project]
                 print 'md project : ' + azure_project
             else:
                 print("   Error: no link to a file found: sdk_config seems to have changed for project =" + p) 
 
-    return azure_projects
+    return (azure_projects, d)
 
 def get_prs_in_range(shas, projects):
 
@@ -179,21 +184,30 @@ def update_remaining_PR_v2(existing_projects, max_lookup =50, sha2pr=None):
     
 
 def parse_swagger_to_sdk_config(project):
-#count the #  of slashes 1 ->, composite file. , 3 =>swagger file with datefolder. > 3 staggered/subprojects. 
-#Use the fact that folder -=2015, 2016, 2017. ..starts with 20
+    """
+    for each project from swagger_to_sdk_config, returns the corresponding Azure Api name, swagger file being used, 
+    folder, and less importantly namespace. 
+
+    """
 
     sdk = project['output_dir'].split('/')[0]
+    namespace = "no-name-space"
+
+    if project.get('markdown'):
+        swagger_file_path = project.get('markdown')
 
     if project.get('autorest_options'):
-
-        namespace = project['autorest_options']['Namespace']
-    else:
-        namespace = "no-name-space"
-
-    if not namespace:
-        namespace = ''
-
-    swagger_file_path = project['swagger']
+        autorest_options = project.get('autorest_options')
+        namespace = project['autorest_options']['namespace']
+        swaggerfile = autorest_options.get('input-file')
+        if swaggerfile:
+            swagger_file_path = swaggerfile
+        else:
+            compositefile = project.get("composite")
+            if compositefile:
+                swagger_file_path = compositefile
+            else:
+                return None 
 
     if not swagger_file_path:
         return None 
@@ -204,7 +218,6 @@ def parse_swagger_to_sdk_config(project):
         azure_api = '/'.join(split_path[0].split('/')[0:-1])
         folder, swagger_name = split_path[0].split('/')[-1], split_path[-1]
 
-
     else:
         #is a composite file. 
         folder = 'Composite'
@@ -212,7 +225,6 @@ def parse_swagger_to_sdk_config(project):
         azure_api, swagger_name = split_path[0], split_path[-1]
 
     #print azure_api, folder, swagger_name
-
 
     #print azure_api_spec_folder, date_folder, swagger_file
     return (azure_api, folder, swagger_name, sdk, namespace)
@@ -605,7 +617,7 @@ def get_changes_for_project(azure_api_name, c_composite, current_swagger_path , 
 
             else:
 
-                print ('   COMPOSITE_SWAGGER' + current_swagger_path)
+                print ('   COMPOSITE_SWAGGER ' + current_swagger_path)
 
                 if not current_swagger_path:
                         print (azure_api_name + '..swagger not found')
@@ -672,11 +684,11 @@ def get_changes_for_project(azure_api_name, c_composite, current_swagger_path , 
                 
     return return_dict
 
-def get_changes_for_projects_multi(azure_api_name, sdk_project_list, swagger_to_sdk, assumed_current_date=None):
+def get_changes_for_projects_multi(azure_api_name, sdk_project_list, swagger_to_sdk, lookup_map, assumed_current_date=None):
     
     """
     returns changes for python sdk projects where each project points to the same SDK but different apis. 
-    
+    ex: datalake analytics 
     """
     
     if not assumed_current_date:
@@ -721,8 +733,9 @@ def get_changes_for_projects_multi(azure_api_name, sdk_project_list, swagger_to_
     #check 3: for each proj in mproj a) if the json file and path is still valid? , b) is current ?
     for proj in mproj:
 
-        current_swagger_m = swagger_to_sdk['projects'][proj]['swagger']
-
+        #current_swagger_m = swagger_to_sdk['projects'][proj]['swagger']
+        current_swagger_m = lookup_map[proj][0] 
+        
         sdk_recent_build = get_python_sdk_build_info(sdk)
 
         if not sdk_recent_build:
@@ -921,7 +934,7 @@ def get_new_project_details(new_projects_list, git_url=None):
 
 #print(get_new_project_details(get_new_project_names()))
 
-def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_current_date): 
+def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_current_date, lookup_map): 
     
     existing_changes ={}
     existing_changes['errors'] = {}
@@ -966,8 +979,9 @@ def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_c
 
         azure_api_name, c_composite, c_swagger, sdk, namespace = parse_swagger_to_sdk_config(swagger_to_sdk['projects'][proj])
 
-        current_swagger_path = swagger_to_sdk['projects'][proj]['swagger']
-
+        #current_swagger_path = swagger_to_sdk['projects'][proj]['swagger']
+        current_swagger_path = lookup_map[proj][0] 
+        
         #right now there is no build.json info included in swagger_to_sdk_config.json, so try to find build.json for each 'sdk'
         #note c_swagger is "short form -> i.e xyz.json" , swagger_path is full path including the folder. 
 
@@ -1032,7 +1046,7 @@ def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_c
     #process multi sdks
 
     for m in multi_sdk:
-        multi_changes = get_changes_for_projects_multi(m, multi_sdk[m], swagger_to_sdk, assumed_current_date='2017-04-01')
+        multi_changes = get_changes_for_projects_multi(m, multi_sdk[m], swagger_to_sdk, lookup_map, assumed_current_date='2017-04-01')
         sdk= multi_changes['sdk']
         top_changes = multi_changes['changes']
         multiple_projects = multi_changes['multiple_projects']
