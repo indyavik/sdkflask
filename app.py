@@ -1,5 +1,6 @@
 from flask import Flask, jsonify , request, Response, render_template , session, abort, flash , url_for, redirect
 from functools import wraps
+from flask_cors import CORS, cross_origin
 
 import os, json,shutil
 import requests, jinja2
@@ -8,6 +9,7 @@ from time import strftime
 from datetime import datetime
 
 app = Flask(__name__)
+CORS(app)
 
 def check_auth(username, password):
     """This function is called to check if a username /
@@ -44,17 +46,43 @@ def names():
     data = {"names": ["John", "Jacob", "Julie", "Jennifer"]}
     return jsonify(data)
 
+@app.route('/ignore', methods=['POST'])
+def ignore():
+    print(json.loads(request.data))
+    request_data= json.loads(request.data)
+    ignore_project = request_data.get('ignore_project')
+
+    print(ignore_project)
+
+    with open('config/ignore.json', 'r') as f:
+        ignore_data = json.load(f)
+
+    ignore_list = ignore_data['ignore']
+
+    if ignore_project not in ignore_list:
+        ignore_list.append(ignore_project)
+
+        with open('config/ignore.json', 'w') as f:
+            json.dump(ignore_data, f)
+            return "success"
+
+    else:
+        return "project already in ignore list"
+
+
+
+
 @app.route('/report')
 @requires_auth
 def report():
     with open('config/api2sdk2nuget.json', 'r') as f:
         map_object = json.load(f)
 
-    with open('config/fudge.json', 'r') as f:
-        build_file = json.load(f)
-
     with open('changes/latest.json', 'r') as f:
         changes = json.load(f)
+
+    with open('config/ignore.json', 'r') as f:
+        ignore = json.load(f).get('ignore')
 
     new_projects = changes['new_projects']
 
@@ -85,9 +113,10 @@ def report():
         f.write(output)
     """
 
-    return render_template('jinja-template_v7c.html', new_projects=new_projects, existing_projects=existing_projects, 
-                         recent_sha = '123',recent_date='abc', base=build_file, 
-                         sdk_map= map_object, seq = seq, number_changes=number_changes, report_time=report_time, errors=errors)
+    return render_template('jinja-template_v7f.html', new_projects=new_projects, existing_projects=existing_projects, 
+                         recent_sha = '123',recent_date='abc', 
+                         sdk_map= map_object, seq = seq, number_changes=number_changes, 
+                         report_time=report_time, errors=errors, ignore=ignore)
 
 
 if __name__ == '__main__':

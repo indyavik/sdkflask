@@ -582,7 +582,7 @@ def get_changes_for_md_projects(project, sdk_map, assumed_current_date=None):
 
 
     return_d['meta'] = {'azure_api_name' : azure_api_name, 'current_swagger': markdown_path , 'recent_build_date': current_date, 
-    'sdk_proj_name' : project }
+    'sdk_proj_name' : sdk_name }
 
 
     markdown_info = parse_markdown_from_spec(markdown_path)
@@ -597,6 +597,7 @@ def get_changes_for_md_projects(project, sdk_map, assumed_current_date=None):
     changes = get_swagger_updates_v2(swagger, git_url=git_url, current_date=current_date)
 
     if changes['swagger_behind'] > 0:
+        changes['change_type'] = "SwaggerUpdate"
         return_d['changes'] = changes
 
     #get nuget info 

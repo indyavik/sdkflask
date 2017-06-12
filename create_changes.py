@@ -28,7 +28,6 @@ with open('config/api2sdk2nuget.json', 'r') as f:
 
 swagger_to_sdk_config_file_name = 'swagger_to_sdk_config.json'
 
-
 swagger_to_sdk = helpers.request_helper(sdk_raw_url + swagger_to_sdk_config_file_name )
 #azure_projects = [helpers.get_azure_name_space_data(swagger_to_sdk['projects'][p]['swagger'])[0] for p in swagger_to_sdk['projects']]
 metadata= helpers.get_project_list_from_config(swagger_to_sdk)
@@ -49,9 +48,9 @@ existing_projects = helpers.get_changes_in_existing_projects(swagger_to_sdk_conf
 
 for p in md_projects:
     print ('  Finding Changes for Markdown Project :' + p)
-    changes = helpers.get_changes_for_md_projects(swagger_to_sdk['projects'].get(p), sdk_map)
-    existing_projects[p] = changes
-
+    md_changes = helpers.get_changes_for_md_projects(swagger_to_sdk['projects'].get(p), sdk_map)
+    print(md_changes)
+    existing_projects[md_changes['meta']['sdk_proj_name' ]] = md_changes
 
 #update the missing PR numbers. 
 
