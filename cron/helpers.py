@@ -513,7 +513,6 @@ def get_pr_from_commits(commit_sha, base_url=None, access_token=None):
     #print url
     
     if not access_token:
-        #access_token = '2dd078a2a012e23bed1ff39015ead3675bc9f1d0'
         access_token = os.environ.get('token')
         
     page_result = requests.get(url, auth=('username', access_token))
