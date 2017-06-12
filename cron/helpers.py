@@ -257,7 +257,6 @@ def request_helper(url, access_token=None):
     """
     helper function/method to call API using request and return JSON encoded object. 
     if fails or gets 404, raises error. 
-    
     """
     
     if not access_token:
@@ -277,7 +276,6 @@ def get_oldest_date_v2(file_dates, recent=None):
     """
     default -takes a list of dates, or a date, and returns the 'oldest' days and # of days old (i,e, 40 days ago)from today
     if recent=True, will return the 'most' recent date. 
-    
     """
     
     date_format = "%Y-%m-%d"
@@ -305,7 +303,8 @@ def get_oldest_date_v2(file_dates, recent=None):
 def get_recent_from_nuget_v2(package, base_url=None):
     """
     given a name of a C# package on Nuget ('Microsoft.Azure.Management.DataLake.Store'), 
-    returns the most recent version and published date
+    returns a dictionary 
+    output: recent version, published date for recent version , stable version, published date for stable
     """
     #print package
     if not base_url:
@@ -319,6 +318,7 @@ def get_recent_from_nuget_v2(package, base_url=None):
     d = { 'nuget_recent' : {}, 'nuget_stable' : {} }
     
     if page_result.status_code == 200:
+
         soup = BeautifulSoup(page_result.content)
         stable = soup.find("tr", class_= "versionTableRow recommended")
         recents = soup.findAll("tr", class_= "versionTableRow")
@@ -353,8 +353,13 @@ def get_key_folder_params_v3(git_url, azure_folder_path):
     """
     Given an azure api spec folder (which is a package) name, returns some key parameters for that package. 
     1) composite status. if there is a .json file in root folder. this will be yes. 
-    2) most recent sub folder (2015-10-11 is more recent than 2014-10-09)
-    3) gets the swagger file. ??
+    2) list of folder list (sorted)
+    3) swagger file that "should be used" (i.e, one for the most recent folder. )
+
+    output: tuple
+    output example : ('No', [u'2015-06-01', u'2016-04-02', u'2016-10-02'],u'arm-cdn/2016-10-02/swagger/cdn.json')
+
+
     """   
     rcomposite = request_helper(git_url + 'contents/' + azure_folder_path )
     
@@ -405,6 +410,7 @@ def get_python_sdk_build_info(sdk_name):
     """
     get the latest build.json from azure-sdk-python. 
     returns None if no build.json is found. 
+    output: dictionary. 
     """
     
     sdk_url = 'https://api.github.com/repos/Azure/azure-sdk-for-python/'
@@ -433,6 +439,13 @@ def get_python_sdk_build_info(sdk_name):
     
 
 def get_azure_name_space_data(swagger_file_path):
+    """
+    Parses a full swagger path (xyz/2016_v1/swagger/xyz.json) and returns the corresponding api name, folder and actual swagger file name
+    input: swagger path 
+    output: tuple containing azure_api_spec_name, folder_name, swagger_file
+    note: for "composite" projects, folder_name == 'Composite' 
+
+    """
     #count the #  of slashes 1 ->, composite file. , 3 =>swagger file with datefolder. > 3 staggered/subprojects. 
     #Use the fact that folder -=2015, 2016, 2017. ..starts with 20
     
@@ -452,8 +465,7 @@ def get_azure_name_space_data(swagger_file_path):
 def get_new_project_names_v2(azure_projects_in_sdk, git_url=None, ignore_list=None):
     """
     given an existing list of project names (azure_projects_in_sdk,) in azure api spec namespaces
-    returns a list of projects that are not on azure api spec github but not in the input list. 
-    
+    returns a list of projects that are on azure api spec github but are Not in the input list. 
     """
     if not ignore_list:
         ignore_list = ['.github', '.gitignore', '.travis.yml', '.vscode', 'LICENSE' , 'README.md' , 'azure-rest-api-specs.sln', 
@@ -487,6 +499,8 @@ def get_pr_from_commits(commit_sha, base_url=None, access_token=None):
     """
     given a sha of commit on azure api spec, returns a PR# on github  (if there is one)
     else, returns ' '
+
+    base_url = github.com search query 
     """
     #print package
     #https://github.com/search?q=8461020530ea97978+repo%3AAzure%2Fazure-rest-api-specs&type=issues
@@ -499,9 +513,9 @@ def get_pr_from_commits(commit_sha, base_url=None, access_token=None):
     #print url
     
     if not access_token:
-        access_token = '2dd078a2a012e23bed1ff39015ead3675bc9f1d0'
+        #access_token = '2dd078a2a012e23bed1ff39015ead3675bc9f1d0'
+        access_token = os.environ.get('token')
         
-    
     page_result = requests.get(url, auth=('username', access_token))
     
     pr = ''
@@ -930,63 +944,6 @@ def get_swagger_updates_v2(azure_api_swagger_path, git_url=None, current_date=No
 
     return changes
 
-def get_swagger_updates_llll(azure_api_swagger_path, git_url=None, current_sha=None):
-    """
-    return the updates to a swagger. 
-    if a current_sha of a swagger is known, function returns the updates 'since' this current sha
-    else, function returns the entire swagger history. 
-    
-    #current_sha = base_data['current_version']
-    
-    """
-    swagger_history = request_helper(git_url+'commits?path=' + azure_api_swagger_path)
-    
-    shas, dates , prs = [], [] , []
-    for s in swagger_history:
-        shas.append(s['sha'])
-        dates.append(s['commit']['committer']['date'])
-        
-        
-    #compare the sha. 
-    if current_sha:
-        try:
-            sha_index = shas.index(current_sha)
-            if sha_index > 0: 
-                #i.e. there are more recent shas. 
-                print('new commits discoverd for -> ' + 'index =' + str(sha_index))
-                print('corresponding_date' + str(dates[sha_index]))
-
-                file_dates, commit_sha, swagger_behind = dates[:sha_index], shas[:sha_index] , sha_index
-                
-
-            else:
-                file_dates, commit_sha, swagger_behind =[],[],0
-                
-        except ValueError, Argument:
-            print "sha index not found", Argument
-            file_dates, commit_sha, swagger_behind = dates, shas, len(shas)
-            
-    else:
-        file_dates, commit_sha, swagger_behind = dates, shas, len(shas)
-    
-    
-    
-    #create an object to return 
-    changes= {}
-    
-    if file_dates:
-        oldest, days_behind = get_oldest_date_v2(file_dates)
-        changes['oldest_commit'] = oldest.split('T')[0] + ',' + days_behind +' ago'
-        #print file_dates
-        #changes['pulls'] = [get_pr_from_commits(c) for c in commit_sha]
-        
-    changes['file_dates'] = file_dates
-    changes['commit_sha'] = commit_sha
-    changes['swagger_behind'] = swagger_behind
-    
-    return changes
-
-
 def get_new_project_details(new_projects_list, git_url=None):
     
     if not git_url:
@@ -1175,5 +1132,3 @@ def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_c
     print("Done finding existing changes")
     
     return existing_changes
-
-
