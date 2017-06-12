@@ -35,42 +35,42 @@ def get_project_list_from_config(swagger_to_sdk):
     md={}
 
     for p in swagger_to_sdk['projects']:
+        
         project = swagger_to_sdk['projects'][p]
-
- 
+        markdown = project.get('markdown')
         autorest_options = project.get('autorest_options')
-
-        if autorest_options:
-            swagger = autorest_options.get('input-file')
-            if swagger:
-                azure_project = get_azure_name_space_data(swagger)[0]
-                azure_projects.append(azure_project)
-                normal_projects.append(p)
-                d[p] = [swagger, azure_project]
-                
-            else:
-                #is a composite 
-                composite = project.get("composite")
-                if composite:
-                    azure_project = get_azure_name_space_data(composite)[0]
-                    azure_projects.append(azure_project)
-                    composite_projects.append(p)
-                    d[p] = [composite, azure_project]
-                    
-                else:
-                    print("   Error: no link to a file: sdk_config seems to have changed for project =" + p)    
+        
+        if markdown:
+            azure_project = get_azure_name_space_data(markdown)[0]
+            print(azure_project)
+            azure_projects.append(azure_project)
+            md_projects.append(p)
+            d[p] = [md, azure_project]
+            print 'md project : ' + azure_project
+        
         else:
-            #new type. look for md. 
-            md = project.get('markdown')
-            if md:
-                azure_project = get_azure_name_space_data(md)[0]
-                azure_projects.append(azure_project)
-                md_projects.append(p)
-                d[p] = [md, azure_project]
-                print 'md project : ' + azure_project
-            else:
-                print("   Error: no link to a file found: sdk_config seems to have changed for project =" + p) 
+            
+            if autorest_options:
+                swagger = autorest_options.get('input-file')
+                
+                if swagger:
+                    azure_project = get_azure_name_space_data(swagger)[0]
+                    azure_projects.append(azure_project)
+                    normal_projects.append(p)
+                    d[p] = [swagger, azure_project]
 
+                else:
+                    #is a composite 
+                    composite = project.get("composite")
+                    if composite:
+                        azure_project = get_azure_name_space_data(composite)[0]
+                        azure_projects.append(azure_project)
+                        composite_projects.append(p)
+                        d[p] = [composite, azure_project]
+                    
+            else:
+                print(" Error: no link to a file: sdk_config seems to have changed for project =" + p)    
+ 
     return (azure_projects, d, md_projects)
 
 def get_prs_in_range(shas, projects):
@@ -195,11 +195,13 @@ def parse_swagger_to_sdk_config(project):
 
     """
 
+
     sdk = project['output_dir'].split('/')[0]
     namespace = "no-name-space"
 
     if project.get('markdown'):
         swagger_file_path = project.get('markdown')
+
 
     if project.get('autorest_options'):
         autorest_options = project.get('autorest_options')
@@ -211,10 +213,10 @@ def parse_swagger_to_sdk_config(project):
             compositefile = project.get("composite")
             if compositefile:
                 swagger_file_path = compositefile
-            else:
-                return None 
+
 
     if not swagger_file_path:
+        
         return None 
 
     if 'swagger' in swagger_file_path:
@@ -257,10 +259,16 @@ def request_helper(url, access_token=None):
     """
     helper function/method to call API using request and return JSON encoded object. 
     if fails or gets 404, raises error. 
-    """
+    
     
     if not access_token:
         access_token = os.environ.get('token')
+
+    """
+    if not access_token:
+        access_token = "7b5453396d6396ebde3491aba79d1d72758f1aca"
+
+
         
     r = requests.get(url, auth=('username', access_token))
     
@@ -1006,7 +1014,11 @@ def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_c
     d ={}
 
     for i in range(len(s_to_sdk_projects)):
-        azure_api_x = parse_swagger_to_sdk_config(swagger_to_sdk['projects'][s_to_sdk_projects[i]])[0]
+
+        azure_api_a = parse_swagger_to_sdk_config(swagger_to_sdk['projects'][s_to_sdk_projects[i]])
+      
+        azure_api_x = azure_api_a[0]
+        
         if not d.get(azure_api_x):
             d[azure_api_x] = []
             d[azure_api_x].append(s_to_sdk_projects[i])
