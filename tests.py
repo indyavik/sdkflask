@@ -1,5 +1,6 @@
 """
-:test dashboard app using unittest 
+:tests for  dashboard app using unittest
+:integrated with travis and codecov
 """
 from app import app
 import unittest 
