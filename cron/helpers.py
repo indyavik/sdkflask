@@ -995,14 +995,12 @@ def get_new_project_details(new_projects_list, git_url=None):
 
 #print(get_new_project_details(get_new_project_names()))
 
-def get_changes_in_existing_projects(swagger_to_sdk_file, sdk_raw_url, assumed_current_date, lookup_map): 
+def get_changes_in_existing_projects(swagger_to_sdk, sdk_raw_url, assumed_current_date, lookup_map): 
     
     existing_changes ={}
     existing_changes['errors'] = {}
 
     #get main swagger_to_sdk_config file 
-
-    swagger_to_sdk = request_helper(sdk_raw_url + swagger_to_sdk_file )
 
     #get normal sdks (points to SINGLE API SPEC on AZURE-API-SPEC), and multiple sdks (POINTS to SAME AZURE-API-SPEC on github)
     s_to_sdk_projects = sorted([s for s in swagger_to_sdk['projects'] ])

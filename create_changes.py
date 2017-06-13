@@ -42,7 +42,7 @@ new_projects = helpers.get_new_project_details(helpers.get_new_project_names_v2(
 
 print ('@@@@ FINDING CHANGES IN EXISTING PROJECTS .....')
 
-existing_projects = helpers.get_changes_in_existing_projects(swagger_to_sdk_config_file_name, sdk_raw_url, assumed_current_date, lookup_map)
+existing_projects = helpers.get_changes_in_existing_projects(swagger_to_sdk, sdk_raw_url, assumed_current_date, lookup_map)
 
 #update the new markdown style existing projects (example - recoveryservicesbackup)
 
