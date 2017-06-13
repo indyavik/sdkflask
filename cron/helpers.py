@@ -32,7 +32,6 @@ def get_project_list_from_config(swagger_to_sdk):
     normal_projects = [] 
 
     d={}
-    md={}
 
     for p in swagger_to_sdk['projects']:
         
@@ -42,10 +41,9 @@ def get_project_list_from_config(swagger_to_sdk):
         
         if markdown:
             azure_project = get_azure_name_space_data(markdown)[0]
-            print(azure_project)
             azure_projects.append(azure_project)
             md_projects.append(p)
-            d[p] = [md, azure_project]
+            d[p] = [markdown, azure_project]
             print 'md project : ' + azure_project
         
         else:
@@ -259,17 +257,13 @@ def request_helper(url, access_token=None):
     """
     helper function/method to call API using request and return JSON encoded object. 
     if fails or gets 404, raises error. 
+
+    """
     
     
     if not access_token:
         access_token = os.environ.get('token')
 
-    """
-    if not access_token:
-        access_token = "7b5453396d6396ebde3491aba79d1d72758f1aca"
-
-
-        
     r = requests.get(url, auth=('username', access_token))
     
     if r.status_code != 200:
@@ -367,7 +361,6 @@ def get_key_folder_params_v3(git_url, azure_folder_path):
     output: tuple
     output example : ('No', [u'2015-06-01', u'2016-04-02', u'2016-10-02'],u'arm-cdn/2016-10-02/swagger/cdn.json')
 
-
     """   
     rcomposite = request_helper(git_url + 'contents/' + azure_folder_path )
     
@@ -389,6 +382,11 @@ def get_key_folder_params_v3(git_url, azure_folder_path):
         if '.json' in path:
             most_recent_composite_status = 'Yes'
             swagger=path
+
+        if '.md' in path:
+            most_recent_composite_status = 'Yes'
+            swagger=path
+
 
     #print (folders)
   
@@ -573,71 +571,6 @@ def parse_markdown_from_spec(markdown_path):
                 return  (folders, swaggers)
             
 
-def get_changes_for_md_projects(project, sdk_map, assumed_current_date=None):
-
-    """
-    returns changes (if any) for a new style project that points to an MD file. 
-    input = project dict (from swagger_to_sdk_config), sdk_map
-    output = changes dict project :{ 'meta' :{} , 'changes' : {}}
-    """
-
-    if not assumed_current_date:
-        current_date = '04-15-2017'
-    else:
-        current_date = assumed_current_date
-    
-    return_d = {}
-            
-    #project = swagger_to_sdk['projects'].get('recoveryservicesbackup')
-    markdown_path = project.get('markdown')
-    azure_api_name = markdown_path.split("/")[0]
-    
-
-    output_dir = project.get('output_dir')
-    current_date = '04-15-2017'
-    if output_dir:
-        sdk_name = output_dir.split('/')[0]
-        build_info = get_python_sdk_build_info(sdk_name) #helpers.get_python_sdk_build_info('azure-mgmt-authorization')
-        if build_info:
-            current_date = build_info.get('date')
-
-
-    return_d['meta'] = {'azure_api_name' : azure_api_name, 'current_swagger': markdown_path , 'recent_build_date': current_date, 
-    'sdk_proj_name' : sdk_name }
-
-
-    markdown_info = parse_markdown_from_spec(markdown_path)
-
-    if not markdown_info:
-        print("Error: No info could be retrived")
-        #return 
-
-    folders, swagger = markdown_info[0], azure_api_name + '/' + markdown_info[1][0]
-    return_d['meta']['composite_or_recent_folder'] = markdown_info[0][0]
-
-    changes = get_swagger_updates_v2(swagger, git_url=git_url, current_date=current_date)
-
-    if changes['swagger_behind'] > 0:
-        changes['change_type'] = "SwaggerUpdate"
-        return_d['changes'] = changes
-
-    #get nuget info 
-
-    if not sdk_map.get(azure_api_name):
-        return_d['nuget_info'] = {}
-        print('    No Nuget URL Map for azure api: ' + azure_api_name)
-
-    else:
-        nuget_package = sdk_map[azure_api_name].get('nuget_package')
-        if nuget_package:
-            return_d['nuget_info'] = get_recent_from_nuget_v2(nuget_package) or 'Nuget info not found.'
-        else:
-            return_d['nuget_info'] = {}
-            print('   No Nuget URL Map for azure api: ' + azure_api_name)
-
-    return return_d
-
-
 def get_changes_for_project(azure_api_name, c_composite, current_swagger_path , c_recent_date):
     
     """
@@ -750,39 +683,47 @@ def get_changes_for_project(azure_api_name, c_composite, current_swagger_path , 
                     #get the full file and individual paths from the composite file. 
                     #raw_url = 'https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/' 
 
-                    cfile= request_helper(raw_url + current_swagger_path)
+                    cfile = None 
+
+                    if current_swagger_path.endswith('.md'):
+                        cfile=[]
+                        cfiles = parse_markdown_from_spec('arm-recoveryservicesbackup/readme.md')[1]
+                        cfile = [ './' + c  for c in cfiles ]
+                    
+                    else:
+                        cfile_document= request_helper(raw_url + current_swagger_path)
+
+                        if cfile_document.get('documents'):
+                            cfile = cfile_document.get('documents')
 
                     if not cfile:
                         #current swagger file not found. 
                         return_dict['errors'][cfile] =  'swagger_file: ' + current_swagger_path +' not found' 
 
 
-                    if cfile and cfile.get('documents'):
+                    #if cfile and cfile.get('documents'):
+                        #for f in cfile.get('documents'):
 
-                        for f in cfile.get('documents'):
-                            #get file history 
-                            ind_swagger = azure_api_name + f[1:]
-                            #print ('IND_SWAGGER' + ind_swagger)
-                            
-                
-                            changes_ind_file = get_swagger_updates_v2(ind_swagger, git_url=git_url, current_date=c_recent_date)
+                    for f in cfile:
+                        #get file history 
+                        ind_swagger = azure_api_name + f[1:]
+                        print ('IND_SWAGGER ' + ind_swagger)
 
-                            #catch any errors. 
+                        changes_ind_file = get_swagger_updates_v2(ind_swagger, git_url=git_url, current_date=c_recent_date)
 
-                            if not changes_ind_file:
-                                return_dict['errors'] = ind_swagger + ' swagger_file : ' + ind_swagger +' not found'
+                        #catch any errors. 
 
-                            if changes_ind_file and changes_ind_file['swagger_behind'] >0:
+                        if not changes_ind_file:
+                            return_dict['errors'] = ind_swagger + ' swagger_file : ' + ind_swagger +' not found'
 
-                                if return_dict.get('changes'):
-                                    if not return_dict['changes'].get('ind_changes'):
-                                        return_dict['changes']['ind_changes'] = {}
-                                        return_dict['changes']['ind_changes'][ind_swagger] = changes_ind_file
-                                    else:
-                                            return_dict['changes']['ind_changes'][ind_swagger] = changes_ind_file
+                        if changes_ind_file and changes_ind_file['swagger_behind'] >0:
 
-
-                            #d[ind_swagger] = {'sha' : file_data['commit_sha'], 'dates': file_data['file_dates']}
+                            if return_dict.get('changes'):
+                                if not return_dict['changes'].get('ind_changes'):
+                                    return_dict['changes']['ind_changes'] = {}
+                                    return_dict['changes']['ind_changes'][ind_swagger] = changes_ind_file
+                                else:
+                                    return_dict['changes']['ind_changes'][ind_swagger] = changes_ind_file
 
         #print('CHANGES')
 

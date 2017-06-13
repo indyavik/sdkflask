@@ -44,13 +44,6 @@ print ('@@@@ FINDING CHANGES IN EXISTING PROJECTS .....')
 
 existing_projects = helpers.get_changes_in_existing_projects(swagger_to_sdk, sdk_raw_url, assumed_current_date, lookup_map)
 
-#update the new markdown style existing projects (example - recoveryservicesbackup)
-
-for p in md_projects:
-    print ('  Finding Changes for Markdown Project :' + p)
-    md_changes = helpers.get_changes_for_md_projects(swagger_to_sdk['projects'].get(p), sdk_map)
-    print(md_changes)
-    existing_projects[md_changes['meta']['sdk_proj_name' ]] = md_changes
 
 #update the missing PR numbers. 
 
