@@ -143,7 +143,6 @@ class DashboardTestCase(unittest.TestCase):
 
 
 
-
 	"""
 	def test_index(self):
 		#e nsure flask is set up and responding 
@@ -166,22 +165,7 @@ class DashboardTestCase(unittest.TestCase):
 		rv = tester.post('/submit', data=dict(phone_field='1203456789'), follow_redirects=True)
 		assert '(120)345-6789' in rv.data 
 
-		rv = tester.post('/submit', data=dict(phone_field='+12034567899'), follow_redirects=True)
-		assert '(203)456-7899' in rv.data
 
-		#only us numbers (leading +7 followed by 10 digt number)
-		rv = tester.post('/submit', data=dict(phone_field='+7203-4567-890'), follow_redirects=True)
-		assert 'error' in rv.data
-
-		#test dates are dropped and error is raised
-		rv = tester.post('/submit', data=dict(phone_field='11.11.1900'), follow_redirects=True)
-		assert 'error' in rv.data
-
-		rv = tester.post('/submit', data=dict(phone_field='(203) 455 8989 some text follows'), follow_redirects=True)
-		assert '(203)455-8989' in rv.data
-
-		rv = tester.post('/submit', data=dict(phone_field='(203).455.(8989) some text follows'), follow_redirects=True)
-		assert '(203)455-8989' in rv.data
 	"""
 
 
