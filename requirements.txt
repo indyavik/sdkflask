@@ -1,3 +1,4 @@
+Flask_Cors==2.1.2
 Jinja2==2.9.6
 Flask==0.12.1
 requests==2.3.0
