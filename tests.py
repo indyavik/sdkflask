@@ -8,6 +8,7 @@ import os
 import json
 import copy
 from cron import helpers 
+from base64 import b64encode
 
 #globals
 
@@ -27,12 +28,12 @@ assumed_current_date = '2017-04-01' #all packages without build.json are assued 
 
 #a patched swagger to sdk to check specific function(s) 
 
-"""
 with open('config/patched_swagger_to_sdk_config.json', 'r') as f:
     patched_swagger_to_sdk = json.load(f)
-"""
+
 
 test_azure_folder ="arm-cdn"
+
 
 class DashboardTestCase(unittest.TestCase):
 
@@ -97,7 +98,16 @@ class DashboardTestCase(unittest.TestCase):
 
 		assert len(data) > 1, "No new projects were found. function -> get_new_project_names_v2"
 
+	def test_get_new_project_details(self):
+		"""
+		given a list of new projects, function get_new_project_details should retreive key details for the new project
+		"""
+		new_project_list = ["arm-resourcehealth"]
+		new_project_detail = helpers.get_new_project_details(new_project_list)
 
+		assert new_project_detail["arm-resourcehealth"].get("swagger") is not None, "incorrect response from function -> get_new_project_details"
+
+	
 	def test_find_changes_swagger_only(self):
 		"""
 		test to see if changes in swagger file are captured (dns project returns a change == "swaggerUpdate")
@@ -123,7 +133,6 @@ class DashboardTestCase(unittest.TestCase):
 
 
 	def test_find_changes_md_changes(self):
-
 		"""
 		test to see if a project with new markdown type structure is properly handled.
 		(recoverservicesbackup project should return change_type = 'SwaggerUpdate')
@@ -137,37 +146,65 @@ class DashboardTestCase(unittest.TestCase):
 		assert changes.get('ind_changes') is not None , "Was expecting multiple swagger changes for recoveryservicesbackup, only 1 returned. did something change in markdown file upstram ?"
 
 
-	def find_changes_Composite_to_nonComposite(self):
+	def test_find_changes_nonComposite_to_Composite(self):
 
-		pass
+		"""
+		test the most likely scenario when an existing non - composiet project moves to composite project. 
+		"""
+		patched_project = self.get_shortened_swagger_to_sdk(patched_swagger_to_sdk, "recoveryservicesbackup")
+		data = helpers.get_changes_in_existing_projects(patched_project, sdk_raw_url, assumed_current_date, lookup_map)
+		changes = data["azure-mgmt-recoveryservicesbackup"].get("changes")
+
+		assert changes is not None,  "No change detected for Markdown type project. function - >get_changes_in_existing_projects"
+		assert changes.get('change_type') == 'CompositeStatus', "Wrong change type detected. May be something changed in the api repo"
+
+	
+	def test_find_PR_from_sha(self):
+		"""
+		test to see if a PR# is successfully retried from github.com search API 
+		"""
+		sha_commit ="8cec381804400361e1de030bf6c9a8924653f77a"
+		pr = helpers.get_pr_from_commits(sha_commit)
+
+		self.assertEqual(pr, "#1226"), "Incorrect or no response (pr number) from function ->get_pr_from_commits "
+
+	
+	def test_find_changes_to_multi_projects(self):
+		"""
+		test to see if project resources returns results summarized for multiple projects. 
+		"""
+		project_azure_api = "arm-resources/resources"
+		project_sdk_list = ['resources.resources.2016-02-01', 'resources.resources.2016-09-01', 'resources.resources.2017-05-10']
+
+		data = helpers.get_changes_for_projects_multi(project_azure_api, project_sdk_list, swagger_to_sdk, lookup_map, assumed_current_date=None)
+		multi = data.get("multiple_projects")
+
+		assert multi is not None, " Multiple projects pointing to same azure api (example resources) are not aggregated properly. Function ->get_changes_for_projects_multi"
 
 
 
-
-	"""
-	def test_index(self):
-		#e nsure flask is set up and responding 
+	def test_should_not_load_app(self):
+		"""
+		test that the app requires authentication given proper authentication params. 
+		"""
 		tester = app.test_client(self)
-		repsonse = tester.get('/', content_type='html/text')
-		self.assertEqual(repsonse.status_code, 200)
+		res = tester.get('/', content_type='html/text')
+		self.assertEqual(res.status_code, 401)
 
-	def test_not_exists(self):
-		#404 on non existent routes 
-		tester = app.test_client(self)
-		repsonse = tester.get('/nonExistanceURL', content_type='html/text')
-		self.assertEqual(repsonse.status_code, 404)
-
-
-	def test_submit(self): 
-		#correct parsing, and error conditions
-		
+	
+	def test_should_load_app(self):
+		"""
+		test that the report rote '/report' is rejected 
+		"""
 		tester = app.test_client(self)
 
-		rv = tester.post('/submit', data=dict(phone_field='1203456789'), follow_redirects=True)
-		assert '(120)345-6789' in rv.data 
+		username = os.environ.get("username")
+		password = os.environ.get("password")
 
-
-	"""
+		headers = {'Authorization': 'Basic ' + b64encode("{0}:{1}".format(username, password))}
+		res = tester.get('/report', headers=headers)
+		self.assertEqual(res.status_code, 200)
+	
 
 
 if __name__ == '__main__' : 

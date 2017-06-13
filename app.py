@@ -11,6 +11,9 @@ from datetime import datetime
 app = Flask(__name__)
 CORS(app)
 
+username = os.environ.get('username')
+password = os.environ.get('password')
+
 def check_auth(username, password):
     """This function is called to check if a username /
     password combination is valid.

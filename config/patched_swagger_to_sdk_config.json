@@ -1,0 +1,62 @@
+{
+    "meta": {
+        "delete_filesOrDirs": [
+            "credentials.py",
+            "exceptions.py"
+        ],
+        "generated_relative_base_directory": "azure/mgmt/*",
+        "autorest_options": {
+            "python": "",
+            "azure-arm": true,
+            "payload-flattening-threshold": 2,
+            "license-header": "MICROSOFT_MIT_NO_VERSION"
+        },
+        "autorest": "latest",
+        "wrapper_filesOrDirs": [],
+        "version": "0.2.0"
+    },
+    "projects": {
+        "trafficmanager": {
+            "autorest_options": {
+                "namespace": "azure.mgmt.trafficmanager",
+                "package-version": "0.30.0",
+                "input-file": "arm-trafficmanager/2017-03-01/swagger/trafficmanager.json"
+            },
+            "output_dir": "azure-mgmt-trafficmanager/azure/mgmt/trafficmanager"
+        },
+        "cdn": {
+            "autorest_options": {
+                "namespace": "azure.mgmt.cdn",
+                "package-version": "0.30.3",
+                "input-file": "arm-cdn/2016-10-02/swagger/cdn.json"
+            },
+            "output_dir": "azure-mgmt-cdn/azure/mgmt/cdn"
+        },
+        "recoveryservicesbackup": {
+            "autorest_options": {
+                "namespace": "azure.mgmt.recoveryservicesbackup",
+                "input-file": "arm-recoveryservicesbackup/2016-12-01/swagger/backupManagement.json"
+            },
+
+            "output_dir": "azure-mgmt-recoveryservicesbackup/azure/mgmt/recoveryservicesbackup",
+            "generated_relative_base_directory": "Generated/Python/azure/mgmt/recoveryservicesbackup"
+        },
+
+        "dns": {
+            "autorest_options": {
+                "namespace": "azure.mgmt.dns",
+                "package-version": "1.0.1",
+                "input-file": "arm-dns/2016-04-01/swagger/dns.json"
+            },
+            "output_dir": "azure-mgmt-dns/azure/mgmt/dns"
+        },
+        "logic": {
+            "autorest_options": {
+                "namespace": "azure.mgmt.logic",
+                "package-version": "2.1.0",
+                "input-file": "arm-logic/2016-06-01/swagger/logic.json"
+            },
+            "output_dir": "azure-mgmt-logic/azure/mgmt/logic"
+        }
+    }
+}

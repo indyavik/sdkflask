@@ -16,3 +16,8 @@
 * To do : link actionable commands via sdkbot  
 
 * Works on Python 2.7 (tbd : test with 3.x)
+
+* Requires environment variables to be set 
+* export token=yourgitaccestoken
+* export username=basic-flask-authentication-username
+* export password=password
