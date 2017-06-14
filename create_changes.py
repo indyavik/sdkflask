@@ -1,4 +1,5 @@
 import os, json, shutil
+import time 
 from time import gmtime, strftime
 from datetime import datetime
 from cron import helpers
@@ -44,6 +45,19 @@ print ('@@@@ FINDING CHANGES IN EXISTING PROJECTS .....')
 
 existing_projects = helpers.get_changes_in_existing_projects(swagger_to_sdk, sdk_raw_url, assumed_current_date, lookup_map)
 
+#update the multi projects for easy handling in jinja templates. (if meta['changes'] = 'no' then there's no changes. )
+
+for e in existing_projects:
+    proj = existing_projects[e].get('multiple_projects')
+    if not proj:
+        proj = existing_projects[e].get('same_sdk')
+    if proj:
+        for p in proj:
+            existing_projects[e]['meta'] = {'changes' : 'no', 'current_swagger' : 'multiple projects. No single swagger '}
+            if proj[p].get('changes'):
+                existing_projects[e]['meta'] = {'changes' : 'yes', 'current_swagger' : 'multiple projects. No single swagger '}
+                break;
+
 
 #update the missing PR numbers. 
 
@@ -56,7 +70,6 @@ except:
 print ('@@@@UPDATING PRS .....')
 
 prs = helpers.update_remaining_PR_v2(existing_projects, sha2pr=sha2pr) #[[(u'azure-keyvault', u'ab6034c2ed4ae7347a5817242487706e5a49b73c', u'1195')]
-
 
 for p in prs:
     for p1 in p:

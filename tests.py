@@ -168,7 +168,17 @@ class DashboardTestCase(unittest.TestCase):
 
 		self.assertEqual(pr, "#1226"), "Incorrect or no response (pr number) from function ->get_pr_from_commits "
 
-	
+	def test_update_remaining_prs(self):
+		"""
+		test to see if function update_remaining_PR_v2(existing_projects) runs properly. returns a list ()
+		"""
+		with open('changes/latest.json') as f:
+			existing_projects = json.load(f)["existing_projects"]
+			
+		prs = helpers.update_remaining_PR_v2(existing_projects)
+		self.assertEqual(type(prs), list), "Incorrect or no return from function  -> update_remaining_PR_v2 "
+
+
 	def test_find_changes_to_multi_projects(self):
 		"""
 		test to see if project resources returns results summarized for multiple projects. 

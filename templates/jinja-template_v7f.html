@@ -267,6 +267,8 @@
                             <!-- if there is no change in this multi project -->
 
 
+
+
                             <!-- No change ends -->
 
 
@@ -280,6 +282,8 @@
                                 </td>
 
                                 <td style="font-weight: bold;"><span class="project glyphicon glyphicon-star"></span><span class="project"><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ meta.azure_api_name }}" target="_blank" > {{ s }}</a></span> </td>
+
+                                {% if existing_projects[s]['meta'].get('changes') == 'yes' %}
 
                                 <td><span class="badge"> Multiple Proj</span> </td>
 
@@ -305,7 +309,17 @@
 
                                 </td>
 
-                                {% if multi.get('nuget_info') %} {% set nug = multi.get('nuget_info') %}
+                                <!-- else endif ..if no changes -->
+
+                                {% else %}
+
+                                <td> No Change </td>
+
+                                <td> Multiple projects. No Single Swagger can be listed. </td>
+
+
+
+                                {% endif %} {% if multi.get('nuget_info') %} {% set nug = multi.get('nuget_info') %}
 
                                 <td><span style="font-size: 12px;"><a href="https://www.nuget.org{{ nug['nuget_recent'].recent_href }}" target="_blank" > {{nug['nuget_recent'].recent_release}}
                                 </span></br><span style="font-size:10px; font-weight: bold;">Last updated: {{ nug['nuget_recent'].recent_days_ago }} days ago
@@ -332,6 +346,7 @@
 
                                     <td style="font-weight: bold;"><span class="project glyphicon glyphicon-star"></span><span class="project"><a href="https://github.com/Azure/azure-rest-api-specs/tree/master/{{ meta.azure_api_name }}" target="_blank" > {{ s }}</a></span> </td>
 
+                                    {% if existing_projects[s]['meta'].get('changes') == 'yes' %}
                                     <td>
                                         <ul>
                                             {% for k1,v1 in multi_sdk.items() %} {% if v1.get('changes') %}
@@ -348,6 +363,9 @@
                                         </ul>
 
                                     </td>
+
+
+
 
                                     <td>
 
@@ -370,9 +388,17 @@
 
 
                                     </td>
+                                    <!-- else endif ..if no changes -->
+
+                                    {% else %}
+
+                                    <td> No Change </td>
+
+                                    <td> Multiple projects. No Single Swagger can be listed. </td>
 
 
-                                    {% if nug %}
+
+                                    {% endif %} {% if nug %}
 
                                     <td><span style="font-size: 12px;"><a href="https://www.nuget.org{{ nug['nuget_recent'].recent_href }}" target="_blank" > {{nug['nuget_recent'].recent_release}}
                                 </span></br><span style="font-size:10px; font-weight: bold;">Last updated: {{ nug['nuget_recent'].recent_days_ago }} days ago
@@ -449,7 +475,6 @@
                                         </td>
 
 
-
                                         {% endif %}
                                         <!-- if e.get('ind_changes') -->
 
@@ -482,8 +507,6 @@
                                         {% endif %}
 
                                     </tr>
-
-
 
 
                                     <!-- if changes else rows of unchanged projects begin below-->
@@ -537,9 +560,6 @@
                                     {% endif %} {% endfor %}
                                     <!-- for k in seq -->
 
-
-
-
                         </tbody>
 
                     </table>
@@ -560,8 +580,8 @@
 
     <script>
         /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    $('.newproj').change(function(){
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            $('.newproj').change(function(){
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             */
         $('.newproj').change(function() {
 
             if ($(this).prop("checked")) {
@@ -586,9 +606,7 @@
 
         });
 
-
         function makeIgnore(project_id) {
-
 
             if (confirm("Ignore project: " + project_id + " ?") == true) {
 
