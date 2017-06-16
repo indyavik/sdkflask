@@ -44,11 +44,6 @@ def index():
     #return 'Flask is running!'
 
 
-@app.route('/data')
-def names():
-    data = {"names": ["John", "Jacob", "Julie", "Jennifer"]}
-    return jsonify(data)
-
 @app.route('/ignore', methods=['POST'])
 def ignore():
     print(json.loads(request.data))

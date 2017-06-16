@@ -34,7 +34,6 @@ with open('config/patched_swagger_to_sdk_config.json', 'r') as f:
 
 test_azure_folder ="arm-cdn"
 
-
 class DashboardTestCase(unittest.TestCase):
 
 	def get_shortened_swagger_to_sdk(self, swagger_to_sdk, sdk_key):
@@ -198,7 +197,7 @@ class DashboardTestCase(unittest.TestCase):
 		test that the app requires authentication given proper authentication params. 
 		"""
 		tester = app.test_client(self)
-		res = tester.get('/', content_type='html/text')
+		res = tester.get('/report', content_type='html/text')
 		self.assertEqual(res.status_code, 401)
 
 	
@@ -213,7 +212,7 @@ class DashboardTestCase(unittest.TestCase):
 
 		headers = {'Authorization': 'Basic ' + b64encode("{0}:{1}".format(username, password))}
 		res = tester.get('/report', headers=headers)
-		self.assertEqual(res.status_code, 200)
+		self.assertEqual(res.status_code, 200), "App didn't load. did you set up env values for username, password ? "
 	
 
 
